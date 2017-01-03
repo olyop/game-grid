@@ -2,7 +2,6 @@ import React from 'react'
 import Request from 'react-http-request'
 import Loading from './loading.js'
 import '../css/game-grid.css'
-import $ from 'jquery'
 import GamesInfo from './games-info.js'
 
 class GameGrid extends React.Component {
@@ -45,32 +44,43 @@ class GameGrid extends React.Component {
 }
 
 class GameGridInner extends React.Component {
-	componentDidMount() {
+	
+	constructor(props) {
+		super(props)
 		
-		$('.game-more').on('click', function() {
-			$(this).parent().find('.game-more-menu').slideDown(100);
-		});
+		this.teamsObj = this.props.teams
+		this.teamStatsObj = this.props.teamStats
+		this.stadiumsObj = this.props.stadiums
 		
-		$('.close-menu').on('click', function() {
-			$(this).parent().parent().find('.game-more-menu').slideUp(100);
-		});
+		this.state = {
+			gamesObj: this.props.games,
+			moreToggle: false
+		}
+	}
+	
+	componentWillMount() {
+		// Log API
+		console.log({teams: this.teamsObj})
+		console.log({teamStats: this.teamStatsObj})
+		console.log({staidums: this.stadiumsObj})
+	}
+	
+	onMoreClick(e) {
+		let cacheState = this.state.moreToggle
 		
-  }
+		if (cacheState === true) { cacheState = false }
+		else if (cacheState === false) { cacheState = true }
+		
+		this.setState({ moreToggle: cacheState })
+	}
+	
 	render() {
 		
-		const teamsObj = this.props.teams,
-					teamStatsObj = this.props.teamStats,
-					gamesObj = this.props.games,
-					stadiumsObj = this.props.stadiums;
-
-		// DEV: See Incoming AJAX request
-		console.log({teams: teamsObj})
-		console.log({games: gamesObj})
-		console.log({teamStats: teamStatsObj})
-		console.log({staidums: stadiumsObj})
+		// DEV: Log API
+		console.log({games: this.state.gamesObj})
 
 		// Map Out Games
-		let gamesList = gamesObj.map((game, index) => {
+		let gamesList = this.state.gamesObj.map((game, index) => {
 
 			let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
 					awayTeamStats, homeScoreColorStyle, awayScoreColorStyle, headerLeft,
@@ -80,8 +90,8 @@ class GameGridInner extends React.Component {
 						colorGreen = { color: '#4CAF50' }
 
 			// Find Home Team
-			for (i = 0; i < teamsObj.length; i++) {
-				item = teamsObj[i]
+			for (i = 0; i < this.teamsObj.length; i++) {
+				item = this.teamsObj[i]
 				if (game.HomeTeamID === item.TeamID) {
 					homeTeam = item
 					break
@@ -89,8 +99,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Away Team
-			for (i = 0; i < teamsObj.length; i++) {
-				item = teamsObj[i]
+			for (i = 0; i < this.teamsObj.length; i++) {
+				item = this.teamsObj[i]
 				if (game.AwayTeamID === item.TeamID) {
 					awayTeam = item
 					break
@@ -98,8 +108,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Stadium
-			for (i = 0; i < stadiumsObj.length; i++) {
-				item = stadiumsObj[i]
+			for (i = 0; i < this.stadiumsObj.length; i++) {
+				item = this.stadiumsObj[i]
 				if (game.StadiumID === item.StadiumID) {
 					stadium = item
 					break
@@ -107,8 +117,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Home Team Stats
-			for (i = 0; i < teamStatsObj.length; i++) {
-				item = teamStatsObj[i]
+			for (i = 0; i < this.teamStatsObj.length; i++) {
+				item = this.teamStatsObj[i]
 				if (homeTeam.TeamID === item.TeamID) {
 					homeTeamStats = item
 					break
@@ -116,8 +126,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Away Team Stats
-			for (i = 0; i < teamStatsObj.length; i++) {
-				item = teamStatsObj[i]
+			for (i = 0; i < this.teamStatsObj.length; i++) {
+				item = this.teamStatsObj[i]
 				if (awayTeam.TeamID === item.TeamID) {
 					awayTeamStats = item
 					break
@@ -138,7 +148,8 @@ class GameGridInner extends React.Component {
 					awayColor = { color: '#' + awayTeam.PrimaryColor },
 					homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 					awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
-					winningTeam
+					winningTeam,
+					moreToggleStyle
 			
 			// Check for Boston Colors
 			if (homeTeam.Name === 'Celtics') { homeColor = { color: '#2E7B3B' } }
@@ -203,6 +214,16 @@ class GameGridInner extends React.Component {
 				headerLeft = <b style={colorRed}>{'Q' + qtr}</b>
 				gameBreak = 'INP'
 			}
+			
+			if (this.state.moreToggle === true) {
+				moreToggleStyle = {
+					display: 'block'
+				}
+			} else if (this.state.moreToggle === false) {
+				moreToggleStyle = {
+					display: 'none'
+				}
+			}
 
 			return (
 				<div
@@ -216,7 +237,15 @@ class GameGridInner extends React.Component {
 						<div className="game-icon game-star" title="Star">
 							<i className="material-icons">star_border</i>
 						</div>
-						<div className="game-more-menu">
+						<div className="game-more-menu" style={moreToggleStyle}>
+							<p
+								className="close-menu"
+								onClick={this.onMoreClick.bind(this)}
+							>
+								<i className="material-icons">close</i>
+								<span>Close</span>
+							</p>
+							<hr />
 							<p>
 								<i className="material-icons">watch_later</i>
 								<span>Watch Later</span>
@@ -262,13 +291,12 @@ class GameGridInner extends React.Component {
 									<span>{awayTeam.Name + '.com'}</span>
 								</a>
 							</p>
-							<hr />
-							<p className="close-menu">
-								<i className="material-icons">close</i>
-								<span>Close</span>
-							</p>
 						</div>
-						<div className="game-icon game-more" title="More">
+						<div
+							className="game-icon game-more"
+							title="More"
+							onClick={this.onMoreClick.bind(this)}
+						>
 							<i className="material-icons">more_vert</i>
 						</div>
 						<div className="game-icon game-share" title="Share">

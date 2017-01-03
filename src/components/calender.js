@@ -38,6 +38,9 @@ class Calender extends React.Component {
 			
 			this.setState({ dayObj: arr })
 		}
+		
+		// DEV
+		console.log({calender: this.state.dayObj})
 	}
 	
 	onDayClick(e) {
@@ -45,9 +48,6 @@ class Calender extends React.Component {
 	}
 	
 	render() {
-		
-		// DEV
-		console.log({calender: this.state.dayObj})
 		
 		const calenderList = this.state.dayObj.map((day, index) => {
 			
