@@ -23,6 +23,8 @@ class GetTeams extends React.Component {
 							return (
 								<GetStadiums
 									apiKey={this.props.apiKey}
+									daysWeek={this.props.daysWeek}
+									monthsYear={this.props.monthsYear}
 									teamStats={result.body}
 								/>
 							)
@@ -51,6 +53,8 @@ class GetStadiums extends React.Component {
 							return (
 								<GetTeamStats
 									apiKey={this.props.apiKey}
+									daysWeek={this.props.daysWeek}
+									monthsYear={this.props.monthsYear}
 									teamStats={this.props.teamStats}
 									stadiums={result.body}
 								/>
@@ -80,6 +84,8 @@ class GetTeamStats extends React.Component {
 								return (
 									<Games
 										apiKey={this.props.apiKey}
+										daysWeek={this.props.daysWeek}
+										monthsYear={this.props.monthsYear}
 										teamStats={this.props.teamStats}
 										stadiums={this.props.stadiums}
 										teams={result.body}
@@ -96,21 +102,26 @@ class GetTeamStats extends React.Component {
 class Games extends React.Component {
 	constructor(props) {
 		super(props)
-		this.date = new Date('2017 Jan 16')
+		this.date = new Date()
 	}
 	render() {
 		return (
 			<div id="games">
 				<div className="games-container">
 					<div className="games-heading">
-							
-						<Calender date={this.date} />
+						
+						<Calender
+							date={this.date}
+							daysWeek={this.props.daysWeek}
+							monthsYear={this.props.monthsYear}
+						/>
 							
 					</div>
 					<div className="container grid-container">
 						
 						<GameGrid
 							apiKey={this.props.apiKey}
+							monthsYear={this.props.monthsYear}
 							teamStats={this.props.teamStats}
 							stadiums={this.props.stadiums}
 							teams={this.props.teams}

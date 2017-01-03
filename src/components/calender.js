@@ -1,79 +1,85 @@
 import React from 'react'
 import '../css/calender.css'
+		
+// eslint-disable-next-line
+Date.prototype.addDays = function(days) {
+	var dat = new Date(this.valueOf())
+	dat.setDate(dat.getDate() + days)
+	return dat
+}
 
 class Calender extends React.Component {
-	constructor() {
-		super()
-		this.dayObj = [
-			{ day: null, month: null, date: null, abbr: null },
-			{ day: null, month: null, date: null, abbr: null },
-			{ day: null, month: null, date: null, abbr: null },
-			{ day: null, month: null, date: null, abbr: null },
-			{ day: null, month: null, date: null, abbr: null },
-			{ day: null, month: null, date: null, abbr: null },
-			{ day: null, month: null, date: null, abbr: null }
-		];
-		this.months = [
-			{ month: 'Januray', abbr: 'Jan' },
-			{ month: 'Feburay', abbr: 'Feb' },
-			{ month: 'March', abbr: 'Mar' },
-			{ month: 'April', abbr: 'Apr' },
-			{ month: 'May', abbr: 'May' },
-			{ month: 'Junes', abbr: 'Jun' },
-			{ month: 'July', abbr: 'Jul' },
-			{ month: 'August', abbr: 'Aug' },
-			{ month: 'September', abbr: 'Sep' },
-			{ month: 'October', abbr: 'Oct' },
-			{ month: 'November', abbr: 'Nov' },
-			{ month: 'December', abbr: 'Dec' }
-		];
-		this.days = [
-			{ day: 'Sunday', abbr: 'Sun' },
-			{ day: 'Monday', abbr: 'Mon' },
-			{ day: 'Tuesday', abbr: 'Tue' },
-			{ day: 'Wednesday', abbr: 'Wed' },
-			{ day: 'Thursday', abbr: 'Thu' },
-			{ day: 'Friday', abbr: 'Fri' },
-			{ day: 'Saturday', abbr: 'Sat' },
-			{ day: 'Sunday', abbr: 'Sun' },
-		];
+	
+	constructor(props) {
+		super(props)
+		this.state = {
+			dayObj: [
+				{ day: null, month: null, date: null },
+				{ day: null, month: null, date: null },
+				{ day: null, month: null, date: null },
+				{ day: null, month: null, date: null },
+				{ day: null, month: null, date: null },
+				{ day: null, month: null, date: null },
+				{ day: null, month: null, date: null }
+			],
+			d: this.props.date
+		}
 	}
+	
+	componentWillMount() {
+		for (var i = 0; i < 7; i++) {
+			let date = this.state.d.addDays(i),
+					dat = date.getDate(),
+					arr = this.state.dayObj
+			
+			arr[i].day = this.props.daysWeek[date.getDay()].abbr
+			arr[i].month = this.props.monthsYear[date.getMonth()].abbr
+			arr[i].date = dat
+			
+			this.setState({ dayObj: arr })
+		}
+	}
+	
+	onDayClick(e) {
+		console.log('Calender Day Clicked')
+	}
+	
 	render() {
 		
-		const d = this.props.date
+		// DEV
+		console.log({calender: this.state.dayObj})
 		
-		// eslint-disable-next-line
-		Date.prototype.addDays = function(days) {
-    	var dat = new Date(this.valueOf())
-    	dat.setDate(dat.getDate() + days)
-    	return dat
-		}
-		
-		for (var i = 0; i < 7; i++) {
-			
-			let date = d.addDays(i),
-					dat = date.getDate(),
-					arr = this.dayObj[i]
-			
-			arr.day = this.days[date.getDay()].abbr
-			arr.month = this.months[date.getMonth()].abbr
-			arr.date = dat
-			
-		}
-		
-		const calenderList = this.dayObj.map((day, index) => {
+		const calenderList = this.state.dayObj.map((day, index) => {
 			
 			let dayString = (
-				<p>
-					<span className="calender-day-week">{day.day}</span>
-					{' ' + day.month + '. ' + day.date}
-				</p>
+				<div>
+					<p>
+						<span className="calender-day-week">{day.day}</span>
+						{' ' + day.month + '. ' + day.date}
+					</p>
+				</div>
 			)
 					
-			if (day.date === d.getDate()) {
-				return <div className="calender-day active" key={index}>{dayString}</div>
+			if (day.date === this.state.d.getDate()) {
+				return (
+					<div
+						className="calender-day active"
+						key={index}
+						onClick={this.onDayClick}
+					>
+						{dayString}
+					</div>
+				)
 			} else {
-				return <div className="calender-day" key={index}>{dayString}</div>
+				return (
+					<div
+						className="calender-day"
+						key={index}
+						onClick={this.onDayClick}
+					>
+						{dayString}
+					</div>
+				)
 			}
 		})
 		
@@ -88,7 +94,9 @@ class Calender extends React.Component {
 						<div className="calender-control calender-control-left">
 							<i className="material-icons">keyboard_arrow_left</i>
 						</div>
-						<div className="calender-days">{calenderList}</div>
+						<div className="calender-days">
+							{calenderList}
+						</div>
 						<div className="calender-control calender-control-right">
 							<i className="material-icons">keyboard_arrow_right</i>
 						</div>

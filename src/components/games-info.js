@@ -4,11 +4,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/Toggle'
 
 class GamesInfo extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			isToggleOn: false
+		}
+	}
 	render() {
 		return (
 			<div id="games-info">
 				<div className='container'>
-					<div className="col-sm-6 games-info-left">{this.props.games.length} games on today</div>
+					<div className="col-sm-6 games-info-left">
+						{this.props.games.length + ' games on today'}
+					</div>
 					<div className="col-sm-6 games-info-right">
 						<div className="games-info-right-inner">
 							<MuiThemeProvider>

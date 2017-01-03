@@ -7,9 +7,9 @@ import GamesInfo from './games-info.js'
 
 class GameGrid extends React.Component {
 	findDateString(date) {
-		let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+		let months = this.props.monthsYear,
 				nowYear = String(date.getFullYear()),
-				nowMonth = String(months[date.getMonth()]),
+				nowMonth = String(months[date.getMonth()].abbr),
 				nowDate = String(date.getDate())							
 		
 		return nowYear + '-' + nowMonth.slice(0,3) + '-' + nowDate
@@ -64,7 +64,6 @@ class GameGridInner extends React.Component {
 					stadiumsObj = this.props.stadiums;
 
 		// DEV: See Incoming AJAX request
-		console.log('%c DEV: Info Objects: ', 'font-weight: 800')
 		console.log({teams: teamsObj})
 		console.log({games: gamesObj})
 		console.log({teamStats: teamStatsObj})
