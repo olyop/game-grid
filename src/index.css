@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+	margin: 0;
+	border: none;
+	padding: 0; }
+	body, h1, h2, h3, h4, h5 h6, p, i, a, bold, span, strong, div, section, nav, aside {
+		font-family: 'Roboto', sans-serif;
+		text-decoration: none;
+		margin: 0; }
+
+.grid-loading {
+	display: block;
+	height: 100vh;
+	margin: auto; }
+	.grid-loading img {
+		margin: auto;
+		display: block;
+		padding: 40px;
+		height: 200px;
+		width: 200px; }

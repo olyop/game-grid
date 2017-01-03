@@ -1,0 +1,32 @@
+{
+  "name": "game-grid",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.8.4"
+  },
+  "dependencies": {
+    "babel-preset-react": "^6.16.0",
+    "bootstrap": "^3.3.7",
+    "dateformat": "^2.0.0",
+    "jquery": "^3.1.1",
+    "material-ui": "^0.16.6",
+    "minimatch": "^3.0.3",
+    "moment": "^2.17.1",
+    "normalize.css": "^5.0.0",
+    "react": "^15.4.1",
+    "react-blink": "^1.0.3",
+    "react-bootstrap": "^0.30.7",
+    "react-datepicker": "^0.39.0",
+    "react-dom": "^15.4.1",
+    "react-http-request": "^1.0.2",
+    "react-tap-event-plugin": "^2.0.1",
+    "react-typist": "^1.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

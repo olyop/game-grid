@@ -1,0 +1,24 @@
+#games-info {
+	margin: 0;
+	padding: 0; }
+	#games-info .container {
+		padding: 20px 10px 10px 10px !important; }
+		#games-info .container .col-sm-6 {
+			height: 30px;
+			align-items: center;
+			display: flex;
+			padding: 0 10px 0 10px; }
+		#games-info .games-info-left {
+			font-size: 18px;
+			justify-content: flex-start; }
+		#games-info .games-info-right {
+			justify-content: flex-end; }
+			#games-info .games-info-right .games-info-right-inner {
+				width: auto; }
+
+@media (min-width: 1024px) {
+	#games-info .container {
+		padding: 20px 20px 0 20px !important; }
+	#games-info .container .col-sm-6 {
+			padding: 0 20px 0 20px; }
+}

@@ -1,0 +1,83 @@
+#calender {
+	border: none; }
+#calender .calender-inner {
+	display: flex;
+	flex-wrap: nowrap; }
+	#calender .calender-inner .calender-dropdown {
+		width: 20%;
+		cursor: pointer;
+    padding: 10px;
+		transition: .2s all;
+    padding-bottom: 5px;
+		display: flex;
+		justify-content: center;
+		align-content: center; }
+		#calender .calender-inner .calender-dropdown:hover {
+			background-color: #EEEEEE; }
+		#calender .calender-inner .calender-dropdown i {
+			margin-right: 10px;
+			font-size: 24px; }
+		#calender .calender-inner .calender-dropdown p {
+			font-size: 18px; }
+#calender .calender-inner .calender-main {
+	display: flex;
+	width: 80%;
+	padding: 0 5px;
+	flex-wrap: nowrap; }
+	#calender .calender-inner .calender-days {
+		display: flex;
+		width: 92%;
+		flex-wrap: nowrap; }
+		#calender .calender-inner .calender-days .calender-day {
+			width: calc(100% / 7);
+			transition: .2s all;
+			cursor: pointer;
+			border-bottom: 4px solid #006bb7;
+			padding: 6px;
+			padding-top: 8px;
+			padding-bottom: 8px; }
+			#calender .calender-inner .calender-days .calender-day:hover {
+				border-color: #ed174b; }
+			#calender .calender-inner .calender-days .calender-day p {
+				color: #000;
+				text-align: center;
+				font-size: 16px; }
+				#calender .calender-inner .calender-days .calender-day p .calender-day-week {
+					display: none; }
+			#calender .calender-inner .calender-days .active {
+				border-bottom-color: #000; }
+				#calender .calender-inner .calender-days .active p {
+					font-weight: 600;
+					color: #000; }
+	#calender .calender-inner .calender-control {
+		cursor: pointer;
+		border-bottom: 4px solid #006bb7;
+		display: flex;
+		justify-content: center;
+		width: 4%;
+		padding: 6px 0 0 0; }
+		#calender .calender-inner .calender-control:hover {
+			border-bottom-color: #ed174b; }
+			#calender .calender-inner .calender-control i {
+				-webkit-user-select: none;
+				font-size: 28px;
+				margin: 0; }
+
+@media (min-width: 992px) {
+	#calender .calender-inner .calender-days .calender-day p .calender-day-week {
+		display: inline-block; }
+}
+
+@media (min-width: 1200px) {
+	#calender .calender-inner .calender-days .calender-day {
+		padding: 10px;
+		padding-bottom: 8px;
+	}
+	#calender .calender-inner .calender-dropdown {
+		width: 12%;
+	}
+	#calender .calender-inner .calender-main {
+		width: 88%;
+		padding: 0 20px;
+	}
+}

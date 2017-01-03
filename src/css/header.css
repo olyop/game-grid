@@ -1,0 +1,51 @@
+#header {
+	background-color: #F5F5F5;
+	color: #000;
+	margin: 0; }
+	#header .header-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 20px; }
+		#header .header-inner .header-logo img {
+			display: block;
+			margin: auto;
+			width: 100%;
+			height: auto; }
+		#header .header-inner .header-text {
+			padding: 0;
+			padding-top: 20px; }
+			#header .header-inner .header-text .header-title {
+				text-align: center;
+				font-weight: 500;
+				font-size: 25px; }
+			#header .header-inner .header-text .header-date {
+				text-align: center;
+				font-size: 15px;
+				font-weight: 400; }
+
+@media (min-width: 375px) {
+	#header .header-inner .header-logo img {
+		width: 50%; }
+	#header .header-inner .header-text .header-title {
+		font-size: 35px; }
+	#header .header-inner .header-text .header-date {
+		font-size: 20px; }
+}
+
+@media (min-width: 768px) {
+	#header .header-inner {
+		flex-direction: row; }
+	#header .header-inner .header-logo img {
+		width: 250px; }
+		#header .header-inner .header-text {
+			padding: 0;
+			padding-left: 40px; }
+			#header .header-inner .header-text .header-title {
+				font-size: 40px;
+				text-align: left; }
+			#header .header-inner .header-text .header-date {
+				font-size: 18px;
+				text-align: left; }
+}

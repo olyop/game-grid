@@ -1,0 +1,189 @@
+#game-grid {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: flex-start;
+	padding-bottom: 40px;
+	margin: 0; }
+	#game-grid .game {
+		padding: 5px;
+		cursor: pointer;
+		width: 100%; }
+		#game-grid .game .game-inner {
+			position: relative;
+			background-color: #fff; }
+			#game-grid .game .game-inner:hover .game-icon {
+				display: block; }
+			#game-grid .game .game-inner .game-break {
+				flex-flow: row;
+				align-items: center;
+				display: flex; }
+				#game-grid .game .game-inner .game-break hr {
+					border-color: #E0E0E0;
+					margin: 0;
+					margin-top: 10px;
+					margin-bottom: 10px;
+					width: 45%; }
+				#game-grid .game .game-inner .game-break p {
+					text-align: center;
+					width: 10%;
+					font-size: 18px; }
+			#game-grid .game .game-inner .game-icon {
+				-webkit-user-select: none;
+				transition: .3s all;
+				position: absolute;
+				display: none;
+				padding: 14px 10px 10px 13px;
+				margin: 5px;
+				width: 50px;
+				height: 50px;
+				border-radius: 100%;
+				cursor: pointer; }
+				#game-grid .game .game-inner .game-icon i {
+					font-size: 20px; }
+					#game-grid .game .game-inner .game-icon:hover {
+						background-color: #EEEEEE; }
+			#game-grid .game .game-inner .game-star {
+				top: 0;
+				left: 0; }
+			#game-grid .game .game-inner .game-more {
+				top: 0;
+				right: 0; }
+			#game-grid .game .game-inner .game-share {
+				bottom: 0;
+				left: 0; }
+			#game-grid .game .game-inner .game-expand {
+				right: 0;
+				bottom: 0; }
+			#game-grid .game .game-inner .game-header {
+				padding: 7px; }
+				#game-grid .game .game-inner .game-header p {
+					text-align: center;
+					font-weight: 400;
+					font-size: 14px; }
+			#game-grid .game .game-inner .game-team {
+				display: flex;
+				justify-content: flex-start;
+				justify-content: center;
+				align-content: center;
+				align-items: center;
+				padding: 10px; }
+				#game-grid .game .game-inner .game-team img {
+					-webkit-user-select: none;
+					width: 70px;
+					height: 70px;
+					margin: 0; }
+				#game-grid .game .game-inner .game-team .game-team-text {
+					padding: 10px;
+					border-radius: 5px;
+					font-weight: 400; }
+					#game-grid .game .game-inner .game-team .game-team-text h4 {
+						font-size: 14px; }
+					#game-grid .game .game-inner .game-team .game-team-text h3 {
+						font-size: 20px; }
+					#game-grid .game .game-inner .game-team .game-team-text p {
+						color: #9E9E9E;
+						font-size: 16px; }
+				#game-grid .game .game-inner .game-team .game-team-score {
+					align-self: center;
+					padding: 15px;
+					font-size: 20px;
+					font-weight: 600;
+					letter-spacing: 1px; }
+
+@media (min-width: 375px) {
+	#game-grid .game .game-inner .game-header  p {
+		font-size: 18px; }
+	#game-grid .game .game-inner .game-team img {
+		width: 100px;
+		height: 100px; }
+	#game-grid .game .game-inner .game-team .game-team-text {
+		padding: 10px; }
+		#game-grid .game .game-inner .game-team .game-team-text h4 {
+			font-size: 16px; }
+		#game-grid .game .game-inner .game-team .game-team-text h3 {
+			font-size: 24px; }
+	#game-grid .game .game-inner .game-team .game-team-score {
+		font-size: 30px; }
+}
+
+@media (min-width: 768px) {
+		#game-grid .game .game-inner .game-header {
+			padding: 20px; 
+			padding-top: 12px; }
+	#game-grid .game .game-inner .game-icon {
+		margin: 10px; }
+		#game-grid .game .game-inner .game-icon i {
+			font-size: 20px; }
+			#game-grid .game .game-inner .game-header p {
+				font-size: 20px; }
+		#game-grid .game .game-inner .game-team .game-team-text {
+			padding: 15px; }
+			#game-grid .game .game-inner .game-team .game-team-text h4 {
+				font-size: 20px; }
+			#game-grid .game .game-inner .game-team .game-team-text h3 {
+				font-size: 26px; }
+}
+
+@media (min-width: 1024px) {
+		#game-grid .game {
+			padding: 20px;
+			width: calc(100% / 2); }
+			#game-grid .game .game-inner .game-team {
+				padding: 20px; }
+				#game-grid .game .game-inner .game-team img {
+					width: 150px;
+					height: 150px; }
+					#game-grid .game .game-inner .game-team .game-team-text {
+						padding: 20px; }
+}
+
+#game-grid .game .game-inner .game-more-menu {
+	position: absolute;
+	display: none;
+	right: 15px;
+	top: 15px;
+	width: 175px;
+	padding: 10px 0;
+	background-color: #fff;
+	box-shadow:
+		0 8px 10px 1px rgba(0,0,0,0.14),
+		0 3px 14px 2px rgba(0,0,0,0.12),
+		0 5px 5px -3px rgba(0,0,0,0.2);
+	z-index: 20; }
+	#game-grid .game .game-inner .game-more-menu p {
+		padding: 8px 40px 8px 20px;
+		cursor: pointer;
+		display: flex;
+		justify-content: flex-start;
+		font-size: 14px; }
+		#game-grid .game .game-inner .game-more-menu p a {
+			color: #000;
+			display: flex;
+			justify-content: flex-start; }
+			#game-grid .game .game-inner .game-more-menu p a i {
+				text-decoration: none;
+				color: #333333; }
+		#game-grid .game .game-inner .game-more-menu p i {
+			font-size: 20px;
+			padding-right: 10px; }
+		#game-grid .game .game-inner .game-more-menu p:hover {
+			background-color: #EEEEEE; }
+	#game-grid .game .game-inner .game-more-menu hr {
+		margin-top: 10px;
+		margin-bottom: 10px; }
+	#game-grid .game .game-inner .game-icon i {
+		font-size: 23px; }
+		#game-grid .game .game-inner .game-icon:hover {
+			background-color: #EEEEEE; }
+
+@media (min-width: 1200px) {
+	#game-grid .game .game-inner .game-more-menu {
+		width: 200px; }
+		#game-grid .game .game-inner .game-more-menu p {
+			font-size: 16px;
+			padding: 10px 50px 10px 25px; }
+	#game-grid .game .game-inner .game-more-menu p i {
+			font-size: 22px;
+			padding-right: 10px; }
+}
