@@ -107,12 +107,8 @@ class Games extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			date: new Date('2017 Jan 3')
+			date: this.props.date
 		}
-	}
-	
-	newDay(day) {
-		
 	}
 	
 	render() {
@@ -126,6 +122,7 @@ class Games extends React.Component {
 							date={this.state.date}
 							monthsYear={this.props.monthsYear}
 							daysWeek={this.props.daysWeek}
+							onDayClick={date => this.setState({ date })}
 						/>
 							
 					</div>

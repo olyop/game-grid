@@ -5,14 +5,7 @@ import '../css/game-grid.css'
 import GamesInfo from './games-info.js'
 
 class GameGrid extends React.Component {
-	findDateString(date) {
-		let months = this.props.monthsYear,
-				nowYear = String(date.getFullYear()),
-				nowMonth = String(months[date.getMonth()].abbr),
-				nowDate = String(date.getDate())							
-		
-		return nowYear + '-' + nowMonth.slice(0,3) + '-' + nowDate
-	}
+	
 	render() {
 		return (
 			<Request
@@ -32,7 +25,6 @@ class GameGrid extends React.Component {
 									stadiums={this.props.stadiums}
 									games={result.body}
 									teams={this.props.teams}
-									date={this.props.date}
 								/>
 							)
 						}
@@ -41,57 +33,41 @@ class GameGrid extends React.Component {
 			</Request>
 		)
 	}
+	
+	findDateString(date) {
+		let months = this.props.monthsYear,
+				nowYear = String(date.getFullYear()),
+				nowMonth = String(months[date.getMonth()].abbr),
+				nowDate = String(date.getDate() - 1) // -1 for American Time Zone Diff				
+		
+		return nowYear + '-' + nowMonth + '-' + nowDate
+	}
+	
 }
 
 class GameGridInner extends React.Component {
 	
-	constructor(props) {
-		super(props)
-		
-		this.teamsObj = this.props.teams
-		this.teamStatsObj = this.props.teamStats
-		this.stadiumsObj = this.props.stadiums
-		
-		this.state = {
-			gamesObj: this.props.games,
-			gamesList: null,
-			moreToggle: false
-		}
-	}
-	
 	componentWillMount() {
 		// DEV: Log API
-		console.log({teams: this.teamsObj})
-		console.log({teamStats: this.teamStatsObj})
-		console.log({staidums: this.stadiumsObj})
-		console.log({games: this.state.gamesObj})
-		
-		// Important
-		this.renderGamesList(this.props.games)
+		console.log({teams: this.props.teams})
+		console.log({teamStats: this.props.teamStats})
+		console.log({staidums: this.props.stadiums})
 	}
 	
-	onMoreClick(e) {
-		let cacheState = this.state.moreToggle
+	render() {
 		
-		if (cacheState === true) { cacheState = false }
-		else if (cacheState === false) { cacheState = true }
+		// DEV: Log API
+		console.log({games: this.props.games})
 		
-		this.setState({ moreToggle: cacheState })
-	}
-	
-	renderGamesList(obj) {
-		let temp = obj.map((game, index) => {
+		let gamesList = this.props.games.map((game, index) => {
 
 			let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
 					awayTeamStats, homeScoreColorStyle, awayScoreColorStyle, headerLeft,
 					headerRight, gameBreak
-			
-			const	colorRed = { color: '#F44336' },
-						colorGreen = { color: '#4CAF50' }
 
 			// Find Home Team
-			for (i = 0; i < this.teamsObj.length; i++) {
-				item = this.teamsObj[i]
+			for (i = 0; i < this.props.teams.length; i++) {
+				item = this.props.teams[i]
 				if (game.HomeTeamID === item.TeamID) {
 					homeTeam = item
 					break
@@ -99,8 +75,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Away Team
-			for (i = 0; i < this.teamsObj.length; i++) {
-				item = this.teamsObj[i]
+			for (i = 0; i < this.props.teams.length; i++) {
+				item = this.props.teams[i]
 				if (game.AwayTeamID === item.TeamID) {
 					awayTeam = item
 					break
@@ -108,8 +84,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Stadium
-			for (i = 0; i < this.stadiumsObj.length; i++) {
-				item = this.stadiumsObj[i]
+			for (i = 0; i < this.props.stadiums.length; i++) {
+				item = this.props.stadiums[i]
 				if (game.StadiumID === item.StadiumID) {
 					stadium = item
 					break
@@ -117,8 +93,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Home Team Stats
-			for (i = 0; i < this.teamStatsObj.length; i++) {
-				item = this.teamStatsObj[i]
+			for (i = 0; i < this.props.teamStats.length; i++) {
+				item = this.props.teamStats[i]
 				if (homeTeam.TeamID === item.TeamID) {
 					homeTeamStats = item
 					break
@@ -126,8 +102,8 @@ class GameGridInner extends React.Component {
 			}
 
 			// Find Away Team Stats
-			for (i = 0; i < this.teamStatsObj.length; i++) {
-				item = this.teamStatsObj[i]
+			for (i = 0; i < this.props.teamStats.length; i++) {
+				item =this.props.teamStats[i]
 				if (awayTeam.TeamID === item.TeamID) {
 					awayTeamStats = item
 					break
@@ -135,6 +111,8 @@ class GameGridInner extends React.Component {
 			}
 			
 			const tieColor = { color: '#FF9800' },
+						colorRed = { color: '#F44336' },
+						colorGreen = { color: '#4CAF50' },
 						qtr = game.Quarter,
 						timeSec = game.TimeRemainingSeconds,
 						timeMin = game.TimeRemainingMinutes,
@@ -148,8 +126,7 @@ class GameGridInner extends React.Component {
 					awayColor = { color: '#' + awayTeam.PrimaryColor },
 					homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 					awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
-					winningTeam,
-					moreToggleStyle
+					winningTeam
 			
 			// Check for Boston Colors
 			if (homeTeam.Name === 'Celtics') { homeColor = { color: '#2E7B3B' } }
@@ -182,7 +159,7 @@ class GameGridInner extends React.Component {
 				awayScoreColorStyle = { display: 'none' }
 			}
 			
-			var winningText = (name) => <b><span style={colorGreen}>{name}</span></b>
+			var winningText = name => <b><span style={colorGreen}>{name}</span></b>
 
 			// Determine Game Status
 			if (qtr === null && timeMin === null && timeSec === null && homeScore === null && awayScore === null) {
@@ -214,16 +191,6 @@ class GameGridInner extends React.Component {
 				headerLeft = <b style={colorRed}>{'Q' + qtr}</b>
 				gameBreak = 'INP'
 			}
-			
-			if (this.state.moreToggle === true) {
-				moreToggleStyle = {
-					display: 'block'
-				}
-			} else if (this.state.moreToggle === false) {
-				moreToggleStyle = {
-					display: 'none'
-				}
-			}
 
 			return (
 				<div
@@ -237,11 +204,8 @@ class GameGridInner extends React.Component {
 						<div className="game-icon game-star" title="Star">
 							<i className="material-icons">star_border</i>
 						</div>
-						<div className="game-more-menu" style={moreToggleStyle}>
-							<p
-								className="close-menu"
-								onClick={this.onMoreClick.bind(this)}
-							>
+						<div className="game-more-menu">
+							<p className="close-menu">
 								<i className="material-icons">close</i>
 								<span>Close</span>
 							</p>
@@ -292,11 +256,7 @@ class GameGridInner extends React.Component {
 								</a>
 							</p>
 						</div>
-						<div
-							className="game-icon game-more"
-							title="More"
-							onClick={this.onMoreClick.bind(this)}
-						>
+						<div className="game-icon game-more" title="More">
 							<i className="material-icons">more_vert</i>
 						</div>
 						<div className="game-icon game-share" title="Share">
@@ -354,10 +314,6 @@ class GameGridInner extends React.Component {
 				</div>
 			)
 		})
-		this.setState({ gamesList: temp })
-	}
-	
-	render() {
 		return (
 			<div>
 				
@@ -366,7 +322,7 @@ class GameGridInner extends React.Component {
 				/>
 				
 				<div id="game-grid">
-					{this.state.gamesList}
+					{gamesList}
 				</div>
 				
 			</div>

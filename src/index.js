@@ -37,14 +37,8 @@ const monthsYear = [
 ];
 const apiKey = {
 	'Ocp-Apim-Subscription-Key': '746cd5dcdaed4053b5431d3ee451005a'
-}
-const globalDate = new Date();
-
-let globalYear = globalDate.getFullYear,
-		globalMonth = monthsYear[globalDate.getMonth()],
-		globalDay = globalDate.getDate() - 1
-
-const date = new Date(globalYear + ' ' + globalMonth + ' ' + globalDay)
+};
+const globalDate = new Date()
 
 // Main App
 class App extends React.Component {
@@ -53,7 +47,7 @@ class App extends React.Component {
 			
 			<Main
 				apiKey={apiKey}
-				date={date}
+				date={globalDate}
 				daysWeek={daysWeek}	
 				monthsYear={monthsYear}
 			/>

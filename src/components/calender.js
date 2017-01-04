@@ -8,23 +8,22 @@ Date.prototype.addDays = function(days) {
 	return dat
 }
 
-class CalenderDay extends React.Component {
-	render() {
+const CalenderDay = (props) => {
 		
 		let dayClass = 'calender-day'
-		if (this.props.active === true) { dayClass += ' active' }
+		if (props.active === true) { dayClass += ' active' }
 
 		return (
 			<div
 				className={dayClass}
+				onClick={() => props.onDayClick(props.day.dateObj)}
 			>
 				<p>
-					<span className="calender-day-week">{this.props.day.day}</span>
-					{' ' + this.props.day.month + '. ' + this.props.day.date}
+					<span className="calender-day-week">{props.day.day}</span>
+					{' ' + props.day.month + '. ' + props.day.date}
 				</p>
 			</div>
 		)
-	}
 }
 
 class Calender extends React.Component {
@@ -33,13 +32,13 @@ class Calender extends React.Component {
 		super(props)
 		this.state = {
 			dayObj: [
-				{ day: null, month: null, date: null },
-				{ day: null, month: null, date: null },
-				{ day: null, month: null, date: null },
-				{ day: null, month: null, date: null },
-				{ day: null, month: null, date: null },
-				{ day: null, month: null, date: null },
-				{ day: null, month: null, date: null }
+				{ day: null, month: null, date: null, dateObj: null },
+				{ day: null, month: null, date: null, dateObj: null },
+				{ day: null, month: null, date: null, dateObj: null },
+				{ day: null, month: null, date: null, dateObj: null },
+				{ day: null, month: null, date: null, dateObj: null },
+				{ day: null, month: null, date: null, dateObj: null },
+				{ day: null, month: null, date: null, dateObj: null }
 			],
 			d: this.props.date
 		}
@@ -54,6 +53,7 @@ class Calender extends React.Component {
 			arr[i].day = this.props.daysWeek[date.getDay()].abbr
 			arr[i].month = this.props.monthsYear[date.getMonth()].abbr
 			arr[i].date = dat
+			arr[i].dateObj = new Date(date)
 			
 			this.setState({ dayObj: arr })
 		}
@@ -65,24 +65,18 @@ class Calender extends React.Component {
 	render() {
 		
 		const calenderList = this.state.dayObj.map((day, index) => {
-					
+			let temp = false
 			if (day.date === this.state.d.getDate()) {
-				return (
-					<CalenderDay
-						day={day}
-						key={index}
-						active={true}
-					/>
-				)
-			} else {
-				return (
-					<CalenderDay
-						day={day}
-						key={index}
-						active={false}
-					/>
-				)
+				temp = true
 			}
+			return (
+				<CalenderDay
+					onDayClick={this.props.onDayClick}
+					day={day}
+					key={index}
+					active={temp}
+				/>
+			)
 		})
 		
 		return (
