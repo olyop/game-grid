@@ -122,7 +122,7 @@ class GameGridInner extends React.Component {
 						awayScore = game.AwayTeamScore,
 						time = game.DateTime,
 						nbaWebsiteUrl = 'http://www.nba.com/',
-						teamLogoUrl = './media/team-logos/'
+						teamLogoUrl = 'http://i.cdn.turner.com/nba/nba/assets/logos/teams/primary/web/'
 			
 			let homeColor = { color: '#' + homeTeam.PrimaryColor },
 					awayColor = { color: '#' + awayTeam.PrimaryColor },

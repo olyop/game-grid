@@ -2,7 +2,7 @@ import React from 'react'
 import '../css/header.css'
 import logo from '../../public/media/logo.png'
 
-export default class Header extends React.Component {
+class Header extends React.Component {
 	render() {
 		return (
 			<div id="header">
@@ -14,10 +14,12 @@ export default class Header extends React.Component {
 					</div>
 					<div className="header-text">
 						<h1 className="header-title">Game Grid</h1>
-						<p className="header-date">A unoffical NBA scheudle viewer</p>
+						<p className="header-date">An unoffical NBA schedule viewer</p>
 					</div>
 				</div>
 			</div>
 		)
 	}
 }
+
+export default Header
