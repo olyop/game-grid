@@ -15,10 +15,12 @@ class GameGrid extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
+							console.log(loading)
 							return (
 								<Loading />
 							)
 						} else {
+							console.log(loading)
 							return (
 								<GameGridInner
 									teamStats={this.props.teamStats}
