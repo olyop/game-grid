@@ -23,6 +23,7 @@ class GetTeams extends React.Component {
 							return (
 								<GetStadiums
 									apiKey={this.props.apiKey}
+									date={this.props.date}
 									daysWeek={this.props.daysWeek}
 									monthsYear={this.props.monthsYear}
 									teamStats={result.body}
@@ -53,6 +54,7 @@ class GetStadiums extends React.Component {
 							return (
 								<GetTeamStats
 									apiKey={this.props.apiKey}
+									date={this.props.date}
 									daysWeek={this.props.daysWeek}
 									monthsYear={this.props.monthsYear}
 									teamStats={this.props.teamStats}
@@ -84,6 +86,7 @@ class GetTeamStats extends React.Component {
 								return (
 									<Games
 										apiKey={this.props.apiKey}
+										date={this.props.date}
 										daysWeek={this.props.daysWeek}
 										monthsYear={this.props.monthsYear}
 										teamStats={this.props.teamStats}
@@ -100,10 +103,18 @@ class GetTeamStats extends React.Component {
 }
 
 class Games extends React.Component {
+	
 	constructor(props) {
 		super(props)
-		this.date = new Date()
+		this.state = {
+			date: new Date('2017 Jan 3')
+		}
 	}
+	
+	newDay(day) {
+		
+	}
+	
 	render() {
 		return (
 			<div id="games">
@@ -111,9 +122,10 @@ class Games extends React.Component {
 					<div className="games-heading">
 						
 						<Calender
-							date={this.date}
-							daysWeek={this.props.daysWeek}
+							apiKey={this.props.apiKey}
+							date={this.state.date}
 							monthsYear={this.props.monthsYear}
+							daysWeek={this.props.daysWeek}
 						/>
 							
 					</div>
@@ -121,11 +133,11 @@ class Games extends React.Component {
 						
 						<GameGrid
 							apiKey={this.props.apiKey}
+							date={this.state.date}
 							monthsYear={this.props.monthsYear}
 							teamStats={this.props.teamStats}
 							stadiums={this.props.stadiums}
 							teams={this.props.teams}
-							date={this.date}
 						/>
 						
 					</div>
@@ -133,6 +145,7 @@ class Games extends React.Component {
 			</div>
 		)
 	}
+	
 }
 
 export default GetTeams																

@@ -8,6 +8,25 @@ Date.prototype.addDays = function(days) {
 	return dat
 }
 
+class CalenderDay extends React.Component {
+	render() {
+		
+		let dayClass = 'calender-day'
+		if (this.props.active === true) { dayClass += ' active' }
+
+		return (
+			<div
+				className={dayClass}
+			>
+				<p>
+					<span className="calender-day-week">{this.props.day.day}</span>
+					{' ' + this.props.day.month + '. ' + this.props.day.date}
+				</p>
+			</div>
+		)
+	}
+}
+
 class Calender extends React.Component {
 	
 	constructor(props) {
@@ -43,42 +62,25 @@ class Calender extends React.Component {
 		console.log({calender: this.state.dayObj})
 	}
 	
-	onDayClick(e) {
-		console.log('Calender Day Clicked')
-	}
-	
 	render() {
 		
 		const calenderList = this.state.dayObj.map((day, index) => {
-			
-			let dayString = (
-				<div>
-					<p>
-						<span className="calender-day-week">{day.day}</span>
-						{' ' + day.month + '. ' + day.date}
-					</p>
-				</div>
-			)
 					
 			if (day.date === this.state.d.getDate()) {
 				return (
-					<div
-						className="calender-day active"
+					<CalenderDay
+						day={day}
 						key={index}
-						onClick={this.onDayClick}
-					>
-						{dayString}
-					</div>
+						active={true}
+					/>
 				)
 			} else {
 				return (
-					<div
-						className="calender-day"
+					<CalenderDay
+						day={day}
 						key={index}
-						onClick={this.onDayClick}
-					>
-						{dayString}
-					</div>
+						active={false}
+					/>
 				)
 			}
 		})

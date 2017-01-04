@@ -3,8 +3,6 @@ import '../css/main.css'
 import Header from './header.js'
 import Games from './games.js'
 
-
-
 class Main extends React.Component {
 	render() {
 		return (
@@ -14,6 +12,7 @@ class Main extends React.Component {
 				
 				<Games
 					apiKey={this.props.apiKey}
+					date={this.props.date}
 					daysWeek={this.props.daysWeek}
 					monthsYear={this.props.monthsYear}
 				/>
