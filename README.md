@@ -4,7 +4,7 @@ A unoffical NBA scheudle viewer
 ## Setup
 Note: This is a one-page application built with [create-react-app](https://github.com/facebookincubator/create-react-app)
 
-### Installation
+#### Installation
 ```
 git clone https://github.com/olyop/game-grid.git game-grid
 cd game-grid
@@ -13,15 +13,18 @@ npm start
 ```
 Go to localhost:3000
 
-### Create Production Build
+#### Create Production Build
 ```
 npm run build
 node index.js
 ```
 Go to localhost:9000
 
-### Author
+## Additional Infomation
+**Please not this is a WIP (Work in Progress)**
+
+#### Author
 Oliver P.
 
-### API Used
+#### API Used
 [Fantasy Developer](https://developer.fantasydata.com/)
