@@ -54,18 +54,20 @@ class GameGridInner extends React.Component {
 		
 		this.state = {
 			gamesObj: this.props.games,
+			gamesList: null,
 			moreToggle: false
 		}
-		
-		// DEV: Log API
-		console.log({games: this.state.gamesObj})
 	}
 	
 	componentWillMount() {
-		// Log API
+		// DEV: Log API
 		console.log({teams: this.teamsObj})
 		console.log({teamStats: this.teamStatsObj})
 		console.log({staidums: this.stadiumsObj})
+		console.log({games: this.state.gamesObj})
+		
+		// Important
+		this.renderGamesList(this.props.games)
 	}
 	
 	onMoreClick(e) {
@@ -77,10 +79,8 @@ class GameGridInner extends React.Component {
 		this.setState({ moreToggle: cacheState })
 	}
 	
-	render() {
-
-		// Map Out Games
-		let gamesList = this.state.gamesObj.map((game, index) => {
+	renderGamesList(obj) {
+		let temp = obj.map((game, index) => {
 
 			let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
 					awayTeamStats, homeScoreColorStyle, awayScoreColorStyle, headerLeft,
@@ -354,15 +354,21 @@ class GameGridInner extends React.Component {
 				</div>
 			)
 		})
-		
+		this.setState({ gamesList: temp })
+	}
+	
+	render() {
 		return (
 			<div>
+				
 				<GamesInfo
 					games={this.props.games}
 				/>
+				
 				<div id="game-grid">
-					{gamesList}
+					{this.state.gamesList}
 				</div>
+				
 			</div>
 		)
 	}
