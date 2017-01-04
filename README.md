@@ -1,7 +1,10 @@
 # Game Grid
 A unoffical NBA scheudle viewer
 
-## Installation
+## Setup
+Note: This is a one-page application built with [create-react-app](https://github.com/facebookincubator/create-react-app)
+
+### Installation
 ```
 git clone https://github.com/olyop/game-grid.git game-grid
 cd game-grid
@@ -10,7 +13,7 @@ npm start
 ```
 Go to localhost:3000
 
-## Create Production Build
+### Create Production Build
 ```
 npm run build
 node index.js
