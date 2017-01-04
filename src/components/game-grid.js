@@ -165,7 +165,11 @@ class GameGridInner extends React.Component {
 
 			// Determine Game Status
 			if (qtr === null && timeMin === null && timeSec === null && homeScore === null && awayScore === null) {
-				headerRight = (time.slice(11,13) - 12) + ':' + time.slice(14,16) + ' PM / ET'
+				if (time.slice(11,13) <= 12) {
+					headerRight = time.slice(11,13) + ':' + time.slice(14,16) + ' PM / ET'
+				} else {
+					headerRight = (time.slice(11,13) - 12) + ':' + time.slice(14,16) + ' PM / ET'
+				}
 				headerLeft = stadium.Name
 				gameBreak = 'AT'
 			} else if (qtr === 'F/OT') {

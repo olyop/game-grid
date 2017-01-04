@@ -38,7 +38,7 @@ const monthsYear = [
 const apiKey = {
 	'Ocp-Apim-Subscription-Key': '746cd5dcdaed4053b5431d3ee451005a'
 };
-const globalDate = new Date()
+const globalDate = new Date('2017 Jan 9')
 
 // Main App
 class App extends React.Component {
