@@ -56,6 +56,9 @@ class GameGridInner extends React.Component {
 			gamesObj: this.props.games,
 			moreToggle: false
 		}
+		
+		// DEV: Log API
+		console.log({games: this.state.gamesObj})
 	}
 	
 	componentWillMount() {
@@ -75,9 +78,6 @@ class GameGridInner extends React.Component {
 	}
 	
 	render() {
-		
-		// DEV: Log API
-		console.log({games: this.state.gamesObj})
 
 		// Map Out Games
 		let gamesList = this.state.gamesObj.map((game, index) => {
