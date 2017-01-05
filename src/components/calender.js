@@ -1,29 +1,22 @@
 import React from 'react'
 import '../css/calender.css'
-		
-// eslint-disable-next-line
-Date.prototype.addDays = function(days) {
-	var dat = new Date(this.valueOf())
-	dat.setDate(dat.getDate() + days)
-	return dat
-}
 
 const CalenderDay = (props) => {
 		
-		let dayClass = 'calender-day'
-		if (props.active === true) { dayClass += ' active' }
+	let dayClass = 'calender-day'
+	if (props.active === true) { dayClass += ' active' }
 
-		return (
-			<div
-				className={dayClass}
-				onClick={() => props.onDayClick(props.day.dateObj)}
-			>
-				<p>
-					<span className="calender-day-week">{props.day.day}</span>
-					{' ' + props.day.month + '. ' + props.day.date}
-				</p>
-			</div>
-		)
+	return (
+		<div
+			className={dayClass}
+			onClick={() => props.onDayClick(props.day.dateObj)}
+		>
+			<p>
+				<span className="calender-day-week">{props.day.day}</span>
+				{' ' + props.day.month + '. ' + props.day.date}
+			</p>
+		</div>
+	)
 }
 
 class Calender extends React.Component {
@@ -45,6 +38,13 @@ class Calender extends React.Component {
 	}
 	
 	componentWillMount() {
+		// eslint-disable-next-line
+		Date.prototype.addDays = function(days) {
+			var dat = new Date(this.valueOf())
+			dat.setDate(dat.getDate() + days)
+			return dat
+		}
+		
 		for (var i = 0; i < 7; i++) {
 			let date = this.state.d.addDays(i),
 					dat = date.getDate(),
@@ -66,9 +66,7 @@ class Calender extends React.Component {
 		
 		const calenderList = this.state.dayObj.map((day, index) => {
 			let temp = false
-			if (day.date === this.state.d.getDate()) {
-				temp = true
-			}
+			if (day.date === this.state.d.getDate()) { temp = true }
 			return (
 				<CalenderDay
 					onDayClick={this.props.onDayClick}

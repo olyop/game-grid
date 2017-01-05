@@ -9,9 +9,7 @@ class GameGrid extends React.Component {
 	
 	constructor(props) {
 		super(props)
-		this.state = {
-			spoilerToggle: false
-		}
+		this.state = { toggleScorees: false }
 	}
 	
 	findDateString(date) {
@@ -32,9 +30,7 @@ class GameGrid extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
-							return (
-								<Loading />
-							)
+							return <Loading />
 						} else {
 							
 							var gameObj = result.body
@@ -48,24 +44,19 @@ class GameGrid extends React.Component {
 										stadiums={this.props.stadiums}
 										index={index}
 										key={index}
-										spoiler={this.state.spoilerToggle}
+										toggleScores={this.state.toggleScores}
 									/>
 								)
 							})
 							
 							return (
 								<div>
-									
 									<GamesInfo
 										numGames={gameObj.length}
-										spoilerToggle={spoilerToggle => this.setState({ spoilerToggle })}
-										spoiler={this.state.spoilerToggle}
+										toggleScores={toggleScores => this.setState({ toggleScores })}
 									/>
 
-									<div id="game-grid">
-										{gamesList}
-									</div>
-
+									<div id="game-grid">{gamesList}</div>
 								</div>
 							)
 						}

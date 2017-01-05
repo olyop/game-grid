@@ -15,9 +15,7 @@ class GetTeams extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
-							return (
-								<Loading />
-							)
+							return <Loading />
 						} else {
 							return (
 								<GetStadiums
@@ -45,9 +43,7 @@ class GetStadiums extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
-							return (
-								<Loading />
-							)
+							return <Loading />
 						} else {
 							return (
 								
@@ -72,33 +68,29 @@ class GetTeamStats extends React.Component {
 	render() {
 		return (
 			<Request
-					url='https://api.fantasydata.net/v3/nba/scores/JSON/teams'
-					headers={this.props.apiKey}
-				>
-					{
-						({error, result, loading}) => {
-							if (loading) {
-								return (
-										<Loading />
-									)
-							} else {
-								return (
-									
-									<Games
-										apiKey={this.props.apiKey}
-										date={this.props.date}
-										daysWeek={this.props.daysWeek}
-										monthsYear={this.props.monthsYear}
-										teamStats={this.props.teamStats}
-										stadiums={this.props.stadiums}
-										teams={result.body}
-									/>
-									
-								)
-							}
+				url='https://api.fantasydata.net/v3/nba/scores/JSON/teams'
+				headers={this.props.apiKey}
+			>
+				{
+					({error, result, loading}) => {
+						if (loading) {
+							return <Loading />
+						} else {
+							return (
+								<Games
+									apiKey={this.props.apiKey}
+									date={this.props.date}
+									daysWeek={this.props.daysWeek}
+									monthsYear={this.props.monthsYear}
+									teamStats={this.props.teamStats}
+									stadiums={this.props.stadiums}
+									teams={result.body}
+								/>
+							)
 						}
 					}
-				</Request>
+				}
+			</Request>
 		)
 	}
 }
@@ -107,9 +99,7 @@ class Games extends React.Component {
 	
 	constructor(props) {
 		super(props)
-		this.state = {
-			date: this.props.date
-		}
+		this.state = { date: this.props.date }
 	}
 	
 	render() {
@@ -117,7 +107,6 @@ class Games extends React.Component {
 			<div id="games">
 				<div className="games-container">
 					<div className="games-heading">
-						
 						<Calender
 							apiKey={this.props.apiKey}
 							date={this.state.date}
@@ -125,10 +114,8 @@ class Games extends React.Component {
 							daysWeek={this.props.daysWeek}
 							onDayClick={date => this.setState({ date })}
 						/>
-							
 					</div>
 					<div className="container grid-container">
-						
 						<GameGrid
 							apiKey={this.props.apiKey}
 							date={this.state.date}
@@ -137,13 +124,11 @@ class Games extends React.Component {
 							stadiums={this.props.stadiums}
 							teams={this.props.teams}
 						/>
-						
 					</div>
 				</div>
 			</div>
 		)
 	}
-	
 }
 
 export default GetTeams															

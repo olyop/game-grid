@@ -13,22 +13,17 @@ class Game extends React.Component {
 	}
 	
 	toggleMenu() {
-    this.setState(prevState => ({
-      toggleMenu: !prevState.toggleMenu
-    }));
+    this.setState(prevState => ({ toggleMenu: !prevState.toggleMenu }));
   }
 	
 	toggleStar() {
-		this.setState(prevState => ({
-      toggleStar: !prevState.toggleStar
-    }));
+		this.setState(prevState => ({ toggleStar: !prevState.toggleStar }));
 	}
 	
 	render() {
 		
 		let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
-				awayTeamStats, headerLeft,
-				headerRight, gameBreak
+				awayTeamStats, headerLeft, headerRight, gameBreak
 
 		// Find Home Team
 		for (i = 0; i < this.props.teams.length; i++) {
@@ -86,6 +81,7 @@ class Game extends React.Component {
 					homeScore = this.props.game.HomeTeamScore,
 					awayScore = this.props.game.AwayTeamScore,
 					time = this.props.game.DateTime,
+					toggleScores = this.props.toggleScores,
 					nbaWebsiteUrl = 'http://www.nba.com/',
 					teamLogoUrl = 'http://i.cdn.turner.com/nba/nba/assets/logos/teams/primary/web/'
 
@@ -94,7 +90,8 @@ class Game extends React.Component {
 				homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
 				winningTeam, menuStyle, starType, starStyle,
-				starInner, homeScoreStyle, awayScoreStyle
+				starInner, homeScoreStyle, awayScoreStyle,
+				winningText = name => <b><span style={colorGreen}>{name}</span></b>
 
 		// Check for Errors
 		if (homeTeam.Name === 'Celtics') { homeColor = { color: '#2E7B3B' } }
@@ -113,6 +110,7 @@ class Game extends React.Component {
 		if (homeTeam.Key === 'SA') { homeTeam.Key = 'SAS' }
 		if (awayTeam.Key === 'SA') { awayTeam.Key = 'SAS' }
 		
+		// Star Toggle
 		if (!this.state.toggleMenu) { menuStyle = displayNone }
 		if (this.state.toggleMenu) { menuStyle = displayBlock }
 		if (this.state.toggleStar) {
@@ -146,8 +144,6 @@ class Game extends React.Component {
 			awayScoreStyle = { display: 'none' }
 		}
 
-		var winningText = name => <b><span style={colorGreen}>{name}</span></b>
-
 		// Determine Game Status
 		if (qtr === null && timeMin === null && timeSec === null && homeScore === null && awayScore === null) {
 			if (time.slice(11,13) <= 12) {
@@ -159,7 +155,8 @@ class Game extends React.Component {
 			gameBreak = 'AT'
 		} else if (qtr === 'F/OT') {
 			headerLeft = <b>Overtime</b>
-			headerRight = winningText(winningTeam.Name)
+			if (toggleScores) { headerRight = stadium.Name }
+			else { headerRight = winningText(winningTeam.Name) }
 			gameBreak = 'FINAL'
 			homeTeamRecord = ''
 			awayTeamRecord = ''
@@ -169,22 +166,32 @@ class Game extends React.Component {
 			gameBreak = 'AT' 
 		} else if ((qtr === null && timeSec === null && timeMin === null && awayScore > 0 && homeScore > 0) || qtr === 'F') {
 			headerLeft = <b>Full Time</b>
-			headerRight = winningText(winningTeam.Name)
+			if (this.props.toggleScores) { headerRight = stadium.Name }
+			else { headerRight = winningText(winningTeam.Name) }
 			gameBreak = 'FINAL'
 			homeTeamRecord = ''
 			awayTeamRecord = ''
-		} else if (qtr === '1' || qtr === '2' ||  qtr ==='3' || qtr === '4') {
+		} else if (qtr === '1' || qtr === '2' ||  qtr === '3' || qtr === '4') {
 			let seconds
 			if (timeSec < 10) { seconds = '0' + timeSec }
 			else { seconds = timeSec }
 			let str = timeMin + ':' + seconds
-			headerRight = <b style={colorRed} className='blink'>{str}</b>
-			headerLeft = <b style={colorRed}>{'Q' + qtr}</b>
+			if (toggleScores) {
+				headerLeft = stadium.Name
+				if (time.slice(11,13) <= 12) {
+					headerRight = time.slice(11,13) + ':' + time.slice(14,16) + ' PM / ET'
+				} else {
+					headerRight = (time.slice(11,13) - 12) + ':' + time.slice(14,16) + ' PM / ET'
+				}
+			} else {
+				headerRight = <b style={colorRed} className='blink'>{str}</b>
+				headerLeft = <b style={colorRed}>{'Q' + qtr}</b>
+			}
 			gameBreak = 'INP'
 		}
 		
 		// Check if Spoilers are On
-		if (this.props.spoiler === true) {
+		if (toggleScores) {
 			homeScoreStyle = { display: 'none' }
 			awayScoreStyle = { display: 'none' }
 		}
