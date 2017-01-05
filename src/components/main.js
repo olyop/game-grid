@@ -7,7 +7,7 @@ import Games from './games'
 const gApiKey = {
 	'Ocp-Apim-Subscription-Key': '746cd5dcdaed4053b5431d3ee451005a'
 };
-const gDate = new Date('2017 Jan 25')
+const gDate = new Date()
 const gDaysWeek = [
 	{ day: 'Sunday', abbr: 'Sun' },
 	{ day: 'Monday', abbr: 'Mon' },

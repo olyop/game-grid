@@ -7,7 +7,7 @@
 		#calender .calender-inner .calender-dropdown {
 			width: 100%;
 			cursor: pointer;
-			padding: 15px;
+			padding: 10px;
 			transition: .2s all;
 			display: flex;
 			justify-content: center;
@@ -18,7 +18,7 @@
 				margin-right: 10px;
 				font-size: 24px; }
 			#calender .calender-inner .calender-dropdown p {
-					-webkit-user-select: none;
+				-webkit-user-select: none;
 				font-size: 18px; }
 			#calender .calender-inner .calender-main {
 				display: flex;
@@ -27,18 +27,17 @@
 				flex-wrap: nowrap; }
 				#calender .calender-inner .calender-days {
 					display: flex;
-					width: 100%;
-					flex-wrap: nowrap; }
+					flex-direction: column;
+					width: 100%; }
 					#calender .calender-inner .calender-days .calender-day {
-						width: calc(100% / 7);
+						width: 100%;
+						padding: 10px;
+						border: none;
+						border-bottom: 1px solid #EEEEEE;
 						transition: .2s all;
-						cursor: pointer;
-						border-bottom: 4px solid #006bb7;
-						padding: 6px;
-						padding-top: 8px;
-						padding-bottom: 8px; }
+						cursor: pointer; }
 						#calender .calender-inner .calender-days .calender-day:hover {
-							border-color: #ed174b; }
+							background-color: #EEEEEE;  }
 						#calender .calender-inner .calender-days .calender-day p {
 							-webkit-user-select: none;
 							color: #000;
@@ -69,16 +68,24 @@
 	#calender .calender-inner {
 		flex-direction: row; }
 		#calender .calender-inner .calender-dropdown {
-			padding: 10px;
-			padding-bottom: 5px;
+			padding: 7px;
 			width: 20%; }
 		#calender .calender-inner .calender-main {
 			padding: 0 5px;
 			width: 80%; }
 			#calender .calender-inner .calender-days {
+				flex-direction: row;
 				width: 92%; }
-				#calender .calender-inner .calender-days .calender-day p .calender-day-week {
-					display: none; }
+				#calender .calender-inner .calender-days .calender-day {
+					border-bottom: 4px solid #006bb7;
+					padding: 6px;
+					padding-top: 8px;
+					padding-bottom: 8px;
+					width: calc(100% / 7); }
+					#calender .calender-inner .calender-days .calender-day:hover {
+						border-color: #ed174b; }
+					#calender .calender-inner .calender-days .calender-day p .calender-day-week {
+						display: none; }
 			#calender .calender-inner .calender-control {
 				display: flex;
 				padding-top: 4px;
@@ -91,6 +98,11 @@
 }
 
 @media (min-width: 1200px) {
+	
+	#calender .calender-inner .calender-dropdown {
+		padding: 9px;
+		padding-bottom: 5px;
+	}
 	#calender .calender-inner .calender-days .calender-day {
 		padding: 10px;
 		padding-bottom: 8px; }
@@ -101,4 +113,7 @@
 	#calender .calender-inner .calender-main {
 		width: 88%;
 		padding: 0 20px; }
+	#calender .calender-inner .calender-control {
+		padding-top: 6px;
+	}
 }
