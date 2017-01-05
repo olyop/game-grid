@@ -83,7 +83,7 @@ class Game extends React.Component {
 					time = this.props.game.DateTime,
 					toggleScores = this.props.toggleScores,
 					nbaWebsiteUrl = 'http://www.nba.com/',
-					teamLogoUrl = 'http://i.cdn.turner.com/nba/nba/assets/logos/teams/primary/web/'
+					teamLogoUrl = './media/team-logos/'
 
 		let homeColor = { color: '#' + homeTeam.PrimaryColor },
 				awayColor = { color: '#' + awayTeam.PrimaryColor },
