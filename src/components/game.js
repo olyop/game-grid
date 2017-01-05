@@ -1,6 +1,29 @@
 import React from 'react'
 
 class Game extends React.Component {
+	
+	constructor(props) {
+		super(props)
+		this.state = {
+			toggleMenu: false,
+			toggleStar: false
+		}
+		this.toggleMenu = this.toggleMenu.bind(this)
+		this.toggleStar = this.toggleStar.bind(this)
+	}
+	
+	toggleMenu() {
+    this.setState(prevState => ({
+      toggleMenu: !prevState.toggleMenu
+    }));
+  }
+	
+	toggleStar() {
+		this.setState(prevState => ({
+      toggleStar: !prevState.toggleStar
+    }));
+	}
+	
 	render() {
 		
 		let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
@@ -55,6 +78,8 @@ class Game extends React.Component {
 		const tieColor = { color: '#FF9800' },
 					colorRed = { color: '#F44336' },
 					colorGreen = { color: '#4CAF50' },
+					displayBlock = { display: 'block' },
+					displayNone = { display: 'none' },
 					qtr = this.props.game.Quarter,
 					timeSec = this.props.game.TimeRemainingSeconds,
 					timeMin = this.props.game.TimeRemainingMinutes,
@@ -68,7 +93,9 @@ class Game extends React.Component {
 				awayColor = { color: '#' + awayTeam.PrimaryColor },
 				homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
-				winningTeam
+				winningTeam,
+				menuStyle,
+				starType
 
 		// Check for Errors
 		if (homeTeam.Name === 'Celtics') { homeColor = { color: '#2E7B3B' } }
@@ -86,6 +113,11 @@ class Game extends React.Component {
 		if (awayTeam.Key === 'NO') { awayTeam.Key = 'NOP' }
 		if (homeTeam.Key === 'SA') { homeTeam.Key = 'SAS' }
 		if (awayTeam.Key === 'SA') { awayTeam.Key = 'SAS' }
+		
+		if (!this.state.toggleMenu) { menuStyle = displayNone }
+		if (this.state.toggleMenu) { menuStyle = displayBlock }
+		if (this.state.toggleStar) { starType = 'star' }
+		if (!this.state.toggleStar) { starType = 'star_border' }
 
 		// Determine who is Winning
 		if (homeScore === awayScore) {
@@ -134,7 +166,7 @@ class Game extends React.Component {
 			gameBreak = 'FINAL'
 			homeTeamRecord = ''
 			awayTeamRecord = ''
-		} else if (qtr === '1' || '2' || '3' || '4') {
+		} else if (qtr === '1' || qtr === '2' ||  qtr ==='3' || qtr === '4') {
 			let seconds
 			if (timeSec < 10) { seconds = '0' + timeSec }
 			else { seconds = timeSec }
@@ -153,11 +185,25 @@ class Game extends React.Component {
 				className="game"
 			>
 				<div className="game-inner">
-					<div className="game-icon game-star" title="Star">
-						<i className="material-icons">star_border</i>
+					<div
+						className="game-icon game-star"
+						title="Star"
+						onClick={this.toggleStar}
+					>
+						<i className="material-icons">{starType}</i>
 					</div>
-					<div className="game-more-menu">
-						<p className="close-menu">
+					<div
+						className="game-icon game-more"
+						title="More"
+						onClick={this.toggleMenu}
+					>
+						<i className="material-icons">more_vert</i>
+					</div>
+					<div className="game-more-menu" style={menuStyle}>
+						<p
+							className="close-menu"
+							onClick={this.toggleMenu}
+						>
 							<i className="material-icons">close</i>
 							<span>Close</span>
 						</p>
@@ -207,9 +253,6 @@ class Game extends React.Component {
 								<span>{awayTeam.Name + '.com'}</span>
 							</a>
 						</p>
-					</div>
-					<div className="game-icon game-more" title="More">
-						<i className="material-icons">more_vert</i>
 					</div>
 					<div className="game-icon game-share" title="Share">
 						<i className="material-icons">share</i>

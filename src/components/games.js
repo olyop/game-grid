@@ -1,10 +1,9 @@
 import React from 'react'
 import Request from 'react-http-request'
 import '../css/games.css'
-import 'react-datepicker/dist/react-datepicker.css'
-import GameGrid from './game-grid.js'
-import Calender from './calender.js'
-import Loading from './loading.js'
+import GameGrid from './game-grid'
+import Calender from './calender'
+import Loading from './loading'
 
 class GetTeams extends React.Component {
 	render() {
@@ -36,7 +35,6 @@ class GetTeams extends React.Component {
 		)
 	}
 }
-
 class GetStadiums extends React.Component {
 	render() {
 		return (
@@ -52,6 +50,7 @@ class GetStadiums extends React.Component {
 							)
 						} else {
 							return (
+								
 								<GetTeamStats
 									apiKey={this.props.apiKey}
 									date={this.props.date}
@@ -60,6 +59,7 @@ class GetStadiums extends React.Component {
 									teamStats={this.props.teamStats}
 									stadiums={result.body}
 								/>
+								
 							)
 						}
 					}
@@ -68,7 +68,6 @@ class GetStadiums extends React.Component {
 		)
 	}
 }
-
 class GetTeamStats extends React.Component {
 	render() {
 		return (
@@ -84,6 +83,7 @@ class GetTeamStats extends React.Component {
 									)
 							} else {
 								return (
+									
 									<Games
 										apiKey={this.props.apiKey}
 										date={this.props.date}
@@ -93,6 +93,7 @@ class GetTeamStats extends React.Component {
 										stadiums={this.props.stadiums}
 										teams={result.body}
 									/>
+									
 								)
 							}
 						}
@@ -145,4 +146,4 @@ class Games extends React.Component {
 	
 }
 
-export default GetTeams																
+export default GetTeams															
