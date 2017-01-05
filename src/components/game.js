@@ -27,7 +27,7 @@ class Game extends React.Component {
 	render() {
 		
 		let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
-				awayTeamStats, homeScoreColorStyle, awayScoreColorStyle, headerLeft,
+				awayTeamStats, headerLeft,
 				headerRight, gameBreak
 
 		// Find Home Team
@@ -93,9 +93,8 @@ class Game extends React.Component {
 				awayColor = { color: '#' + awayTeam.PrimaryColor },
 				homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
-				winningTeam,
-				menuStyle,
-				starType
+				winningTeam, menuStyle, starType, starStyle,
+				starInner, homeScoreStyle, awayScoreStyle
 
 		// Check for Errors
 		if (homeTeam.Name === 'Celtics') { homeColor = { color: '#2E7B3B' } }
@@ -116,27 +115,35 @@ class Game extends React.Component {
 		
 		if (!this.state.toggleMenu) { menuStyle = displayNone }
 		if (this.state.toggleMenu) { menuStyle = displayBlock }
-		if (this.state.toggleStar) { starType = 'star' }
-		if (!this.state.toggleStar) { starType = 'star_border' }
+		if (this.state.toggleStar) {
+			starType = 'star'
+			starStyle = { display: 'block' }
+			starInner = { borderColor: '#424242' }
+		}
+		if (!this.state.toggleStar) {
+			starType = 'star_border'
+			starStyle = null
+			starInner = null
+		}
 
 		// Determine who is Winning
 		if (homeScore === awayScore) {
-			homeScoreColorStyle = tieColor
-			awayScoreColorStyle = tieColor
+			homeScoreStyle = tieColor
+			awayScoreStyle = tieColor
 		} else if (homeScore > awayScore) {
 			winningTeam = homeTeam
-			homeScoreColorStyle = colorGreen
-			awayScoreColorStyle = colorRed
+			homeScoreStyle = colorGreen
+			awayScoreStyle = colorRed
 		} else if (awayScore > homeScore) {
 			winningTeam = awayTeam
-			awayScoreColorStyle = colorGreen
-			homeScoreColorStyle = colorRed
+			awayScoreStyle = colorGreen
+			homeScoreStyle = colorRed
 		}
 
 		// Determine if game has happened
 		if (Number(homeScore) <= 0 && Number(awayScore) <= 0) {
-			homeScoreColorStyle = { display: 'none' }
-			awayScoreColorStyle = { display: 'none' }
+			homeScoreStyle = { display: 'none' }
+			awayScoreStyle = { display: 'none' }
 		}
 
 		var winningText = name => <b><span style={colorGreen}>{name}</span></b>
@@ -175,6 +182,12 @@ class Game extends React.Component {
 			headerLeft = <b style={colorRed}>{'Q' + qtr}</b>
 			gameBreak = 'INP'
 		}
+		
+		// Check if Spoilers are On
+		if (this.props.spoiler === true) {
+			homeScoreStyle = { display: 'none' }
+			awayScoreStyle = { display: 'none' }
+		}
 
 		return (
 			<div
@@ -184,11 +197,12 @@ class Game extends React.Component {
 				title={homeTeam.Name + ' vs ' + awayTeam.Name}
 				className="game"
 			>
-				<div className="game-inner">
+				<div className="game-inner" style={starInner}>
 					<div
 						className="game-icon game-star"
 						title="Star"
 						onClick={this.toggleStar}
+						style={starStyle}
 					>
 						<i className="material-icons">{starType}</i>
 					</div>
@@ -265,7 +279,7 @@ class Game extends React.Component {
 							src={teamLogoUrl + homeTeam.Key.toLowerCase() + '.svg'}
 							alt={homeTeam.Name} 
 						/>
-						<p className="game-team-score" style={homeScoreColorStyle}>
+						<p className="game-team-score" style={homeScoreStyle}>
 							<span>{homeScore}</span>
 						</p>
 						<div className="game-team-text">
@@ -284,7 +298,7 @@ class Game extends React.Component {
 							src={teamLogoUrl + awayTeam.Key.toLowerCase() + '.svg'}
 							alt={awayTeam.Name} 
 						/>
-						<p className="game-team-score" style={awayScoreColorStyle}>
+						<p className="game-team-score" style={awayScoreStyle}>
 							<span>{awayScore}</span>
 						</p>
 						<div className="game-team-text">

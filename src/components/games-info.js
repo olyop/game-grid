@@ -4,6 +4,24 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/Toggle'
 
 class GamesInfo extends React.Component {
+	
+	constructor(props) {
+		super(props)
+		this.state = {
+			toggle: this.props.spoiler
+		}
+		this.handleClick = this.handleClick.bind(this)
+	}
+	
+	handleClick() {
+		
+		this.props.spoilerToggle(this.state.toggle)
+		
+		this.setState(prevState => ({
+      toggle: !prevState.toggle
+    }));
+	}
+	
 	render() {
 		return (
 			<div id="games-info">
@@ -17,6 +35,8 @@ class GamesInfo extends React.Component {
 								<Toggle
 									label="Spoliers"
 									labelPosition="left"
+									defaultToggled={this.state.toggle}
+									onClick={this.handleClick}
 								/>
 							</MuiThemeProvider>
 						</div>
@@ -25,6 +45,7 @@ class GamesInfo extends React.Component {
 			</div>
 		)
 	}
+	
 }
 
 export default GamesInfo

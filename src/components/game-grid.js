@@ -7,6 +7,13 @@ import Game from './game'
 
 class GameGrid extends React.Component {
 	
+	constructor(props) {
+		super(props)
+		this.state = {
+			spoilerToggle: false
+		}
+	}
+	
 	findDateString(date) {
 		let months = this.props.monthsYear,
 				nowYear = String(date.getFullYear()),
@@ -32,12 +39,6 @@ class GameGrid extends React.Component {
 							
 							var gameObj = result.body
 							
-							// DEV: Log API
-							console.log({teams: this.props.teams})
-							console.log({games: gameObj})
-							console.log({teamStats: this.props.teamStats})
-							console.log({staidums: this.props.stadiums})
-							
 							let gamesList = result.body.map((game, index) => {
 								return (
 									<Game
@@ -47,6 +48,7 @@ class GameGrid extends React.Component {
 										stadiums={this.props.stadiums}
 										index={index}
 										key={index}
+										spoiler={this.state.spoilerToggle}
 									/>
 								)
 							})
@@ -56,6 +58,8 @@ class GameGrid extends React.Component {
 									
 									<GamesInfo
 										numGames={gameObj.length}
+										spoilerToggle={spoilerToggle => this.setState({ spoilerToggle })}
+										spoiler={this.state.spoilerToggle}
 									/>
 
 									<div id="game-grid">
