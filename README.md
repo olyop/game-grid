@@ -1,5 +1,5 @@
 # Game Grid
-A unoffical NBA scheudle viewer
+An unoffical NBA schedule viewer
 
 ## Setup
 Note: This is a one-page application built with [create-react-app](https://github.com/facebookincubator/create-react-app)
