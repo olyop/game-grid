@@ -20,6 +20,9 @@ node index.js
 ```
 Go to localhost:9000
 
+## [DEMO](https://olyop.github.io/)
+Online compiled version
+
 ## Additional Infomation
 **Please note this app is a work in progress**
 
