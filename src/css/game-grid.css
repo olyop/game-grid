@@ -87,6 +87,7 @@
 						color: #9E9E9E;
 						font-size: 16px; }
 				#game-grid .game .game-inner .game-team .game-team-score {
+					transition: .2s all;
 					align-self: center;
 					padding: 15px;
 					font-size: 20px;
