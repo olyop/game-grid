@@ -3,11 +3,12 @@
 	flex-wrap: wrap;
 	flex-direction: row;
 	justify-content: flex-start;
+	padding: 5px;
 	padding-bottom: 40px;
 	margin: 0; }
 	#game-grid .game {
 		transition: .2s all;
-		padding: 10px;
+		padding: 5px;
 		cursor: pointer;
 		width: 100%; }
 		#game-grid .game .game-inner {
@@ -26,11 +27,11 @@
 					margin: 0;
 					margin-top: 10px;
 					margin-bottom: 10px;
-					width: 45%; }
+					width: 42%; }
 				#game-grid .game .game-inner .game-break p {
 					text-align: center;
-					width: 10%;
-					font-size: 18px; }
+					width: 16%;
+					font-size: 13px; }
 			#game-grid .game .game-inner .game-icon {
 				-webkit-user-select: none;
 				transition: .3s all;
@@ -67,8 +68,8 @@
 				bottom: 10px;
 				left: 10px; }
 			#game-grid .game .game-inner .game-header {
-				padding: 7px; 
-				padding-top: 2px; }
+				padding: 10px; 
+				padding-top: 4px; }
 				#game-grid .game .game-inner .game-header p {
 					text-align: center;
 					font-weight: 400;
@@ -118,9 +119,15 @@
 			font-size: 24px; }
 	#game-grid .game .game-inner .game-team .game-team-score {
 		font-size: 30px; }
+	#game-grid .game .game-inner .game-break p {
+		font-size: 16px;
+	}
 }
 
 @media (min-width: 768px) {
+	#game-grid {
+		padding: 0;
+	}
 		#game-grid .game .game-inner .game-header {
 			padding: 20px; 
 			padding-top: 12px; }

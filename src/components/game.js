@@ -44,7 +44,7 @@ class Game extends React.Component {
     	let c
 			if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
 				c = hex.substring(1).split('')
-				if(c.length== 3){
+				if(c.length === 3){
 					c = [c[0], c[0], c[1], c[1], c[2], c[2]]
 				}
 				c = '0x'+c.join('');
@@ -104,8 +104,6 @@ class Game extends React.Component {
 					toggleScores = this.props.toggleScores,
 					nbaWebsiteUrl = 'http://www.nba.com/',
 					teamLogoUrl = './media/team-logos/'
-
-		console.log(homeTeam.PrimaryColor, awayTeam.PrimaryColor)
 		
 		let homeColor = { color: '#' + homeTeam.PrimaryColor },
 				awayColor = { color: '#' + awayTeam.PrimaryColor },
