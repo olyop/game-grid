@@ -35,7 +35,8 @@ class GamesInfo extends React.Component {
 								className="games-info-button"
 								onClick={this.handleClick}
 							>
-								Scores: {this.state.toggleScores ? 'ON' : 'OFF' }
+								<i className="material-icons">{this.state.toggleScores ? 'visibility' : 'visibility_off' }</i>
+								<span>Scores</span>
 							</button>
 							
 						</div>

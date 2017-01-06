@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/more-menu.css'
 
 class Game extends React.Component {
 	
@@ -6,10 +7,12 @@ class Game extends React.Component {
 		super(props)
 		this.state = {
 			toggleMenu: false,
-			toggleStar: false
+			toggleStar: false,
+			toggleShare: false
 		}
 		this.toggleMenu = this.toggleMenu.bind(this)
 		this.toggleStar = this.toggleStar.bind(this)
+		this.toggleShare = this.toggleShare.bind(this)
 	}
 	
 	toggleMenu() {
@@ -18,6 +21,10 @@ class Game extends React.Component {
 	
 	toggleStar() {
 		this.setState(prevState => ({ toggleStar: !prevState.toggleStar }));
+	}
+	
+	toggleShare() {
+		this.setState(prevState => ({ toggleShare: !prevState.toggleShare }));
 	}
 	
 	render() {
@@ -89,7 +96,7 @@ class Game extends React.Component {
 				awayColor = { color: '#' + awayTeam.PrimaryColor },
 				homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
-				winningTeam, menuStyle, starType, starStyle,
+				winningTeam, menuStyle, starType, starStyle, shareStyle,
 				starInner, homeScoreStyle, awayScoreStyle,
 				winningText = name => <b><span style={colorGreen}>{name}</span></b>
 
@@ -110,7 +117,7 @@ class Game extends React.Component {
 		if (homeTeam.Key === 'SA') { homeTeam.Key = 'SAS' }
 		if (awayTeam.Key === 'SA') { awayTeam.Key = 'SAS' }
 		
-		// Star Toggle
+		// Toggle
 		if (!this.state.toggleMenu) { menuStyle = displayNone }
 		if (this.state.toggleMenu) { menuStyle = displayBlock }
 		if (this.state.toggleStar) {
@@ -123,6 +130,8 @@ class Game extends React.Component {
 			starStyle = null
 			starInner = null
 		}
+		if (!this.state.toggleShare) { shareStyle = displayNone }
+		if (this.state.toggleShare) { shareStyle = displayBlock }
 
 		// Determine who is Winning
 		if (homeScore === awayScore) {
@@ -220,7 +229,7 @@ class Game extends React.Component {
 					>
 						<i className="material-icons">more_vert</i>
 					</div>
-					<div className="game-more-menu" style={menuStyle}>
+					<div className="game-more-menu more-menu" style={menuStyle}>
 						<p
 							className="close-menu"
 							onClick={this.toggleMenu}
@@ -275,8 +284,34 @@ class Game extends React.Component {
 							</a>
 						</p>
 					</div>
-					<div className="game-icon game-share" title="Share">
+					<div
+						className="game-icon game-share"
+						title="Share"
+						onClick={this.toggleShare}
+					>
 						<i className="material-icons">share</i>
+					</div>
+					<div className="game-share-menu more-menu" style={shareStyle}>
+						<p>
+							<img src="./media/facebook.png" alt='Facebook logo' />
+							<span>Facebook</span>
+						</p>
+						<p>
+							<img src="./media/instagram.png" alt='Instagram logo' />
+							<span>Instagram</span>
+						</p>
+						<p>
+							<img src="./media/twitter.png" alt='Twitter logo' />
+							<span>Twitter</span>
+						</p>
+						<hr />
+						<p
+							className="close-menu"
+							onClick={this.toggleShare}
+						>
+							<i className="material-icons">close</i>
+							<span>Close</span>
+						</p>
 					</div>
 					<div className="game-icon game-expand" title="Expand">
 						<i className="material-icons">expand_more</i>

@@ -58,6 +58,7 @@
 						width: 100%;
 						padding: 6px 0 0 0; }
 						#calender .calender-inner .calender-control:hover {
+							background-color: #EEEEEE; 
 							border-bottom-color: #ed174b; }
 							#calender .calender-inner .calender-control i {
 								-webkit-user-select: none;

@@ -22,19 +22,18 @@
 			padding: 10px;
 			text-align: center;
 			font-size: 18px;
-			color: #fff;
-			width: 200px;
+			color: #000;
+			display: flex;
+			background-color: #F5F5F5;
+			justify-content: flex-end;
 			border-radius: 5px;
-			background-color: #006bb7;
 			border: none;
-			outline: none;
-			box-shadow:
-				0 1px 3px rgba(0,0,0,0.12),
-				0 1px 2px rgba(0,0,0,0.24); }
+			outline: none;}
+			#games-info .games-info-button i {
+				margin-right: 10px; }
 			#games-info .games-info-button:hover {
-				box-shadow:
-					0 14px 28px rgba(0,0,0,0.10),
-					0 10px 10px rgba(0,0,0,0.10); }
+				padding: 10px 30px;
+				background-color: #E0E0E0; }
 
 @media (min-width: 768px) {
 	#games-info .container {
@@ -48,9 +47,16 @@
 				justify-content: flex-end; }
 }
 
+
 @media (min-width: 1024px) {
 	#games-info .container {
-		padding: 20px 20px 0 20px !important; }
+		padding: 20px; }
 	#games-info .container .col-sm-6 {
 			padding: 0 20px 0 20px; }
+}
+
+@media (min-width: 1200px) {
+	#games-info .container {
+		padding: 20px 20px 0 20px !important;
+	}
 }

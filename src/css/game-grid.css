@@ -57,6 +57,14 @@
 			#game-grid .game .game-inner .game-expand {
 				right: 0;
 				bottom: 0; }
+			#game-grid .game .game-inner .game-more-menu {
+				display: none;
+				right: 10px;
+				top: 10px; }
+			#game-grid .game .game-inner .game-share-menu {
+				display: block;
+				bottom: 10px;
+				left: 10px; }
 			#game-grid .game .game-inner .game-header {
 				padding: 7px; 
 				padding-top: 2px; }
@@ -129,44 +137,10 @@
 				font-size: 26px; }
 }
 
-#game-grid .game .game-inner .game-more-menu {
-	position: absolute;
-	display: none;
-	right: 15px;
-	top: 15px;
-	width: 175px;
-	padding: 10px 0;
-	background-color: #fff;
-	box-shadow:
-		0 8px 10px 1px rgba(0,0,0,0.14),
-		0 3px 14px 2px rgba(0,0,0,0.12),
-		0 5px 5px -3px rgba(0,0,0,0.2);
-	z-index: 20; }
-	#game-grid .game .game-inner .game-more-menu p {
-		padding: 8px 40px 8px 20px;
-		cursor: pointer;
-		display: flex;
-		justify-content: flex-start;
-		font-size: 14px; }
-		#game-grid .game .game-inner .game-more-menu p a {
-			color: #000;
-			display: flex;
-			justify-content: flex-start; }
-			#game-grid .game .game-inner .game-more-menu p a i {
-				text-decoration: none;
-				color: #333333; }
-		#game-grid .game .game-inner .game-more-menu p i {
-			font-size: 20px;
-			padding-right: 10px; }
-		#game-grid .game .game-inner .game-more-menu p:hover {
-			background-color: #EEEEEE; }
-	#game-grid .game .game-inner .game-more-menu hr {
-		margin-top: 10px;
-		margin-bottom: 10px; }
-	#game-grid .game .game-inner .game-icon i {
-		font-size: 23px; }
-		#game-grid .game .game-inner .game-icon:hover {
-			background-color: #EEEEEE; }
+#game-grid .game .game-inner .game-icon i {
+	font-size: 23px; }
+	#game-grid .game .game-inner .game-icon:hover {
+		background-color: #EEEEEE; }
 
 @media (min-width: 1000px) {
 			#game-grid .game .game-inner .game-team {

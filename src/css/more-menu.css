@@ -1,0 +1,35 @@
+.more-menu {
+	position: absolute;
+	width: 175px;
+	padding: 10px 0;
+	background-color: #fff;
+	box-shadow:
+		0 8px 10px 1px rgba(0,0,0,0.14),
+		0 3px 14px 2px rgba(0,0,0,0.12),
+		0 5px 5px -3px rgba(0,0,0,0.2);
+	z-index: 20; }
+	.more-menu p {
+		padding: 8px 40px 8px 20px;
+		cursor: pointer;
+		display: flex;
+		justify-content: flex-start;
+		font-size: 14px; }
+		.more-menu p a {
+			color: #000;
+			display: flex;
+			justify-content: flex-start; }
+			.more-menu p a i {
+				text-decoration: none;
+				color: #333333; }
+		.more-menu p i {
+			font-size: 20px;
+			padding-right: 10px; }
+		.more-menu p img {
+			width: 20px;
+			height: 20px;
+			margin-right: 10px; }
+		.more-menu p:hover {
+			background-color: #EEEEEE; }
+	.more-menu hr {
+		margin-top: 10px;
+		margin-bottom: 10px; }

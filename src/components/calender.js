@@ -57,9 +57,6 @@ class Calender extends React.Component {
 			
 			this.setState({ dayObj: arr })
 		}
-		
-		// DEV
-		console.log({calender: this.state.dayObj})
 	}
 	
 	render() {
