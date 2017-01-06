@@ -45,11 +45,12 @@
 							font-size: 14px; }
 							#calender .calender-inner .calender-days .calender-day p .calender-day-week {
 								display: inline-block; }
-						#calender .calender-inner .calender-days .active {
-							border-bottom-color: #000; }
 							#calender .calender-inner .calender-days .active p {
+								border-color:  #ed174b;
 								font-weight: 600;
 								color: #000; }
+		#calender .calender-inner .calender-days .active {
+			background-color: #E0E0E0; }
 					#calender .calender-inner .calender-control {
 						display: none;
 						cursor: pointer;
@@ -91,6 +92,8 @@
 				display: flex;
 				padding-top: 4px;
 				width: 4%; }
+		#calender .calender-inner .calender-days .active {
+			border-color: #000; }
 }
 
 @media (min-width: 992px) {

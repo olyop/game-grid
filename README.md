@@ -16,7 +16,7 @@ Go to localhost:3000
 ### Create Production Build
 ```
 npm run build
-node index.js
+node server.js
 ```
 Go to localhost:9000
 

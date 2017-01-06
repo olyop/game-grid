@@ -1,22 +1,35 @@
 import React from 'react'
 import '../css/calender.css'
 
-const CalenderDay = (props) => {
-		
-	let dayClass = 'calender-day'
-	if (props.active === true) { dayClass += ' active' }
+class CalenderDay extends React.Component {
 
-	return (
-		<div
-			className={dayClass}
-			onClick={() => props.onDayClick(props.day.dateObj)}
-		>
-			<p>
-				<span className="calender-day-week">{props.day.day}</span>
-				{' ' + props.day.month + '. ' + props.day.date}
-			</p>
-		</div>
-	)
+	constructor(props) {
+		super(props)
+		this.state = { active: this.props.active }
+		this.handleClick = this.handleClick.bind(this)
+	}
+	
+	handleClick() {
+		this.setState(prevState => ({ active: !prevState.active }))
+		this.props.onDayClick(this.props.day.dateObj)
+	}
+	
+	render() {
+		let dayClass = 'calender-day'
+		if (this.state.active === true) { dayClass += ' active' }
+
+		return (
+			<div
+				className={dayClass}
+				onClick={this.handleClick}
+			>
+				<p>
+					<span className="calender-day-week">{this.props.day.day}</span>
+					{' ' + this.props.day.month + '. ' + this.props.day.date}
+				</p>
+			</div>
+		)
+	}
 }
 
 class Calender extends React.Component {

@@ -14,7 +14,7 @@ class Header extends React.Component {
 					</div>
 					<div className="header-text">
 						<h1 className="header-title">Game Grid</h1>
-						<p className="header-date">An unoffical NBA schedule viewer</p>
+						<p className="header-date">An unofficial NBA schedule viewer</p>
 					</div>
 				</div>
 			</div>
