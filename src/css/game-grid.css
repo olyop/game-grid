@@ -46,7 +46,7 @@
 				border-radius: 100%;
 				cursor: pointer; }
 				#game-grid .game .game-inner .game-icon i {
-					font-size: 23px; }
+					font-size: 22px; }
 					#game-grid .game .game-inner .game-icon:hover {
 						background-color: #EEEEEE; }
 			#game-grid .game .game-inner .game-star {
@@ -139,7 +139,7 @@
 		#game-grid .game .game-inner .game-icon {
 			margin: 10px; }
 			#game-grid .game .game-inner .game-icon i {
-				font-size: 20px; }
+				font-size: 23px; }
 		#game-grid .game .game-inner .game-team .game-team-text {
 			padding: 15px; }
 			#game-grid .game .game-inner .game-team .game-team-text h4 {
