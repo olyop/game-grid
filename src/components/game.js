@@ -38,6 +38,20 @@ class Game extends React.Component {
 		
 		let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
 				awayTeamStats, headerLeft, headerRight, gameBreak
+		
+		// Convert RGB to Hex
+		function hexToRgba(hex, opacity){
+    	let c
+			if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+				c = hex.substring(1).split('')
+				if(c.length== 3){
+					c = [c[0], c[0], c[1], c[1], c[2], c[2]]
+				}
+				c = '0x'+c.join('');
+					return 'rgba(' + [(c>>16)&255, (c>>8)&255, c&255].join(',') + ',' + opacity + ')' 
+			}
+			return 'rgba(0,0,0,' + opacity + ')'
+		}
 
 		// Match and Find Data
 		for (i = 0; i < this.props.teams.length; i++) {
@@ -91,8 +105,12 @@ class Game extends React.Component {
 					nbaWebsiteUrl = 'http://www.nba.com/',
 					teamLogoUrl = './media/team-logos/'
 
+		console.log(homeTeam.PrimaryColor, awayTeam.PrimaryColor)
+		
 		let homeColor = { color: '#' + homeTeam.PrimaryColor },
 				awayColor = { color: '#' + awayTeam.PrimaryColor },
+				homeColorBackground = { backgroundColor: hexToRgba('#' + homeTeam.PrimaryColor, 0.5) },
+				awayColorBackground = { backgroundColor: hexToRgba('#' + awayTeam.PrimaryColor, 0.5) },
 				homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
 				winningTeam, menuStyle, starType, starStyle, shareStyle,
@@ -397,8 +415,15 @@ class Game extends React.Component {
 					</div>
 				</div>
 				
-				<div className="game-more-content" style={moreContentDisplay}>
-					<p>More</p>
+				<div className="game-content" style={moreContentDisplay}>
+					<div className="container-fluid game-content-inner">
+						<div className="col-md-6" style={homeColorBackground}>
+							<p>Home</p>
+						</div>
+						<div className="col-md-6" style={awayColorBackground}>
+							<p>Away</p>
+						</div>
+					</div>
 				</div>
 				
 			</div>

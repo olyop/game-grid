@@ -1,3 +1,10 @@
-.game-more-content {
-	
-}
+.game-content {
+	margin-top: 10px; }
+	.game-content .game-content-inner {
+		padding: 0; }
+		.game-content .game-content-inner .col-md-6 {
+			padding: 20px;
+			margin: 0; }
+		.game-content .game-content-inner p {
+			color: #fff;
+			font-size: 20px; }
