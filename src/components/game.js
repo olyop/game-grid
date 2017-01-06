@@ -98,6 +98,9 @@ class Game extends React.Component {
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
 				winningTeam, menuStyle, starType, starStyle, shareStyle,
 				starInner, homeScoreStyle, awayScoreStyle,
+				homeScoreDisplay, awayScoreDisplay,
+				sliceTimeMin = time.slice(11,13),
+				sliceTimeSec = time.slice(14,16),
 				winningText = name => <b><span style={colorGreen}>{name}</span></b>
 
 		// Check for Errors
@@ -123,7 +126,7 @@ class Game extends React.Component {
 		if (this.state.toggleStar) {
 			starType = 'star'
 			starStyle = { display: 'block' }
-			starInner = { borderColor: '#424242' }
+			starInner = { borderColor: '#212121' }
 		}
 		if (!this.state.toggleStar) {
 			starType = 'star_border'
@@ -149,16 +152,16 @@ class Game extends React.Component {
 
 		// Determine if game has happened
 		if (Number(homeScore) <= 0 && Number(awayScore) <= 0) {
-			homeScoreStyle = { display: 'none' }
-			awayScoreStyle = { display: 'none' }
+			homeScoreDisplay = { display: 'none' }
+			awayScoreDisplay = { display: 'none' }
 		}
 
 		// Determine Game Status
-		if (qtr === null && timeMin === null && timeSec === null && homeScore === null && awayScore === null) {
-			if (time.slice(11,13) <= 12) {
-				headerRight = time.slice(11,13) + ':' + time.slice(14,16) + ' PM / ET'
+		if (qtr === null && timeMin === null && timeSec === null && homeScore === null) {
+			if (sliceTimeMin <= 12) {
+				headerRight = sliceTimeMin + ':' + sliceTimeSec + ' PM / ET'
 			} else {
-				headerRight = (time.slice(11,13) - 12) + ':' + time.slice(14,16) + ' PM / ET'
+				headerRight = (sliceTimeMin - 12) + ':' + sliceTimeSec + ' PM / ET'
 			}
 			headerLeft = stadium.Name
 			gameBreak = 'AT'
@@ -173,7 +176,7 @@ class Game extends React.Component {
 			headerRight = <b>Half Time</b>
 			headerLeft = stadium.Name
 			gameBreak = 'AT' 
-		} else if ((qtr === null && timeSec === null && timeMin === null && awayScore > 0 && homeScore > 0) || qtr === 'F') {
+		} else if ((qtr === null && timeSec === null && timeMin === null && homeScore > 0) || qtr === 'F') {
 			headerLeft = <b>Full Time</b>
 			if (this.props.toggleScores) { headerRight = stadium.Name }
 			else { headerRight = winningText(winningTeam.Name) }
@@ -187,10 +190,10 @@ class Game extends React.Component {
 			let str = timeMin + ':' + seconds
 			if (toggleScores) {
 				headerLeft = stadium.Name
-				if (time.slice(11,13) <= 12) {
-					headerRight = time.slice(11,13) + ':' + time.slice(14,16) + ' PM / ET'
+				if (sliceTimeMin <= 12) {
+					headerRight = sliceTimeMin + ':' + sliceTimeSec + ' PM / ET'
 				} else {
-					headerRight = (time.slice(11,13) - 12) + ':' + time.slice(14,16) + ' PM / ET'
+					headerRight = (sliceTimeMin - 12) + ':' + sliceTimeSec + ' PM / ET'
 				}
 			} else {
 				headerRight = <b style={colorRed} className='blink'>{str}</b>
@@ -201,8 +204,8 @@ class Game extends React.Component {
 		
 		// Check if Spoilers are On
 		if (toggleScores) {
-			homeScoreStyle = { display: 'none' }
-			awayScoreStyle = { display: 'none' }
+			homeScoreDisplay = { display: 'none' }
+			awayScoreDisplay = { display: 'none' }
 		}
 
 		return (
@@ -243,8 +246,13 @@ class Game extends React.Component {
 							<span>Watch Later</span>
 						</p>
 						<p>
-							<i className="material-icons">bug_report</i>
-							<span>Report Bug</span>
+							<a
+								href="https://github.com/olyop/game-grid/issues/"
+								target="_blank"
+							>
+								<i className="material-icons">bug_report</i>
+								<span>Report Bug</span>
+							</a>
 						</p>
 						<p>
 							<i className="material-icons">visibility</i>
@@ -255,11 +263,16 @@ class Game extends React.Component {
 							<span>Settings</span>
 						</p>
 						<p>
-							<i className="material-icons">help</i>
-							<span>Help</span>
+							<a
+								href="https://github.com/olyop/game-grid/"
+								target="_blank"
+							>
+								<i className="material-icons">help</i>
+								<span>Help</span>
+							</a>
 						</p>
-						<p>
-							<i className="material-icons">star</i>
+						<p onClick={this.toggleStar}>
+							<i className="material-icons">{starType}</i>
 							<span>Star</span>
 						</p>
 						<hr />
@@ -293,16 +306,20 @@ class Game extends React.Component {
 					</div>
 					<div className="game-share-menu more-menu" style={shareStyle}>
 						<p>
-							<img src="./media/facebook.png" alt='Facebook logo' />
-							<span>Facebook</span>
-						</p>
-						<p>
 							<img src="./media/instagram.png" alt='Instagram logo' />
 							<span>Instagram</span>
 						</p>
 						<p>
+							<img src="./media/facebook.png" alt='Facebook logo' />
+							<span>Facebook</span>
+						</p>
+						<p>
 							<img src="./media/twitter.png" alt='Twitter logo' />
 							<span>Twitter</span>
+						</p>
+						<p>
+							<img src="./media/reddit.png" alt='Reddit logo' />
+							<span>Reddit</span>
 						</p>
 						<hr />
 						<p
@@ -321,8 +338,8 @@ class Game extends React.Component {
 							src={teamLogoUrl + homeTeam.Key.toLowerCase() + '.svg'}
 							alt={homeTeam.Name} 
 						/>
-						<p className="game-team-score" style={homeScoreStyle}>
-							<span>{homeScore}</span>
+						<p className="game-team-score" style={homeScoreDisplay}>
+							<span style={homeScoreStyle}>{homeScore}</span>
 						</p>
 						<div className="game-team-text">
 							<h4>{homeTeam.City}</h4>
@@ -340,8 +357,8 @@ class Game extends React.Component {
 							src={teamLogoUrl + awayTeam.Key.toLowerCase() + '.svg'}
 							alt={awayTeam.Name} 
 						/>
-						<p className="game-team-score" style={awayScoreStyle}>
-							<span>{awayScore}</span>
+						<p className="game-team-score" style={awayScoreDisplay}>
+							<span style={awayScoreStyle}>{awayScore}</span>
 						</p>
 						<div className="game-team-text">
 							<h4>{awayTeam.City}</h4>

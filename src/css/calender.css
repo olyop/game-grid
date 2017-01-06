@@ -40,17 +40,15 @@
 							background-color: #EEEEEE;  }
 						#calender .calender-inner .calender-days .calender-day p {
 							-webkit-user-select: none;
-							color: #000;
 							text-align: center;
 							font-size: 14px; }
 							#calender .calender-inner .calender-days .calender-day p .calender-day-week {
 								display: inline-block; }
 							#calender .calender-inner .calender-days .active p {
 								border-color:  #ed174b;
-								font-weight: 600;
-								color: #000; }
+								font-weight: 600; }
 		#calender .calender-inner .calender-days .active {
-			background-color: #E0E0E0; }
+			background-color: #EEEEEE; }
 					#calender .calender-inner .calender-control {
 						display: none;
 						cursor: pointer;

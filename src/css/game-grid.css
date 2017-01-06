@@ -11,7 +11,7 @@
 		width: 100%; }
 		#game-grid .game .game-inner {
 			transition: .3s all;
-			border: 2px solid #fff;
+			border: 1px solid #E0E0E0;
 			position: relative;
 			background-color: #fff; }
 			#game-grid .game .game-inner:hover .game-icon {
@@ -159,7 +159,6 @@
 		#game-grid .game .game-inner .game-more-menu {
 			width: 230px; }
 			#game-grid .game .game-inner .game-more-menu p {
-				font-size: 16px;
 				padding: 10px 50px 10px 25px; }
 		#game-grid .game .game-inner .game-more-menu p i {
 				font-size: 22px;

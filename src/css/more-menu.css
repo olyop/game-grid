@@ -18,6 +18,8 @@
 			color: #000;
 			display: flex;
 			justify-content: flex-start; }
+			.more-menu p a:hover i {
+				text-decoration: none; }
 			.more-menu p a i {
 				text-decoration: none;
 				color: #333333; }
@@ -25,11 +27,16 @@
 			font-size: 20px;
 			padding-right: 10px; }
 		.more-menu p img {
-			width: 20px;
-			height: 20px;
+			width: 21px;
+			height: 21px;
 			margin-right: 10px; }
 		.more-menu p:hover {
 			background-color: #EEEEEE; }
 	.more-menu hr {
 		margin-top: 10px;
 		margin-bottom: 10px; }
+
+@media (min-width: 768px) {
+	.more-menu p {
+		font-size: 16px; }
+}
