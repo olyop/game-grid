@@ -24,7 +24,7 @@ class GamesInfo extends React.Component {
 	render() {
 		return (
 			<div id="games-info">
-				<div className='container'>
+				<div className="container-fluid">
 					<div className="col-sm-6 games-info-left">
 						{this.props.numGames + ' games on today'}
 					</div>

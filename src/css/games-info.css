@@ -1,12 +1,12 @@
 #games-info {
 	margin: 0;
 	padding: 0; }
-	#games-info .container {
-		padding: 10px !important; }
-		#games-info .container .col-sm-6 {
+	#games-info .container-fluid {
+		padding: 10px 10px 0 10px; }
+		#games-info .container-fluid .col-sm-6 {
 			height: 45px;
 			align-items: center;
-			padding: 0;
+			padding: 0 10px;
 			display: flex; }
 		#games-info .games-info-left {
 			font-size: 18px;
@@ -16,7 +16,6 @@
 			justify-content: center; }
 			#games-info .games-info-right .games-info-right-inner {
 				width: auto; }
-
 		#games-info .games-info-button {
 			transition: .2s all;
 			padding: 10px;
@@ -36,10 +35,10 @@
 				background-color: #E0E0E0; }
 
 @media (min-width: 768px) {
-	#games-info .container {
-		padding: 20px 10px 10px 10px !important; }
-		#games-info .container .col-sm-6 {
-			padding: 0 10px 0 10px; }
+	#games-info .container-fluid {
+		padding: 10px 10px 0 10px; }
+		#games-info .container-fluid .col-sm-6 {
+			padding: 0 10px; }
 			#games-info .games-info-left {
 				margin: 0;
 				justify-content: flex-start; }
@@ -49,14 +48,13 @@
 
 
 @media (min-width: 1024px) {
-	#games-info .container {
-		padding: 20px; }
-	#games-info .container .col-sm-6 {
-			padding: 0 20px 0 20px; }
+	#games-info .container-fluid {
+		padding: 10px 10px 0 10px; }
+		#games-info .container-fluid .col-sm-6 {
+			padding: 0 10px; }
 }
 
 @media (min-width: 1200px) {
-	#games-info .container {
-		padding: 20px 20px 0 20px !important;
-	}
+	#games-info .container-fluid {
+		padding: 20px 20px 0 20px; }
 }

@@ -4,8 +4,10 @@
 	flex-direction: row;
 	justify-content: flex-start;
 	padding: 5px;
-	padding-bottom: 40px;
 	margin: 0; }
+	#game-grid .active {
+		width: 100%;
+		flex-flow: 2; }
 	#game-grid .game {
 		transition: .2s all;
 		padding: 5px;
@@ -44,7 +46,7 @@
 				border-radius: 100%;
 				cursor: pointer; }
 				#game-grid .game .game-inner .game-icon i {
-					font-size: 20px; }
+					font-size: 23px; }
 					#game-grid .game .game-inner .game-icon:hover {
 						background-color: #EEEEEE; }
 			#game-grid .game .game-inner .game-star {
@@ -68,8 +70,8 @@
 				bottom: 10px;
 				left: 10px; }
 			#game-grid .game .game-inner .game-header {
-				padding: 10px; 
-				padding-top: 4px; }
+				padding: 15px;
+  			padding-top: 10px; }
 				#game-grid .game .game-inner .game-header p {
 					text-align: center;
 					font-weight: 400;
@@ -116,9 +118,9 @@
 		#game-grid .game .game-inner .game-team .game-team-text h4 {
 			font-size: 16px; }
 		#game-grid .game .game-inner .game-team .game-team-text h3 {
-			font-size: 24px; }
+			font-size: 20px; }
 	#game-grid .game .game-inner .game-team .game-team-score {
-		font-size: 30px; }
+		font-size: 25px; }
 	#game-grid .game .game-inner .game-break p {
 		font-size: 16px;
 	}
@@ -126,16 +128,17 @@
 
 @media (min-width: 768px) {
 	#game-grid {
-		padding: 0;
-	}
+		padding: 0; }
+	#game-grid .game {
+		padding: 10px; }
 		#game-grid .game .game-inner .game-header {
 			padding: 20px; 
 			padding-top: 12px; }
-	#game-grid .game .game-inner .game-icon {
-		margin: 10px; }
-		#game-grid .game .game-inner .game-icon i {
-			font-size: 20px; }
 			#game-grid .game .game-inner .game-header p {
+				font-size: 20px; }
+		#game-grid .game .game-inner .game-icon {
+			margin: 10px; }
+			#game-grid .game .game-inner .game-icon i {
 				font-size: 20px; }
 		#game-grid .game .game-inner .game-team .game-team-text {
 			padding: 15px; }
@@ -143,21 +146,18 @@
 				font-size: 20px; }
 			#game-grid .game .game-inner .game-team .game-team-text h3 {
 				font-size: 26px; }
+	#game-grid .game .game-inner .game-team .game-team-score {
+		font-size: 30px; }
 }
 
-#game-grid .game .game-inner .game-icon i {
-	font-size: 23px; }
-	#game-grid .game .game-inner .game-icon:hover {
-		background-color: #EEEEEE; }
-
 @media (min-width: 1000px) {
-			#game-grid .game .game-inner .game-team {
+	#game-grid .game .game-inner .game-team {
+		padding: 20px; }
+		#game-grid .game .game-inner .game-team img {
+			width: 150px;
+			height: 150px; }
+			#game-grid .game .game-inner .game-team .game-team-text {
 				padding: 20px; }
-				#game-grid .game .game-inner .game-team img {
-					width: 150px;
-					height: 150px; }
-					#game-grid .game .game-inner .game-team .game-team-text {
-						padding: 20px; }
 }
 
 @media (min-width: 1200px) {
@@ -172,7 +172,3 @@
 				font-size: 22px;
 				padding-right: 10px; }
 }
-
-#game-grid .active {
-	width: 100%;
-	flex-flow: 2; }
