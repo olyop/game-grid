@@ -1,5 +1,6 @@
 import React from 'react'
 import '../css/more-menu.css'
+import '../css/game-expand.css'
 
 class Game extends React.Component {
 	
@@ -8,23 +9,29 @@ class Game extends React.Component {
 		this.state = {
 			toggleMenu: false,
 			toggleStar: false,
-			toggleShare: false
+			toggleShare: false,
+			toggleExpand: false
 		}
 		this.toggleMenu = this.toggleMenu.bind(this)
 		this.toggleStar = this.toggleStar.bind(this)
 		this.toggleShare = this.toggleShare.bind(this)
+		this.toggleExpand = this.toggleExpand.bind(this)
 	}
 	
 	toggleMenu() {
-    this.setState(prevState => ({ toggleMenu: !prevState.toggleMenu }));
+    this.setState(prevState => ({ toggleMenu: !prevState.toggleMenu }))
   }
 	
 	toggleStar() {
-		this.setState(prevState => ({ toggleStar: !prevState.toggleStar }));
+		this.setState(prevState => ({ toggleStar: !prevState.toggleStar }))
 	}
 	
 	toggleShare() {
-		this.setState(prevState => ({ toggleShare: !prevState.toggleShare }));
+		this.setState(prevState => ({ toggleShare: !prevState.toggleShare }))
+	}
+	
+	toggleExpand() {
+		this.setState(prevState => ({ toggleExpand: !prevState.toggleExpand }))
 	}
 	
 	render() {
@@ -32,7 +39,7 @@ class Game extends React.Component {
 		let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
 				awayTeamStats, headerLeft, headerRight, gameBreak
 
-		// Find Home Team
+		// Match and Find Data
 		for (i = 0; i < this.props.teams.length; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.HomeTeamID === item.TeamID) {
@@ -40,8 +47,6 @@ class Game extends React.Component {
 				break
 			}
 		}
-
-		// Find Away Team
 		for (i = 0; i < this.props.teams.length; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.AwayTeamID === item.TeamID) {
@@ -49,8 +54,6 @@ class Game extends React.Component {
 				break
 			}
 		}
-
-		// Find Stadium
 		for (i = 0; i < this.props.stadiums.length; i++) {
 			item = this.props.stadiums[i]
 			if (this.props.game.StadiumID === item.StadiumID) {
@@ -58,8 +61,6 @@ class Game extends React.Component {
 				break
 			}
 		}
-
-		// Find Home Team Stats
 		for (i = 0; i < this.props.teamStats.length; i++) {
 			item = this.props.teamStats[i]
 			if (homeTeam.TeamID === item.TeamID) {
@@ -67,8 +68,6 @@ class Game extends React.Component {
 				break
 			}
 		}
-
-		// Find Away Team Stats
 		for (i = 0; i < this.props.teamStats.length; i++) {
 			item = this.props.teamStats[i]
 			if (awayTeam.TeamID === item.TeamID) {
@@ -98,7 +97,8 @@ class Game extends React.Component {
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
 				winningTeam, menuStyle, starType, starStyle, shareStyle,
 				starInner, homeScoreStyle, awayScoreStyle,
-				homeScoreDisplay, awayScoreDisplay,
+				homeScoreDisplay, awayScoreDisplay, gameClass,
+				moreContentDisplay,
 				sliceTimeMin = time.slice(11,13),
 				sliceTimeSec = time.slice(14,16),
 				winningText = name => <b><span style={colorGreen}>{name}</span></b>
@@ -121,21 +121,34 @@ class Game extends React.Component {
 		if (awayTeam.Key === 'SA') { awayTeam.Key = 'SAS' }
 		
 		// Toggle
-		if (!this.state.toggleMenu) { menuStyle = displayNone }
-		if (this.state.toggleMenu) { menuStyle = displayBlock }
 		if (this.state.toggleStar) {
 			starType = 'star'
 			starStyle = { display: 'block' }
 			starInner = { borderColor: '#212121' }
 		}
-		if (!this.state.toggleStar) {
+		else {
 			starType = 'star_border'
 			starStyle = null
 			starInner = null
 		}
+		
+		if (this.state.toggleExpand) {
+			gameClass = 'game active'
+			moreContentDisplay = displayBlock
+		}
+		else {
+			gameClass = 'game'
+			moreContentDisplay = displayNone
+		}
+
+		
+		if (!this.state.toggleMenu) { menuStyle = displayNone }
+		if (this.state.toggleMenu) { menuStyle = displayBlock }
+		
 		if (!this.state.toggleShare) { shareStyle = displayNone }
 		if (this.state.toggleShare) { shareStyle = displayBlock }
-
+		
+		
 		// Determine who is Winning
 		if (homeScore === awayScore) {
 			homeScoreStyle = tieColor
@@ -214,7 +227,7 @@ class Game extends React.Component {
 				data-id={this.props.game.GameID}
 				data-index={this.props.index}
 				title={homeTeam.Name + ' vs ' + awayTeam.Name}
-				className="game"
+				className={gameClass}
 			>
 				<div className="game-inner" style={starInner}>
 					<div
@@ -330,7 +343,11 @@ class Game extends React.Component {
 							<span>Close</span>
 						</p>
 					</div>
-					<div className="game-icon game-expand" title="Expand">
+					<div
+						className="game-icon game-expand"
+						title="Expand"
+						onClick={this.toggleExpand}
+					>
 						<i className="material-icons">expand_more</i>
 					</div>
 					<div className="game-team">
@@ -379,6 +396,11 @@ class Game extends React.Component {
 						</p>
 					</div>
 				</div>
+				
+				<div className="game-more-content" style={moreContentDisplay}>
+					<p>More</p>
+				</div>
+				
 			</div>
 		)
 		

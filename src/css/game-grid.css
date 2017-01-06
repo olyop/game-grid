@@ -6,6 +6,7 @@
 	padding-bottom: 40px;
 	margin: 0; }
 	#game-grid .game {
+		transition: .2s all;
 		padding: 10px;
 		cursor: pointer;
 		width: 100%; }
@@ -164,3 +165,7 @@
 				font-size: 22px;
 				padding-right: 10px; }
 }
+
+#game-grid .active {
+	width: 100%;
+	flex-flow: 2; }
