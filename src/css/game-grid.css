@@ -5,9 +5,6 @@
 	justify-content: flex-start;
 	padding: 5px;
 	margin: 0; }
-	#game-grid .active {
-		width: 100%;
-		flex-flow: 2; }
 	#game-grid .game {
 		transition: .2s all;
 		padding: 5px;
@@ -172,3 +169,8 @@
 				font-size: 22px;
 				padding-right: 10px; }
 }
+
+
+	#game-grid .active {
+		width: 100%;
+		flex-flow: 2; }
