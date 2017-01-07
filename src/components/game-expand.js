@@ -19,28 +19,34 @@ class GameExpand extends React.Component {
 	
 	render() {
 		
-		let homeTeam = this.props.homeTeam,
-				awayTeam = this.props.awayTeam
+		let m = this.props.m
 		
-		console.log(homeTeam.PrimaryColor, awayTeam.PrimaryColor)
+		const opacity = 0.60;
 		
 		let homeBackgroundStyle = {
-			backgroundImage: 'url(./media/team-logos/' + homeTeam.Key + '.svg)',
-			backgroundColor: '#' + homeTeam.PrimaryColor
+			backgroundImage: 'url(./media/team-logos/' + m.homeTeam.Key + '.svg)',
+			backgroundColor: m.homeColor.color,
+			boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.homeColor.color, opacity)
+
 		}
 		let awayBackgroundStyle = {
-			backgroundImage: 'url(./media/team-logos/' + awayTeam.Key + '.svg)',
-			backgroundColor: '#' + awayTeam.PrimaryColor
+			backgroundImage: 'url(./media/team-logos/' + m.awayTeam.Key + '.svg)',
+			backgroundColor: m.awayColor.color,
+			boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.awayColor.color, opacity)
+
 		}
 		
 		return (
 			<div className="game-content">
 				<div className="container-fluid game-content-inner">
 					<div className="col-md-6" style={homeBackgroundStyle}>
-						<p>Home</p>
+						<div className="game-content-title">
+							<p>{m.homeTeam.City}</p>
+							<h1>{m.homeTeam.Name}</h1>
+						</div>
 					</div>
 					<div className="col-md-6" style={awayBackgroundStyle}>
-						<p>Away</p>
+						
 					</div>
 				</div>
 			</div>

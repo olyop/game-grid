@@ -36,183 +36,214 @@ class Game extends React.Component {
 	
 	render() {
 		
-		let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
-				awayTeamStats, headerLeft, headerRight, gameBreak,
-				teamsLength = this.props.teams.length,
-				stadiumsLength = this.props.stadiums.length,
-				teamStatsLength = this.props.teamStats.length
+		let item, i
+		
+		let m =  {
+			homeTeam: null,
+			awayTeam: null,
+			stadium: null,
+			homeTeamStats: null,
+			awayTeamStats: null,
+			headerLeft: null,
+			headerRight: null,
+			gameBreak: null,
+			teamsLength: this.props.teams.length,
+			stadiumsLength: this.props.stadiums.length,
+			teamStatsLength: this.props.teamStats.length,
+			tieColor: { color: '#FF9800' },
+			colorRed: { color: '#F44336' },
+			colorGreen: { color: '#4CAF50' },
+			displayBlock: { display: 'block' },
+			displayNone: { display: 'none' },
+			qtr: this.props.game.Quarter,
+			timeSec: this.props.game.TimeRemainingSeconds,
+			timeMin: this.props.game.TimeRemainingMinutes,
+			homeScore: this.props.game.HomeTeamScore,
+			awayScore: this.props.game.AwayTeamScore,
+			time: this.props.game.DateTime,
+			toggleScores: this.props.toggleScores,
+			nbaWebsiteUrl: 'http://www.nba.com/',
+			teamLogoUrl: './media/team-logos/',
+			winningTeam: null,
+			menuStyle: null,
+			starType: null,
+			starStyle: null,
+			shareStyle: null,
+			starInner: null,
+			homeScoreStyle: null,
+			awayScoreStyle: null,
+			homeScoreDisplay: null,
+			awayScoreDisplay: null,
+			gameClass: null,
+			homeColor: null,
+			awayColor: null,
+			homeTeamRecord: null,
+			awayTeamRecord: null,
+			sliceTimeMin: null,
+			sliceTimeSec: null,
+			winningText: null
+		}
 
-		// Match and Find Data
-		for (i = 0; i < teamsLength; i++) {
+		// Find Home Team
+		for (i = 0; i < m.teamsLength; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.HomeTeamID === item.TeamID) {
-				homeTeam = item
+				m.homeTeam = item
 				break
 			}
 		}
-		for (i = 0; i < teamsLength; i++) {
+		
+		// Find Away Team
+		for (i = 0; i < m.teamsLength; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.AwayTeamID === item.TeamID) {
-				awayTeam = item
+				m.awayTeam = item
 				break
 			}
 		}
-		for (i = 0; i < stadiumsLength; i++) {
+		
+		// Find Stadium
+		for (i = 0; i < m.stadiumsLength; i++) {
 			item = this.props.stadiums[i]
 			if (this.props.game.StadiumID === item.StadiumID) {
-				stadium = item
+				m.stadium = item
 				break
 			}
 		}
-		for (i = 0; i < teamStatsLength; i++) {
-			item = this.props.teamStats[i]
-			if (homeTeam.TeamID === item.TeamID) {
-				homeTeamStats = item
-				break
-			}
-		}
-		for (i = 0; i < teamStatsLength; i++) {
-			item = this.props.teamStats[i]
-			if (awayTeam.TeamID === item.TeamID) {
-				awayTeamStats = item
-				break
-			}
-		}
-
-		const tieColor = { color: '#FF9800' },
-					colorRed = { color: '#F44336' },
-					colorGreen = { color: '#4CAF50' },
-					displayBlock = { display: 'block' },
-					displayNone = { display: 'none' },
-					qtr = this.props.game.Quarter,
-					timeSec = this.props.game.TimeRemainingSeconds,
-					timeMin = this.props.game.TimeRemainingMinutes,
-					homeScore = this.props.game.HomeTeamScore,
-					awayScore = this.props.game.AwayTeamScore,
-					time = this.props.game.DateTime,
-					toggleScores = this.props.toggleScores,
-					nbaWebsiteUrl = 'http://www.nba.com/',
-					teamLogoUrl = './media/team-logos/'
 		
-		let homeColor = { color: '#' + homeTeam.PrimaryColor },
-				awayColor = { color: '#' + awayTeam.PrimaryColor },
-				homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
-				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
-				winningTeam, menuStyle, starType, starStyle, shareStyle,
-				starInner, homeScoreStyle, awayScoreStyle,
-				homeScoreDisplay, awayScoreDisplay, gameClass,
-				sliceTimeMin = time.slice(11,13),
-				sliceTimeSec = time.slice(14,16),
-				winningText = name => <b><span style={colorGreen}>{name}</span></b>
+		// Find Home Team Stats
+		for (i = 0; i < m.teamStatsLength; i++) {
+			item = this.props.teamStats[i]
+			if (m.homeTeam.TeamID === item.TeamID) {
+				m.homeTeamStats = item
+				break
+			}
+		}
+		
+		// Find Away Team Stats
+		for (i = 0; i < m.teamStatsLength; i++) {
+			item = this.props.teamStats[i]
+			if (m.awayTeam.TeamID === item.TeamID) {
+				m.awayTeamStats = item
+				break
+			}
+		}
+		
+		// Declare after ID Matches
+		m.homeColor = { color: '#' + m.homeTeam.PrimaryColor }
+		m.awayColor = { color: '#' + m.awayTeam.PrimaryColor }
+		m.homeTeamRecord = m.homeTeamStats.Wins + ' - ' + m.homeTeamStats.Losses
+		m.awayTeamRecord = m.awayTeamStats.Wins + ' - ' + m.awayTeamStats.Losses
+		m.sliceTimeMin = m.time.slice(11,13)
+		m.sliceTimeSec = m.time.slice(14,16)
+		m.winningText = name => <b><span style={m.colorGreen}>{name}</span></b>;
 
 		// Check for Errors
-		if (homeTeam.Name === 'Celtics') { homeColor = { color: '#2E7B3B' } }
-		if (awayTeam.Name === 'Celtics') { awayColor = { color: '#2E7B3B' } }
-		if (homeTeam.Name === 'Timberwolves') { homeColor = { color: '#005083' } }
-		if (awayTeam.Name === 'Timberwolves') { awayColor = { color: '#005083' } }
-		if (stadium.Name === 'Oracle Center') { stadium.Name = 'Oracle Arena' }
-		if (homeTeam.Key === 'GS') { homeTeam.Key = 'GSW' }
-		if (awayTeam.Key === 'GS') { awayTeam.Key = 'GSW' }
-		if (homeTeam.Key === 'PHO') { homeTeam.Key = 'PHX' }
-		if (awayTeam.Key === 'PHO') { awayTeam.Key = 'PHX' }
-		if (homeTeam.Key === 'NY') { homeTeam.Key = 'NYK' }
-		if (awayTeam.Key === 'NY') { awayTeam.Key = 'NYK' }
-		if (homeTeam.Key === 'NO') { homeTeam.Key = 'NOP' }
-		if (awayTeam.Key === 'NO') { awayTeam.Key = 'NOP' }
-		if (homeTeam.Key === 'SA') { homeTeam.Key = 'SAS' }
-		if (awayTeam.Key === 'SA') { awayTeam.Key = 'SAS' }
-		
-		console.log(homeTeam.PrimaryColor, awayTeam.PrimaryColor)
+		if (m.homeTeam.Name === 'Celtics') { m.homeColor = { color: '#2E7B3B' } }
+		if (m.awayTeam.Name === 'Celtics') { m.awayColor = { color: '#2E7B3B' } }
+		if (m.homeTeam.Name === 'Timberwolves') { m.homeColor = { color: '#005083' } }
+		if (m.awayTeam.Name === 'Timberwolves') { m.awayColor = { color: '#005083' } }
+		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
+		if (m.homeTeam.Key === 'GS') { m.homeTeam.Key = 'GSW' }
+		if (m.awayTeam.Key === 'GS') { m.awayTeam.Key = 'GSW' }
+		if (m.homeTeam.Key === 'PHO') { m.homeTeam.Key = 'PHX' }
+		if (m.awayTeam.Key === 'PHO') { m.awayTeam.Key = 'PHX' }
+		if (m.homeTeam.Key === 'NY') { m.homeTeam.Key = 'NYK' }
+		if (m.awayTeam.Key === 'NY') { m.awayTeam.Key = 'NYK' }
+		if (m.homeTeam.Key === 'NO') { m.homeTeam.Key = 'NOP' }
+		if (m.awayTeam.Key === 'NO') { m.awayTeam.Key = 'NOP' }
+		if (m.homeTeam.Key === 'SA') { m.homeTeam.Key = 'SAS' }
+		if (m.awayTeam.Key === 'SA') { m.awayTeam.Key = 'SAS' }
 		
 		// Toggle
 		if (this.state.toggleStar) {
-			starType = 'star'
-			starStyle = { display: 'block' }
-			starInner = { borderColor: '#212121' }
+			m.starType = 'star'
+			m.starStyle = { display: 'block' }
+			m.starInner = { borderColor: '#212121' }
 		}
 		else {
-			starType = 'star_border'
-			starStyle = null
-			starInner = null
+			m.starType = 'star_border'
+			m.starStyle = null
+			m.starInner = null
 		}
 		
-		if (this.state.toggleExpand) { gameClass = 'game active' }
-		else { gameClass = 'game' }
+		if (this.state.toggleExpand) { m.gameClass = 'game active' }
+		else { m.gameClass = 'game' }
 
 		
-		if (!this.state.toggleMenu) { menuStyle = displayNone }
-		if (this.state.toggleMenu) { menuStyle = displayBlock }
+		if (!this.state.toggleMenu) { m.menuStyle = m.displayNone }
+		if (this.state.toggleMenu) { m.menuStyle = m.displayBlock }
 		
-		if (!this.state.toggleShare) { shareStyle = displayNone }
-		if (this.state.toggleShare) { shareStyle = displayBlock }
+		if (!this.state.toggleShare) { m.shareStyle = m.displayNone }
+		if (this.state.toggleShare) { m.shareStyle = m.displayBlock }
 		
 		
 		// Determine who is Winning
-		if (homeScore === awayScore) {
-			homeScoreStyle = tieColor
-			awayScoreStyle = tieColor
-		} else if (homeScore > awayScore) {
-			winningTeam = homeTeam
-			homeScoreStyle = colorGreen
-			awayScoreStyle = colorRed
-		} else if (awayScore > homeScore) {
-			winningTeam = awayTeam
-			awayScoreStyle = colorGreen
-			homeScoreStyle = colorRed
+		if (m.homeScore === m.awayScore) {
+			m.homeScoreStyle = m.tieColor
+			m.awayScoreStyle = m.tieColor
+		} else if (m.homeScore > m.awayScore) {
+			m.winningTeam = m.homeTeam
+			m.homeScoreStyle = m.colorGreen
+			m.awayScoreStyle = m.colorRed
+		} else if (m.awayScore > m.homeScore) {
+			m.winningTeam = m.awayTeam
+			m.awayScoreStyle = m.colorGreen
+			m.homeScoreStyle = m.colorRed
 		}
 
 		// Determine if game has happened
-		if (Number(homeScore) <= 0 && Number(awayScore) <= 0) {
-			homeScoreDisplay = { display: 'none' }
-			awayScoreDisplay = { display: 'none' }
+		if (m.homeScore <= 0 && m.awayScore <= 0) {
+			m.homeScoreDisplay = { display: 'none' }
+			m.awayScoreDisplay = { display: 'none' }
 		}
 
 		// Determine Game Status
-		if (qtr === null && timeMin === null && timeSec === null && homeScore === null) {
-			if (sliceTimeMin <= 12) {
-				headerRight = sliceTimeMin + ':' + sliceTimeSec + ' PM / ET'
+		if (m.qtr === null && m.timeMin === null && m.timeSec === null && m.homeScore === null) {
+			if (m.sliceTimeMin <= 12) {
+				m.headerRight = m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'
 			} else {
-				headerRight = (sliceTimeMin - 12) + ':' + sliceTimeSec + ' PM / ET'
+				m.headerRight = (m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'
 			}
-			headerLeft = stadium.Name
-			gameBreak = 'AT'
-		} else if (qtr === 'F/OT') {
-			headerLeft = <b>Overtime</b>
-			if (toggleScores) { headerRight = stadium.Name }
-			else { headerRight = winningText(winningTeam.Name) }
-			gameBreak = 'FINAL'
-		}	else if (qtr === 'Half') {
-			headerRight = <b>Half Time</b>
-			headerLeft = stadium.Name
-			gameBreak = 'AT' 
-		} else if ((qtr === null && timeSec === null && timeMin === null && homeScore > 0) || qtr === 'F') {
-			headerLeft = <b>Full Time</b>
-			if (this.props.toggleScores) { headerRight = stadium.Name }
-			else { headerRight = winningText(winningTeam.Name) }
-			gameBreak = 'FINAL'
-		} else if (qtr === '1' || qtr === '2' ||  qtr === '3' || qtr === '4') {
+			m.headerLeft = m.stadium.Name
+			m.gameBreak = 'AT'
+		} else if (m.qtr === 'F/OT') {
+			m.headerLeft = <b>Overtime</b>
+			if (m.toggleScores) { m.headerRight = m.stadium.Name }
+			else { m.headerRight = m.winningText(m.winningTeam.Name) }
+			m.gameBreak = 'FINAL'
+		}	else if (m.qtr === 'Half') {
+			m.headerRight = <b>Half Time</b>
+			m.headerLeft = m.stadium.Name
+			m.gameBreak = 'AT' 
+		} else if ((m.qtr === null && m.timeSec === null && m.timeMin === null && m.homeScore > 0) || m.qtr === 'F') {
+			m.headerLeft = <b>Full Time</b>
+			if (this.props.toggleScores) { m.headerRight = m.stadium.Name }
+			else { m.headerRight = m.winningText(m.winningTeam.Name) }
+			m.gameBreak = 'FINAL'
+		} else if (m.qtr === '1' || m.qtr === '2' || m.qtr === '3' || m.qtr === '4') {
 			let seconds
-			if (timeSec < 10) { seconds = '0' + timeSec }
-			else { seconds = timeSec }
-			let str = timeMin + ':' + seconds
-			if (toggleScores) {
-				headerLeft = stadium.Name
-				if (sliceTimeMin <= 12) {
-					headerRight = sliceTimeMin + ':' + sliceTimeSec + ' PM / ET'
+			if (m.timeSec < 10) { seconds = '0' + m.timeSec }
+			else { seconds = m.timeSec }
+			let str = m.timeMin + ':' + seconds
+			if (m.toggleScores) {
+				m.headerLeft = m.stadium.Name
+				if (m.sliceTimeMin <= 12) {
+					m.headerRight = m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'
 				} else {
-					headerRight = (sliceTimeMin - 12) + ':' + sliceTimeSec + ' PM / ET'
+					m.headerRight = (m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'
 				}
 			} else {
-				headerRight = <b style={colorRed} className='blink'>{str}</b>
-				headerLeft = <b style={colorRed}>{'Q' + qtr}</b>
+				m.headerRight = <b style={m.colorRed} className='blink'>{str}</b>
+				m.headerLeft = <b style={m.colorRed}>{'Q' + m.qtr}</b>
 			}
-			gameBreak = 'INP'
+			m.gameBreak = 'INP'
 		}
 		
 		// Check if Spoilers are On
-		if (toggleScores) {
-			homeScoreDisplay = { display: 'none' }
-			awayScoreDisplay = { display: 'none' }
+		if (m.toggleScores) {
+			m.homeScoreDisplay = { display: 'none' }
+			m.awayScoreDisplay = { display: 'none' }
 		}
 
 		return (
@@ -220,17 +251,17 @@ class Game extends React.Component {
 				key={this.props.game.GameID}
 				data-id={this.props.game.GameID}
 				data-index={this.props.index}
-				title={homeTeam.Name + ' vs ' + awayTeam.Name}
-				className={gameClass}
+				title={m.homeTeam.Name + ' vs ' + m.awayTeam.Name}
+				className={m.gameClass}
 			>
-				<div className="game-inner" style={starInner}>
+				<div className="game-inner" style={m.starInner}>
 					<div
 						className="game-icon game-star"
 						title="Star"
 						onClick={this.toggleStar}
-						style={starStyle}
+						style={m.starStyle}
 					>
-						<i className="material-icons">{starType}</i>
+						<i className="material-icons">{m.starType}</i>
 					</div>
 					<div
 						className="game-icon game-more"
@@ -239,7 +270,7 @@ class Game extends React.Component {
 					>
 						<i className="material-icons">more_vert</i>
 					</div>
-					<div className="game-more-menu more-menu" style={menuStyle}>
+					<div className="game-more-menu more-menu" style={m.menuStyle}>
 						<p
 							className="close-menu"
 							onClick={this.toggleMenu}
@@ -279,28 +310,28 @@ class Game extends React.Component {
 							</a>
 						</p>
 						<p onClick={this.toggleStar}>
-							<i className="material-icons">{starType}</i>
+							<i className="material-icons">{m.starType}</i>
 							<span>Star</span>
 						</p>
 						<hr />
 						<p>
 							<a
-								href={nbaWebsiteUrl + homeTeam.Name.toLowerCase() + '/'}
-								title={'Visit the ' + homeTeam.Name + ' website'}
+								href={m.nbaWebsiteUrl + m.homeTeam.Name.toLowerCase() + '/'}
+								title={'Visit the ' + m.homeTeam.Name + ' website'}
 								target="_blank"
 							>
 								<i className="material-icons">open_in_new</i>
-								<span>{homeTeam.Name + '.com'}</span>
+								<span>{m.homeTeam.Name + '.com'}</span>
 							</a>
 						</p>
 						<p>
 							<a
-								href={nbaWebsiteUrl + awayTeam.Name.toLowerCase() + '/'}
-								title={'Visit the ' + awayTeam.Name + ' website'}
+								href={m.nbaWebsiteUrl + m.awayTeam.Name.toLowerCase() + '/'}
+								title={'Visit the ' + m.awayTeam.Name + ' website'}
 								target="_blank"
 							>
 								<i className="material-icons">open_in_new</i>
-								<span>{awayTeam.Name + '.com'}</span>
+								<span>{m.awayTeam.Name + '.com'}</span>
 							</a>
 						</p>
 					</div>
@@ -311,7 +342,7 @@ class Game extends React.Component {
 					>
 						<i className="material-icons">share</i>
 					</div>
-					<div className="game-share-menu more-menu" style={shareStyle}>
+					<div className="game-share-menu more-menu" style={m.shareStyle}>
 						<p>
 							<img src="./media/instagram.png" alt='Instagram logo' />
 							<span>Instagram</span>
@@ -346,16 +377,16 @@ class Game extends React.Component {
 					</div>
 					<div className="game-team">
 						<img
-							src={teamLogoUrl + homeTeam.Key.toLowerCase() + '.svg'}
-							alt={homeTeam.Name} 
+							src={m.teamLogoUrl + m.homeTeam.Key.toLowerCase() + '.svg'}
+							alt={m.homeTeam.Name} 
 						/>
-						<p className="game-team-score" style={homeScoreDisplay}>
-							<span style={homeScoreStyle}>{homeScore}</span>
+						<p className="game-team-score" style={m.homeScoreDisplay}>
+							<span style={m.homeScoreStyle}>{m.homeScore}</span>
 						</p>
 						<div className="game-team-text">
-							<h4>{homeTeam.City}</h4>
-							<h3 style={homeColor}>{homeTeam.Name}</h3>
-							<p>{homeTeamRecord}</p>
+							<h4>{m.homeTeam.City}</h4>
+							<h3 style={m.homeColor}>{m.homeTeam.Name}</h3>
+							<p>{m.homeTeamRecord}</p>
 						</div>
 					</div>
 					<div className="game-break">
@@ -365,28 +396,28 @@ class Game extends React.Component {
 					</div>
 					<div className="game-team">
 						<img
-							src={teamLogoUrl + awayTeam.Key.toLowerCase() + '.svg'}
-							alt={awayTeam.Name} 
+							src={m.teamLogoUrl + m.awayTeam.Key.toLowerCase() + '.svg'}
+							alt={m.awayTeam.Name} 
 						/>
-						<p className="game-team-score" style={awayScoreDisplay}>
-							<span style={awayScoreStyle}>{awayScore}</span>
+						<p className="game-team-score" style={m.awayScoreDisplay}>
+							<span style={m.awayScoreStyle}>{m.awayScore}</span>
 						</p>
 						<div className="game-team-text">
-							<h4>{awayTeam.City}</h4>
-							<h3 style={awayColor}>{awayTeam.Name}</h3>
-							<p>{awayTeamRecord}</p>
+							<h4>{m.awayTeam.City}</h4>
+							<h3 style={m.awayColor}>{m.awayTeam.Name}</h3>
+							<p>{m.awayTeamRecord}</p>
 						</div>
 					</div>
 					<div className="game-break">
 						<hr />
-						<p>{gameBreak}</p>
+						<p>{m.gameBreak}</p>
 						<hr />
 					</div>
 					<div className="game-header">
 						<p>
-							{headerLeft}
+							{m.headerLeft}
 							{' '}&#8212;{' '}
-							{headerRight}
+							{m.headerRight}
 						</p>
 					</div>
 				</div>
@@ -394,18 +425,7 @@ class Game extends React.Component {
 				{
 					this.state.toggleExpand ?
 						<GameExpand
-							game={this.props.game}
-							stadium={stadium}
-							homeTeam={homeTeam}
-							awayTeam={awayTeam}
-							homeTeamStats={homeTeamStats}
-							awayTeamStats={awayTeamStats}
-							homeTeamRecord={homeTeamRecord}
-							awayTeamRecord={awayTeamRecord}
-							headerLeft={headerLeft}
-							headerRight={headerRight}
-							gameBreak={gameBreak}
-							winningTeam={winningTeam}
+							m={m}
 						/> :
 						null
 				}
