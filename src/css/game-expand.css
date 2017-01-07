@@ -3,8 +3,12 @@
 	.game-content .game-content-inner {
 		padding: 0; }
 		.game-content .game-content-inner .col-md-6 {
-			padding: 20px;
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			height: 200px;
 			margin: 0; }
 		.game-content .game-content-inner p {
 			color: #fff;
-			font-size: 20px; }
+			font-weight: 700;
+			font-size: 30px; }

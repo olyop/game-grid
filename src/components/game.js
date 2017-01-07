@@ -1,6 +1,6 @@
 import React from 'react'
+import GameExpand from './game-expand'
 import '../css/more-menu.css'
-import '../css/game-expand.css'
 
 class Game extends React.Component {
 	
@@ -37,52 +37,41 @@ class Game extends React.Component {
 	render() {
 		
 		let homeTeam, awayTeam, stadium, item, i, homeTeamStats,
-				awayTeamStats, headerLeft, headerRight, gameBreak
-		
-		// Convert RGB to Hex
-		function hexToRgba(hex, opacity){
-    	let c
-			if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-				c = hex.substring(1).split('')
-				if(c.length === 3){
-					c = [c[0], c[0], c[1], c[1], c[2], c[2]]
-				}
-				c = '0x'+c.join('');
-					return 'rgba(' + [(c>>16)&255, (c>>8)&255, c&255].join(',') + ',' + opacity + ')' 
-			}
-			return 'rgba(0,0,0,' + opacity + ')'
-		}
+				awayTeamStats, headerLeft, headerRight, gameBreak,
+				teamsLength = this.props.teams.length,
+				stadiumsLength = this.props.stadiums.length,
+				teamStatsLength = this.props.teamStats.length
 
 		// Match and Find Data
-		for (i = 0; i < this.props.teams.length; i++) {
+		for (i = 0; i < teamsLength; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.HomeTeamID === item.TeamID) {
 				homeTeam = item
 				break
 			}
 		}
-		for (i = 0; i < this.props.teams.length; i++) {
+		for (i = 0; i < teamsLength; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.AwayTeamID === item.TeamID) {
 				awayTeam = item
 				break
 			}
 		}
-		for (i = 0; i < this.props.stadiums.length; i++) {
+		for (i = 0; i < stadiumsLength; i++) {
 			item = this.props.stadiums[i]
 			if (this.props.game.StadiumID === item.StadiumID) {
 				stadium = item
 				break
 			}
 		}
-		for (i = 0; i < this.props.teamStats.length; i++) {
+		for (i = 0; i < teamStatsLength; i++) {
 			item = this.props.teamStats[i]
 			if (homeTeam.TeamID === item.TeamID) {
 				homeTeamStats = item
 				break
 			}
 		}
-		for (i = 0; i < this.props.teamStats.length; i++) {
+		for (i = 0; i < teamStatsLength; i++) {
 			item = this.props.teamStats[i]
 			if (awayTeam.TeamID === item.TeamID) {
 				awayTeamStats = item
@@ -107,14 +96,11 @@ class Game extends React.Component {
 		
 		let homeColor = { color: '#' + homeTeam.PrimaryColor },
 				awayColor = { color: '#' + awayTeam.PrimaryColor },
-				homeColorBackground = { backgroundColor: hexToRgba('#' + homeTeam.PrimaryColor, 0.5) },
-				awayColorBackground = { backgroundColor: hexToRgba('#' + awayTeam.PrimaryColor, 0.5) },
 				homeTeamRecord = homeTeamStats.Wins + ' - ' + homeTeamStats.Losses,
 				awayTeamRecord = awayTeamStats.Wins + ' - ' + awayTeamStats.Losses,
 				winningTeam, menuStyle, starType, starStyle, shareStyle,
 				starInner, homeScoreStyle, awayScoreStyle,
 				homeScoreDisplay, awayScoreDisplay, gameClass,
-				moreContentDisplay,
 				sliceTimeMin = time.slice(11,13),
 				sliceTimeSec = time.slice(14,16),
 				winningText = name => <b><span style={colorGreen}>{name}</span></b>
@@ -136,6 +122,8 @@ class Game extends React.Component {
 		if (homeTeam.Key === 'SA') { homeTeam.Key = 'SAS' }
 		if (awayTeam.Key === 'SA') { awayTeam.Key = 'SAS' }
 		
+		console.log(homeTeam.PrimaryColor, awayTeam.PrimaryColor)
+		
 		// Toggle
 		if (this.state.toggleStar) {
 			starType = 'star'
@@ -148,14 +136,8 @@ class Game extends React.Component {
 			starInner = null
 		}
 		
-		if (this.state.toggleExpand) {
-			gameClass = 'game active'
-			moreContentDisplay = displayBlock
-		}
-		else {
-			gameClass = 'game'
-			moreContentDisplay = displayNone
-		}
+		if (this.state.toggleExpand) { gameClass = 'game active' }
+		else { gameClass = 'game' }
 
 		
 		if (!this.state.toggleMenu) { menuStyle = displayNone }
@@ -199,8 +181,6 @@ class Game extends React.Component {
 			if (toggleScores) { headerRight = stadium.Name }
 			else { headerRight = winningText(winningTeam.Name) }
 			gameBreak = 'FINAL'
-			homeTeamRecord = ''
-			awayTeamRecord = ''
 		}	else if (qtr === 'Half') {
 			headerRight = <b>Half Time</b>
 			headerLeft = stadium.Name
@@ -210,8 +190,6 @@ class Game extends React.Component {
 			if (this.props.toggleScores) { headerRight = stadium.Name }
 			else { headerRight = winningText(winningTeam.Name) }
 			gameBreak = 'FINAL'
-			homeTeamRecord = ''
-			awayTeamRecord = ''
 		} else if (qtr === '1' || qtr === '2' ||  qtr === '3' || qtr === '4') {
 			let seconds
 			if (timeSec < 10) { seconds = '0' + timeSec }
@@ -413,16 +391,24 @@ class Game extends React.Component {
 					</div>
 				</div>
 				
-				<div className="game-content" style={moreContentDisplay}>
-					<div className="container-fluid game-content-inner">
-						<div className="col-md-6" style={homeColorBackground}>
-							<p>Home</p>
-						</div>
-						<div className="col-md-6" style={awayColorBackground}>
-							<p>Away</p>
-						</div>
-					</div>
-				</div>
+				{
+					this.state.toggleExpand ?
+						<GameExpand
+							game={this.props.game}
+							stadium={stadium}
+							homeTeam={homeTeam}
+							awayTeam={awayTeam}
+							homeTeamStats={homeTeamStats}
+							awayTeamStats={awayTeamStats}
+							homeTeamRecord={homeTeamRecord}
+							awayTeamRecord={awayTeamRecord}
+							headerLeft={headerLeft}
+							headerRight={headerRight}
+							gameBreak={gameBreak}
+							winningTeam={winningTeam}
+						/> :
+						null
+				}
 				
 			</div>
 		)
