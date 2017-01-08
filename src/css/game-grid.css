@@ -171,6 +171,6 @@
 }
 
 
-	#game-grid .active {
-		width: 100%;
-		flex-flow: 2; }
+#game-grid .active {
+	width: 100%;
+	flex-flow: 2; }

@@ -123,65 +123,66 @@ class GameExpand extends React.Component {
 		
 		console.log(this.props)
 		
-		let m = this.props.m
+		let m = this.props.m,
+				logourl = './media/team-logos/'
 		
 		let homeStyle = {
 			background: {
-				backgroundImage: 'url(./media/team-logos/' + m.homeTeam.Key + '.svg)',
 				backgroundColor: m.homeColor.color,
 				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.homeColor.color, 0.60)
 			},
-			text: {
-				textShadow: '0 30px 40px ' + this.hexToRgba(m.homeColor.color, 0.3)
+			backgroundColor: {
+				backgroundColor: m.homeColor.color
 			}
 		}
 		let awayStyle = {
 			background: {
-				backgroundImage: 'url(./media/team-logos/' + m.awayTeam.Key + '.svg)',
 				backgroundColor: m.awayColor.color,
 				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.awayColor.color, 0.60)
 			},
-			text: {
-				textShadow: '0 30px 40px ' + this.hexToRgba(m.awayColor.color, 0.3)
+			backgroundColor: {
+				backgroundColor: m.awayColor.color
 			}
 		}
 		
 		return (
 			<div className="game-content">
 				<div className="container-fluid game-content-inner">
-					<div className="col-md-6 game-content-left" style={homeStyle.background}>
-						<div className="game-content-title">
-							<p
-								className="game-content-title-text"
-								style={homeStyle.text}
-							>
-								{m.homeTeam.City}
-							</p>
-							<h1
-								className="game-content-title-text"
-								style={homeStyle.text}
-							>
-								{m.homeTeam.Name}
-							</h1>
+					<div className="row">
+						<div className="col-md-6 game-content-left" style={homeStyle.background}>
+							<div className="game-content-title">
+								<img src={logourl + m.homeTeam.Key + '.svg'} alt={m.homeTeam.Name} />
+								<div className="game-content-title-text">
+									<h2>{m.homeTeam.City}</h2>
+									<h1>{m.homeTeam.Name}</h1>
+									<p>{m.homeTeamRecord}</p>
+								</div>
+								<h2 style={m.homeScoreDisplay}>{m.homeScore}</h2>
+							</div>
+						</div>
+						<div className="game-content-vs" onClick={this.props.toggleExpand}>
+							<p>VS</p>
+						</div>
+						<div className="col-md-6 game-content-right" style={awayStyle.background}>
+							<div className="game-content-title">
+								<img src={logourl + m.awayTeam.Key + '.svg'} alt={m.awayTeam.Name} />
+								<div className="game-content-title-text">
+									<h2>{m.awayTeam.City}</h2>
+									<h1>{m.awayTeam.Name}</h1>
+									<p>{m.homeTeamRecord}</p>
+								</div>
+								<h2 style={m.awayScoreDisplay}>{m.awayScore}</h2>
+							</div>
 						</div>
 					</div>
-					<div className="game-content-vs" onClick={this.props.toggleExpand}>
-						<p>VS</p>
-					</div>
-					<div className="col-md-6 game-content-right" style={awayStyle.background}>
-						<div className="game-content-title">
-							<p
-								className="game-content-title-text"
-								style={awayStyle.text}
-							>
-								{m.awayTeam.City}
-							</p>
-							<h1
-								className="game-content-title-text"
-								style={awayStyle.text}
-							>
-								{m.awayTeam.Name}
-							</h1>
+					<div className="row">
+						<div className="game-content-main">
+							<div className="col-lg-6 game-content-main-home" style={homeStyle.backgroundColor}>
+								
+							</div>
+							<div className="col-lg-6 game-content-main-away" style={awayStyle.backgroundColor}>
+								
+							</div>
 						</div>
 					</div>
 				</div>

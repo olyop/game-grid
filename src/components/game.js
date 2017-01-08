@@ -40,10 +40,14 @@ class Game extends React.Component {
 		
 		let m =  {
 			homeTeam: null,
-			awayTeam: null,
-			stadium: null,
+			homeColor: null,
 			homeTeamStats: null,
+			homeTeamRecord: null,
+			awayTeam: null,
+			awayColor: null,
 			awayTeamStats: null,
+			awayTeamRecord: null,
+			stadium: null,
 			headerLeft: null,
 			headerRight: null,
 			gameBreak: null,
@@ -75,10 +79,6 @@ class Game extends React.Component {
 			homeScoreDisplay: null,
 			awayScoreDisplay: null,
 			gameClass: null,
-			homeColor: null,
-			awayColor: null,
-			homeTeamRecord: null,
-			awayTeamRecord: null,
 			sliceTimeMin: null,
 			sliceTimeSec: null,
 			winningText: null
@@ -144,16 +144,6 @@ class Game extends React.Component {
 		if (m.homeTeam.Name === 'Timberwolves') { m.homeColor = { color: '#005083' } }
 		if (m.awayTeam.Name === 'Timberwolves') { m.awayColor = { color: '#005083' } }
 		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
-		if (m.homeTeam.Key === 'GS') { m.homeTeam.Key = 'GSW' }
-		if (m.awayTeam.Key === 'GS') { m.awayTeam.Key = 'GSW' }
-		if (m.homeTeam.Key === 'PHO') { m.homeTeam.Key = 'PHX' }
-		if (m.awayTeam.Key === 'PHO') { m.awayTeam.Key = 'PHX' }
-		if (m.homeTeam.Key === 'NY') { m.homeTeam.Key = 'NYK' }
-		if (m.awayTeam.Key === 'NY') { m.awayTeam.Key = 'NYK' }
-		if (m.homeTeam.Key === 'NO') { m.homeTeam.Key = 'NOP' }
-		if (m.awayTeam.Key === 'NO') { m.awayTeam.Key = 'NOP' }
-		if (m.homeTeam.Key === 'SA') { m.homeTeam.Key = 'SAS' }
-		if (m.awayTeam.Key === 'SA') { m.awayTeam.Key = 'SAS' }
 		
 		// Toggle
 		if (this.state.toggleStar) {
