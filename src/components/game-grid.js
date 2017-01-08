@@ -38,7 +38,9 @@ class GameGrid extends React.Component {
 							let gamesList = result.body.map((game, index) => {
 								return (
 									<Game
+										apiKey={this.props.apiKey}
 										game={game}
+										date={this.props.date}
 										teams={this.props.teams}
 										teamStats={this.props.teamStats}
 										stadiums={this.props.stadiums}
@@ -51,12 +53,14 @@ class GameGrid extends React.Component {
 							
 							return (
 								<div>
+									
 									<GamesInfo
 										numGames={gameObj.length}
 										toggleScores={toggleScores => this.setState({ toggleScores })}
 									/>
 
 									<div id="game-grid">{gamesList}</div>
+									
 								</div>
 							)
 						}
