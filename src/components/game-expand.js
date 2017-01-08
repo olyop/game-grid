@@ -121,10 +121,104 @@ class GameExpand extends React.Component {
 	
 	render() {
 		
-		console.log(this.props)
+		let m = this.props.m, i = 0, b = 0, item,
+				homePlayers = this.props.homeTeamPlayers,
+				awayPlayers = this.props.awayTeamPlayers,
+				homeStats = this.props.homeTeamPlayerStats,
+				awayStats = this.props.awayTeamPlayerStats,
+				logourl = './media/team-logos/',
+				homePlayersLength = homePlayers.length,
+				awayPlayersLength = awayPlayers.length,
+				homeTopPlayers = [
+					{ info: null, stats: null },
+					{ info: null, stats: null },
+					{ info: null, stats: null },
+					{ info: null, stats: null },
+					{ info: null, stats: null }
+				],
+				awayTopPlayers = [
+					{ info: null, stats: null },
+					{ info: null, stats: null },
+					{ info: null, stats: null },
+					{ info: null, stats: null },
+					{ info: null, stats: null }
+				];
+				
+		homeStats.sort((a, b) => b.Points - a.Points)
+		awayStats.sort((a, b) => b.Points - a.Points)
 		
-		let m = this.props.m,
-				logourl = './media/team-logos/'
+		// Find Top 5 Home Players
+		while (i < 5) {
+			
+			let homePlayerStats = homeStats[i],
+					homePlayer
+			
+			// Find Player Stats
+			for (var a = 0; a < homePlayersLength; a++) {
+				item = homePlayers[a]
+				if (homePlayerStats.PlayerID === item.PlayerID) {
+					homePlayer = item
+					break
+				}
+			}
+			
+			homeTopPlayers[i].stats = homePlayerStats
+			homeTopPlayers[i].info = homePlayer
+			
+			i++
+		}
+		
+		// Find Top 5 Away Players
+		while (b < 5) {
+			
+			let awayPlayerStats = awayStats[b],
+					awayPlayer
+			
+			// Find Player Stats
+			for (var c = 0; c < awayPlayersLength; c++) {
+				item = awayPlayers[c]
+				if (awayPlayerStats.PlayerID === item.PlayerID) {
+					awayPlayer = item
+					break
+				}
+			}
+			
+			awayTopPlayers[b].stats = awayPlayerStats
+			awayTopPlayers[b].info = awayPlayer
+			
+			b++
+		}
+		
+		console.log(homeTopPlayers)
+		
+		let homeTopPlayersList = homeTopPlayers.map((player, index) => {
+			return (
+				<div
+					className="game-content-main-player"
+					key={index}
+				>
+					<p>{Math.floor(Number(player.stats.Points) / Number(player.stats.Games)) + 'PPG'}</p>
+					<img src={player.info.PhotoUrl} alt={player.info.FirstName + ' ' + player.info.LastName} />
+					<p>{'#' + player.info.Jersey}</p>
+					<p>{player.info.FirstName}</p>
+					<p>{player.info.LastName}</p>
+				</div>
+			)
+		})
+		let awayTopPlayersList = awayTopPlayers.map((player, index) => {
+			return (
+				<div
+					className="game-content-main-player"
+					key={index}
+				>
+					<p>{Math.floor(Number(player.stats.Points) / Number(player.stats.Games)) + 'PPG'}</p>
+					<img src={player.info.PhotoUrl} alt={player.info.FirstName + ' ' + player.info.LastName} />
+					<p>{'#' + player.info.Jersey}</p>
+					<p>{player.info.FirstName}</p>
+					<p>{player.info.LastName}</p>
+				</div>
+			)
+		})
 		
 		let homeStyle = {
 			background: {
@@ -169,7 +263,7 @@ class GameExpand extends React.Component {
 								<div className="game-content-title-text">
 									<h2>{m.awayTeam.City}</h2>
 									<h1>{m.awayTeam.Name}</h1>
-									<p>{m.homeTeamRecord}</p>
+									<p>{m.awayTeamRecord}</p>
 								</div>
 								<h2 style={m.awayScoreDisplay}>{m.awayScore}</h2>
 							</div>
@@ -178,10 +272,14 @@ class GameExpand extends React.Component {
 					<div className="row">
 						<div className="game-content-main">
 							<div className="col-lg-6 game-content-main-home" style={homeStyle.backgroundColor}>
-								
+								<div className="game-content-main-players">
+									{homeTopPlayersList}
+								</div>
 							</div>
 							<div className="col-lg-6 game-content-main-away" style={awayStyle.backgroundColor}>
-								
+								<div className="game-content-main-players">
+									{awayTopPlayersList}
+								</div>
 							</div>
 						</div>
 					</div>

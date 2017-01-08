@@ -86,17 +86,29 @@
 	font-size: 35px;
 	color: #fff; }
 
+
 .game-content .game-content-main {
 	margin: 0; }
 	.game-content .game-content-main .col-lg-6 {
 		margin: 0;
-		padding: 40px; }
-.game-content .game-content-main .game-content-main-home {
-	border-right: 3px solid #fff;
-	border-top: 3px solid #fff;
-}
-.game-content .game-content-main .game-content-main-away {
-	border-left: 3px solid #fff;
-	border-top: 3px solid #fff;
-	
-}
+		padding: 10px; }
+		.game-content .game-content-main .game-content-main-home {
+			border-right: 3px solid #fff;
+			border-top: 3px solid #fff; }
+		.game-content .game-content-main .game-content-main-away {
+			border-left: 3px solid #fff;
+			border-top: 3px solid #fff; }
+		.game-content .game-content-main-players {
+			display: flex;
+			flex-direction: row; }
+			.game-content .game-content-main-player {
+				padding: 10px;
+				width: calc(100% / 5); }
+				.game-content .game-content-main-player img {
+					width: 100%;
+					margin: 10px;
+					border-radius: 100%; }
+				.game-content .game-content-main-player p {
+					text-align: center;
+					color: #fff;
+					font-size: 16px; }
