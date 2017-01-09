@@ -1,6 +1,7 @@
 import React from 'react'
 import Request from 'react-http-request'
 import Loading from './loading'
+import GameContentStats from './game-stats'
 
 import '../css/game-expand.css'
 
@@ -35,6 +36,8 @@ class GetPlayersHome extends React.Component {
 														apiKey={this.props.apiKey}
 														m={m}
 														date={this.props.date}
+														monthsYear={this.props.monthsYear}
+														daysWeek={this.props.daysWeek}
 														toggleExpand={this.props.toggleExpand}
 														homeTeamPlayers={temp}
 														homeTeamPlayerStats={result.body}
@@ -84,6 +87,8 @@ class GetPlayersAway extends React.Component {
 														apiKey={this.props.apiKey}
 														m={m}
 														date={this.props.date}
+														monthsYear={this.props.monthsYear}
+														daysWeek={this.props.daysWeek}
 														toggleExpand={this.props.toggleExpand}
 														homeTeamPlayers={this.props.homeTeamPlayers}
 														homeTeamPlayerStats={this.props.homeTeamPlayerStats}
@@ -121,104 +126,32 @@ class GameExpand extends React.Component {
 	
 	render() {
 		
-		let m = this.props.m, i = 0, b = 0, item,
-				homePlayers = this.props.homeTeamPlayers,
-				awayPlayers = this.props.awayTeamPlayers,
-				homeStats = this.props.homeTeamPlayerStats,
-				awayStats = this.props.awayTeamPlayerStats,
-				logourl = './media/team-logos/',
-				homePlayersLength = homePlayers.length,
-				awayPlayersLength = awayPlayers.length,
-				homeTopPlayers = [
-					{ info: null, stats: null },
-					{ info: null, stats: null },
-					{ info: null, stats: null },
-					{ info: null, stats: null },
-					{ info: null, stats: null }
-				],
-				awayTopPlayers = [
-					{ info: null, stats: null },
-					{ info: null, stats: null },
-					{ info: null, stats: null },
-					{ info: null, stats: null },
-					{ info: null, stats: null }
-				];
-				
-		homeStats.sort((a, b) => b.Points - a.Points)
-		awayStats.sort((a, b) => b.Points - a.Points)
+		let m = this.props.m,
+				i = 0, b = 0,
+				item, logourl = './media/team-logos/'
 		
-		// Find Top 5 Home Players
-		while (i < 5) {
-			
-			let homePlayerStats = homeStats[i],
-					homePlayer
-			
-			// Find Player Stats
-			for (var a = 0; a < homePlayersLength; a++) {
-				item = homePlayers[a]
-				if (homePlayerStats.PlayerID === item.PlayerID) {
-					homePlayer = item
-					break
-				}
-			}
-			
-			homeTopPlayers[i].stats = homePlayerStats
-			homeTopPlayers[i].info = homePlayer
-			
-			i++
-		}
+		m.homePlayers = this.props.homeTeamPlayers
+		m.awayPlayers = this.props.awayTeamPlayers
+		m.homeStats = this.props.homeTeamPlayerStats
+		m.awayStats = this.props.awayTeamPlayerStats
+		m.homeTopPlayers = [
+			{ info: null, stats: null },
+			{ info: null, stats: null },
+			{ info: null, stats: null }
+		]
+		m.awayTopPlayers = [
+			{ info: null, stats: null },
+			{ info: null, stats: null },
+			{ info: null, stats: null }
+		]
 		
-		// Find Top 5 Away Players
-		while (b < 5) {
-			
-			let awayPlayerStats = awayStats[b],
-					awayPlayer
-			
-			// Find Player Stats
-			for (var c = 0; c < awayPlayersLength; c++) {
-				item = awayPlayers[c]
-				if (awayPlayerStats.PlayerID === item.PlayerID) {
-					awayPlayer = item
-					break
-				}
-			}
-			
-			awayTopPlayers[b].stats = awayPlayerStats
-			awayTopPlayers[b].info = awayPlayer
-			
-			b++
-		}
+		let homePlayersLength = m.homePlayers.length,
+				awayPlayersLength = m.awayPlayers.length
 		
-		console.log(homeTopPlayers)
-		
-		let homeTopPlayersList = homeTopPlayers.map((player, index) => {
-			return (
-				<div
-					className="game-content-main-player"
-					key={index}
-				>
-					<p>{Math.floor(Number(player.stats.Points) / Number(player.stats.Games)) + 'PPG'}</p>
-					<img src={player.info.PhotoUrl} alt={player.info.FirstName + ' ' + player.info.LastName} />
-					<p>{'#' + player.info.Jersey}</p>
-					<p>{player.info.FirstName}</p>
-					<p>{player.info.LastName}</p>
-				</div>
-			)
-		})
-		let awayTopPlayersList = awayTopPlayers.map((player, index) => {
-			return (
-				<div
-					className="game-content-main-player"
-					key={index}
-				>
-					<p>{Math.floor(Number(player.stats.Points) / Number(player.stats.Games)) + 'PPG'}</p>
-					<img src={player.info.PhotoUrl} alt={player.info.FirstName + ' ' + player.info.LastName} />
-					<p>{'#' + player.info.Jersey}</p>
-					<p>{player.info.FirstName}</p>
-					<p>{player.info.LastName}</p>
-				</div>
-			)
-		})
+		if (m.homeTeam.Key === 'BKN') { m.homeColor.color = '#2d2925' }
+		if (m.homeTeam.Key === 'HOU') { m.homeColor.color = '#c30e2e' }
+		if (m.homeTeam.Key === 'SA') { m.homeColor.color = '#0a1b23' }
+		if (m.homeTeam.Key === 'MEM') { m.homeColor.color = '#6089b8' }
 		
 		let homeStyle = {
 			background: {
@@ -227,6 +160,9 @@ class GameExpand extends React.Component {
 			},
 			backgroundColor: {
 				backgroundColor: m.homeColor.color
+			},
+			backgroundImg: {
+				backgroundImage: 'url(' + logourl + m.homeTeam.Key + '.svg)'
 			}
 		}
 		let awayStyle = {
@@ -236,52 +172,112 @@ class GameExpand extends React.Component {
 			},
 			backgroundColor: {
 				backgroundColor: m.awayColor.color
+			},
+			backgroundImg: {
+				backgroundImage: 'url(' + logourl + m.awayTeam.Key + '.svg)'
 			}
+		}
+				
+		m.homeStats.sort((a, b) => b.Points - a.Points)
+		m.awayStats.sort((a, b) => b.Points - a.Points)
+		
+		// Find Top 5 Home Players
+		while (i < 3) {
+			
+			let homePlayerStats = m.homeStats[i],
+					homePlayer
+			
+			// Find Player Stats
+			for (var a = 0; a < homePlayersLength; a++) {
+				item = m.homePlayers[a]
+				if (homePlayerStats.PlayerID === item.PlayerID) {
+					homePlayer = item
+					break
+				}
+			}
+			
+			m.homeTopPlayers[i].stats = homePlayerStats
+			m.homeTopPlayers[i].info = homePlayer
+			
+			i++
+		}
+		
+		// Find Top 5 Away Players
+		while (b < 3) {
+			
+			let awayPlayerStats = m.awayStats[b],
+					awayPlayer
+			
+			// Find Player Stats
+			for (var c = 0; c < awayPlayersLength; c++) {
+				item = m.awayPlayers[c]
+				if (awayPlayerStats.PlayerID === item.PlayerID) {
+					awayPlayer = item
+					break
+				}
+			}
+			
+			m.awayTopPlayers[b].stats = awayPlayerStats
+			m.awayTopPlayers[b].info = awayPlayer
+			
+			b++
 		}
 		
 		return (
 			<div className="game-content">
 				<div className="container-fluid game-content-inner">
 					<div className="row">
-						<div className="col-md-6 game-content-left" style={homeStyle.background}>
+						<div
+							className="col-md-6 game-content-team game-content-left"
+							style={homeStyle.background}
+						>
 							<div className="game-content-title">
-								<img src={logourl + m.homeTeam.Key + '.svg'} alt={m.homeTeam.Name} />
+								<section style={homeStyle.backgroundImg}></section>
 								<div className="game-content-title-text">
 									<h2>{m.homeTeam.City}</h2>
 									<h1>{m.homeTeam.Name}</h1>
-									<p>{m.homeTeamRecord}</p>
+									<p style={m.homeScoreDisplay}>{m.homeTeamRecord}</p>
 								</div>
 								<h2 style={m.homeScoreDisplay}>{m.homeScore}</h2>
 							</div>
 						</div>
-						<div className="game-content-vs" onClick={this.props.toggleExpand}>
+						<div className="game-content-close" onClick={this.props.toggleExpand}>
+							<i className="material-icons">expand_less</i>
+						</div>
+						<div className="game-content-vs">
 							<p>VS</p>
 						</div>
-						<div className="col-md-6 game-content-right" style={awayStyle.background}>
+						<div
+							className="col-md-6 game-content-team game-content-right"
+							style={awayStyle.background}
+						>
 							<div className="game-content-title">
-								<img src={logourl + m.awayTeam.Key + '.svg'} alt={m.awayTeam.Name} />
+								<section style={awayStyle.backgroundImg}></section>
 								<div className="game-content-title-text">
 									<h2>{m.awayTeam.City}</h2>
 									<h1>{m.awayTeam.Name}</h1>
-									<p>{m.awayTeamRecord}</p>
+									<p style={m.homeScoreDisplay} >{m.awayTeamRecord}</p>
 								</div>
 								<h2 style={m.awayScoreDisplay}>{m.awayScore}</h2>
 							</div>
 						</div>
 					</div>
 					<div className="row">
-						<div className="game-content-main">
-							<div className="col-lg-6 game-content-main-home" style={homeStyle.backgroundColor}>
-								<div className="game-content-main-players">
-									{homeTopPlayersList}
-								</div>
-							</div>
-							<div className="col-lg-6 game-content-main-away" style={awayStyle.backgroundColor}>
-								<div className="game-content-main-players">
-									{awayTopPlayersList}
-								</div>
-							</div>
+						<div className="game-content-info">
+							<p>Home</p>
+							<p>{m.headerLeft} &#8211; {m.headerRight}</p>
+							<p>Away</p>
 						</div>
+					</div>
+					<div className="row">
+							
+						<GameContentStats
+							apiKey={this.props.apiKey}
+							date={this.props.date}
+							monthsYear={this.props.monthsYear}
+							daysWeek={this.props.daysWeek}
+							m={m} />
+						
 					</div>
 				</div>
 			</div>

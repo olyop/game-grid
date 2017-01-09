@@ -119,6 +119,7 @@ class Games extends React.Component {
 						<GameGrid
 							apiKey={this.props.apiKey}
 							date={this.state.date}
+							daysWeek={this.props.daysWeek}
 							monthsYear={this.props.monthsYear}
 							teamStats={this.props.teamStats}
 							stadiums={this.props.stadiums}

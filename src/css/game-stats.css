@@ -1,0 +1,78 @@
+.game-content .game-content-main {
+	margin: 0; }
+.game-content-main-left {
+	border-right: 1px solid #E0E0E0; }
+	.game-content .game-content-main .col-lg-6 {
+		margin: 0;
+		background-color: #fff;
+		padding: 20px 20px 0 20px; }
+		.game-content .game-content-main .col-lg-6 .game-content-main-item {
+			margin-bottom: 20px; }
+		.game-content .game-content-main-players {
+			display: flex;
+			flex-direction: row; }
+			.game-content .game-content-main h1 {
+				padding: 0 0 10px 10px;
+				border-bottom: 1px solid #E0E0E0;
+				margin-bottom: 20px;
+				font-size: 20px; }
+			.game-content .game-content-main-player {
+				border: 1px solid #E0E0E0; 
+				margin: 10px;
+				display: flex;
+				background-color: #F5F5F5;
+				align-content: center;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				width: calc(100% / 3 - 20px); }
+				.game-content .game-content-main-player section {
+					width: 152px;
+					height: 152px;
+					border-bottom: 1px solid #E0E0E0;
+					position: relative;
+					padding: 20px; }
+					.game-content .game-content-main-player .game-content-player-photo {
+						width: 112px;
+						height: 112px;
+						border-radius: 100%;
+						background-color: #CCD0D3; 
+						background-position: center;
+						background-size: cover;
+						background-repeat: no-repeat; }
+					.game-content .game-content-main-player .game-content-player-number {
+						position: absolute;
+						top: 0;
+						left: 0;
+						padding: 5px;
+						font-size: 16px; }
+				.game-content .game-content-main-player p {
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					text-align: center;
+					font-size: 16px; }
+				.game-content .game-content-main-player .game-content-player-name {
+					border-bottom: 1px solid #E0E0E0;
+					width: 100%;
+					padding: 10px 0; }
+					.game-content .game-content-main-player .game-content-player-name p {
+						font-size: 18px; }
+				.game-content .game-content-main-player .game-content-player-stats {
+					width: 100%;
+					display: flex;
+					flex-wrap: wrap;
+					flex-direction: row;
+					justify-content: flex-start; }
+					.game-content .game-content-main-player .game-content-player-stats div {
+						padding: 10px;
+						text-align: center;
+						width: 50%; }
+
+.game-content .game-content-main-player .game-content-player-stats div:first-child {
+	border-right: 1px solid #E0E0E0;
+	border-bottom: 1px solid #E0E0E0; }
+.game-content .game-content-main-player .game-content-player-stats div:nth-child(2) {
+	border-bottom: 1px solid #E0E0E0; }
+.game-content .game-content-main-player .game-content-player-stats div:nth-child(3) {
+	border-right: 1px solid #E0E0E0; }

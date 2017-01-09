@@ -40,10 +40,16 @@ class Game extends React.Component {
 		
 		let m =  {
 			homeTeam: null,
+			homePlayers: null,
+			homeStats: null,
+			homeTopPlayers: null,
 			homeColor: null,
 			homeTeamStats: null,
 			homeTeamRecord: null,
 			awayTeam: null,
+			awayPlayers: null,
+			awayStats: null,
+			awayTopPlayers: null,
 			awayColor: null,
 			awayTeamStats: null,
 			awayTeamRecord: null,
@@ -191,9 +197,9 @@ class Game extends React.Component {
 		// Determine Game Status
 		if (m.qtr === null && m.timeMin === null && m.timeSec === null && m.homeScore === null) {
 			if (m.sliceTimeMin <= 12) {
-				m.headerRight = m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'
+				m.headerRight = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 			} else {
-				m.headerRight = (m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'
+				m.headerRight = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 			}
 			m.headerLeft = m.stadium.Name
 			m.gameBreak = 'AT'
@@ -219,9 +225,9 @@ class Game extends React.Component {
 			if (m.toggleScores) {
 				m.headerLeft = m.stadium.Name
 				if (m.sliceTimeMin <= 12) {
-					m.headerRight = m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'
+					m.headerRight = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 				} else {
-					m.headerRight = (m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'
+					m.headerRight = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 				}
 			} else {
 				m.headerRight = <b style={m.colorRed} className='blink'>{str}</b>
@@ -252,6 +258,8 @@ class Game extends React.Component {
 							apiKey={this.props.apiKey}
 							m={m}
 							date={this.props.date}
+							monthsYear={this.props.monthsYear}
+							daysWeek={this.props.daysWeek}
 							toggleMenu={this.toggleMenu}
 							toggleStar={this.toggleStar}
 							toggleShare={this.toggleShare}
@@ -265,6 +273,8 @@ class Game extends React.Component {
 							apiKey={this.props.apiKey}
 							m={m}
 							date={this.props.date}
+							monthsYear={this.props.monthsYear}
+							daysWeek={this.props.daysWeek}
 							toggleExpand={this.toggleExpand}
 						/> :
 						null

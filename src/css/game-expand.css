@@ -1,4 +1,5 @@
 .game-content {
+	border: 1px solid #E0E0E0;
 	margin: 0; }
 	.game-content .game-content-inner {
 		padding: 0; }
@@ -6,12 +7,36 @@
 		position: relative;
 		padding: 0;
 		margin: 0; }
+		.game-content .game-content-close {
+			transition: .2s all;
+			z-index: 2;
+			position: absolute;
+			top: 0%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border-radius: 100%;
+			width: 60px;
+			height: 60px;
+			display: flex;
+			align-items: flex-start;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center; }
+			.game-content .game-content-close:hover {
+				width: 70px;
+				height: 70px;
+				background-color: #E0E0E0; }
+				.game-content .game-content-close:hover .material-icons {
+					font-size: 30px; }
+			.game-content .game-content-close .material-icons {
+				transition: .2s all;
+				margin-top: 5px; }
 		.game-content .game-content-vs {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			background-color: #fff;
+			background-color: #000;
 			border-radius: 100%;
 			width: 100px;
 			height: 100px;
@@ -19,28 +44,31 @@
 			display: flex;
 			justify-content: center;
 			align-content: center;
-			z-index: 3; }
+			z-index: 4; }
 			.game-content  .game-content-vs p {
 				line-height: 1.5;
 				font-size: 40px;
+				color: #fff;
 				font-weight: 700; }
-		.game-content .game-content-left {
-			border-bottom: 3px solid #fff;
-			border-right: 3px solid #fff; }
+			.game-content .game-content-title-text {
+				width: 172px; }
 			.game-content .game-content-left .game-content-title {
-				margin-right: 46px;
+				margin-right: 50px;
 				flex-direction: row; }
 				.game-content .game-content-left .game-content-title-text {
-						margin: 0 40px 0 10px; }
-		.game-content .game-content-right {
-			border-bottom: 3px solid #fff;
-			border-left: 3px solid #fff; }
+					margin: 0 40px 0 10px; }
 			.game-content .game-content-right .game-content-title {
-				margin-left: 46px;
+				margin-left: 50px;
 				flex-direction: row-reverse; }
 				.game-content .game-content-right .game-content-title-text {
-						margin: 0 10px 0 40px; }
-		.game-content .col-md-6 {
+					margin: 0 10px 0 40px; }
+			.game-content .game-content-title h2 {
+				padding: 10px;
+				border-radius: 100%;
+				font-size: 35px;
+				color: #fff; }
+		.game-content .game-content-team {
+			z-index: 3;
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
@@ -56,8 +84,12 @@
 	display: flex;
 	justify-content: center;
 	align-items: center; }
-	.game-content .game-content-title img {
-		height: 180px;
+	.game-content .game-content-title section {
+		height: 160px;
+  	width: 160px;
+  	margin: 10px 0;
+		background-position: center;
+		background-size: cover;
 		border-radius: 100%; }
 	
 	.game-content .game-content-title .game-content-title-text h2 {
@@ -80,35 +112,13 @@
 		line-height: 0.8;
 		font-size: 20px;
 		font-weight: 300; }
-.game-content .game-content-title h2 {
-	padding: 10px;
-	border-radius: 100%;
-	font-size: 35px;
-	color: #fff; }
 
+.game-content-info {
+	border-bottom: 1px solid #E0E0E0;
+	display: flex;
+	justify-content: space-between;
+	align-content: center; }
+	.game-content-info p {
+		padding: 10px 20px;
+		font-size: 20px; }
 
-.game-content .game-content-main {
-	margin: 0; }
-	.game-content .game-content-main .col-lg-6 {
-		margin: 0;
-		padding: 10px; }
-		.game-content .game-content-main .game-content-main-home {
-			border-right: 3px solid #fff;
-			border-top: 3px solid #fff; }
-		.game-content .game-content-main .game-content-main-away {
-			border-left: 3px solid #fff;
-			border-top: 3px solid #fff; }
-		.game-content .game-content-main-players {
-			display: flex;
-			flex-direction: row; }
-			.game-content .game-content-main-player {
-				padding: 10px;
-				width: calc(100% / 5); }
-				.game-content .game-content-main-player img {
-					width: 100%;
-					margin: 10px;
-					border-radius: 100%; }
-				.game-content .game-content-main-player p {
-					text-align: center;
-					color: #fff;
-					font-size: 16px; }
