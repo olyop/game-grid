@@ -1,5 +1,4 @@
 .game-content {
-	border: 1px solid #E0E0E0;
 	margin: 0; }
 	.game-content .game-content-inner {
 		padding: 0; }
@@ -11,6 +10,7 @@
 			transition: .2s all;
 			z-index: 2;
 			position: absolute;
+			cursor: pointer;
 			top: 0%;
 			left: 50%;
 			transform: translate(-50%, -50%);
@@ -36,7 +36,7 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			background-color: #000;
+			background-color: #212121;
 			border-radius: 100%;
 			width: 100px;
 			height: 100px;
@@ -88,6 +88,7 @@
 		height: 160px;
   	width: 160px;
   	margin: 10px 0;
+		cursor: pointer;
 		background-position: center;
 		background-size: cover;
 		border-radius: 100%; }
@@ -114,11 +115,18 @@
 		font-weight: 300; }
 
 .game-content-info {
-	border-bottom: 1px solid #E0E0E0;
+	background-color: #212121;
 	display: flex;
 	justify-content: space-between;
 	align-content: center; }
 	.game-content-info p {
+		color: #fff;
 		padding: 10px 20px;
 		font-size: 20px; }
+
+.game-content .game-content-inner .game-content-info-border {
+	border-left: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+	border-bottom: 1px solid #E0E0E0;
+}
 

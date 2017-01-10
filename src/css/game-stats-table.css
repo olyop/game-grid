@@ -5,25 +5,33 @@
     border-collapse: collapse;
 		margin: 0;
 		padding: 0; }
-		.game-content-main-stats table, th, td {
-			border: 1px solid #E0E0E0; }
-		.game-content-main-stats table thead th {
-			background-color: #0E7FF9;
-			border-color: #0E7FF9;
-			color: #fff; }
+		.game-content-main-stats table thead {
+			border-top: 1px solid #006bb7;
+			border-left: 1px solid #006bb7;
+			border-right: 1px solid #006bb7; }
+			.game-content-main-stats table thead th {
+				background-color: #006bb7;
+				font-size: 14px !important;
+				color: #fff; }
+		.game-content-main-stats table tbody {
+			border-left: 1px solid #E0E0E0;
+			border-right: 1px solid #E0E0E0;
+			border-bottom: 1px solid #E0E0E0; }
+			.game-content-main-stats table tbody tr {
+				background-color: #fff; }
+				.game-content-main-stats table tbody tr:nth-child(even) {
+					background-color: #EEEEEE; }
 		.game-content-main-stats tr .game-content-main-stats-player {
-			width: 30%; }
+			word-wrap: break-word;
+			max-width: 100px;
+			width: 52% !important; }
 			.game-content-main-stats .game-content-main-stats-player p {
 				text-overflow: ellipsis;
 				font-weight: 600;
 				overflow: hidden;
 				white-space: nowrap; }
-		.game-content-main-stats tr td {
-			width: 10%; }
-		.game-content-main-stats .game-content-main-stats-all {
-			width: 100%; }
+		.game-content-main-stats table th, td {
+			width: 6%; }
 		.game-content-main-stats table tr th, td {
-			word-wrap: break-word;
-			max-width: 150px;
 			font-size: 16px;
 			padding: 10px; }

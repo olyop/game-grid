@@ -224,7 +224,13 @@ class GameExpand extends React.Component {
 							style={homeStyle.background}
 						>
 							<div className="game-content-title">
-								<section style={homeStyle.backgroundImg}></section>
+								<a
+									href={'http://www.nba.com/' + m.homeTeam.Name.toLowerCase()}
+									target="_blank"
+									title={m.homeTeam.Name}
+								>
+									<section style={homeStyle.backgroundImg}></section>
+								</a>
 								<div className="game-content-title-text">
 									<h2>{m.homeTeam.City}</h2>
 									<h1>{m.homeTeam.Name}</h1>
@@ -244,7 +250,13 @@ class GameExpand extends React.Component {
 							style={awayStyle.background}
 						>
 							<div className="game-content-title">
-								<section style={awayStyle.backgroundImg}></section>
+								<a
+									href={'http://www.nba.com/' + m.awayTeam.Name.toLowerCase()}
+									target="_blank"
+									title={m.awayTeam.Name}
+								>
+									<section style={homeStyle.backgroundImg}></section>
+								</a>
 								<div className="game-content-title-text">
 									<h2>{m.awayTeam.City}</h2>
 									<h1>{m.awayTeam.Name}</h1>
@@ -261,7 +273,7 @@ class GameExpand extends React.Component {
 							<p>Away</p>
 						</div>
 					</div>
-					<div className="row">
+					<div className="row game-content-info-border">
 							
 						<GameStats
 							apiKey={this.props.apiKey}

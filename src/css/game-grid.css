@@ -8,7 +8,6 @@
 	#game-grid .game {
 		transition: .2s all;
 		padding: 5px;
-		cursor: pointer;
 		width: 100%; }
 		#game-grid .game .game-inner {
 			transition: .3s all;

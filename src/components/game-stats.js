@@ -23,17 +23,36 @@ class GameStats extends React.Component {
 				awayBody,
 				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
 		
+		let unknownPlayer = {
+			info: {
+				PhotoUrl: './media/unknown.jpg',
+				PlayerID: 'unknown',
+				FirstName: 'Unknown',
+				LastName: 'Name',
+				Jersey: '0',
+			},
+			stats: {
+				Games: 10,
+				Points: 10,
+				Assists: 10,
+				Rebounds: 10,
+				Steals: 10
+			}
+		}
 		let divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
 		
-		const Player = ({ player, style }) => {
+		const Player = ({ player }) => {
+			
+			let style = { backgroundImage: 'url(' + player.info.PhotoUrl + ')' }
+			
 			return (
 				<div
 					className="game-content-main-player"
-					data-id={player.PlayerID}
+					data-id={player.info.PlayerID}
 				>
 					<section title={player.info.FirstName + ' ' + player.info.LastName}>
 						<div className="game-content-player-photo" style={style}></div>
-						<div className="game-content-player-number">{'#' + player.info.Jersey}</div>
+						<div className="game-content-player-number">{player.info.Jersey}</div>
 					</section>
 					<div className="game-content-player-name">
 						<p><b>{player.info.FirstName}</b></p>
@@ -51,38 +70,66 @@ class GameStats extends React.Component {
 		
 		// Map Top Players
 		m.homeTopPlayersList = m.homeTopPlayers.map((player, index) => {
-			let style = { backgroundImage: 'url(' + player.info.PhotoUrl + ')' }
 			
-			return <Player key={index} player={player} style={style}/>
+			if (player.info === undefined || player.stats === undefined) {
+				return (
+					<Player key={index} player={unknownPlayer} />
+				)
+			}
+			
+			return <Player key={index} player={player} />
 		})
 		m.awayTopPlayersList = m.awayTopPlayers.map((player, index) => {
-			let style = { backgroundImage: 'url(' + player.info.PhotoUrl + ')' }
 			
-			return <Player key={index} player={player} style={style}/>	
+			if (player.info === undefined || player.stats === undefined) {
+				return (
+					<Player key={index} player={unknownPlayer} />
+				)
+			}
+			
+			return <Player key={index} player={player} />	
 		})
 		
 		let thead = (
 			<tr>
 				<th className="game-content-main-stats-player" title="Player stats for game">Player</th>
-				<th title="Points">PTS</th>
 				<th title="Minutes">Min</th>
-				<th title="Rebounds">REB</th>
+				<th title="Points">PTS</th>
 				<th title="Assists">AST</th>
+				<th title="Rebounds">REB</th>
 				<th title="Steals">STL</th>
 				<th title="Blocks">BLK</th>
 				<th title="Turnovers">TOV</th>
+				<th title="Plus / Minus">+/-</th>
+			</tr>
+		)
+		
+		let PlayerRow = ({ index, gameStats }) => (
+			<tr key={index}>
+				<td
+					className="game-content-main-stats-player"
+					title={gameStats.Name}
+				>
+					<p>{gameStats.Name}</p>
+				</td>
+				<td>{Math.round(gameStats.Minutes)}</td>
+				<td>{Math.round(gameStats.Points)}</td>
+				<td>{Math.round(gameStats.Assists)}</td>
+				<td>{Math.round(gameStats.Rebounds)}</td>
+				<td>{Math.round(gameStats.Steals)}</td>
+				<td>{Math.round(gameStats.BlockedShots)}</td>
+				<td>{Math.round(gameStats.Turnovers)}</td>
+				<td>{Math.round(gameStats.PlusMinus)}</td>
 			</tr>
 		)
 		
 		let gameNotStarted = (
 			<tr>
-				<td className="game-content-main-stats-all" colSpan="8">Game has not started</td>
+				<td className="game-content-main-stats-all" colSpan="9">Game has not started</td>
 			</tr>
 		)
 		
-		let loadingPlayerStats = (
-			<td className="game-content-main-stats-all" colSpan="8">Loading player game stats</td>
-		)
+		let LoadingPlayerStats = ({ text }) => <td className="game-content-main-stats-all" colSpan="9">{text}</td>
 		
 		if (!m.hasGameStarted) {
 			
@@ -101,21 +148,16 @@ class GameStats extends React.Component {
 						{
 							({error, result, loading}) => {
 								if (loading) {
-									return <tr>{loadingPlayerStats}</tr>
+									return <tr><LoadingPlayerStats text={'Loading player game stats'} /></tr>
 								} else {
 									let gameStats = result.body
-									return (
-										<tr key={index}>
-											<td className="game-content-main-stats-player"><p>{gameStats.Name}</p></td>
-											<td>{gameStats.Points}</td>
-											<td>{gameStats.Assists}</td>
-											<td>{gameStats.Rebounds}</td>
-											<td>{gameStats.Assists}</td>
-											<td>{gameStats.Steals}</td>
-											<td>{gameStats.BlockedShots}</td>
-											<td>{gameStats.Turnovers}</td>
-										</tr>
-									) 
+									if (gameStats === null) {
+										return null
+									} else if (gameStats.Minutes === 0) {
+										return null
+									} else {
+										return <PlayerRow index={index} gameStats={gameStats} />
+									}
 								}
 							}
 						}
@@ -140,21 +182,17 @@ class GameStats extends React.Component {
 						{
 							({error, result, loading}) => {
 								if (loading) {
-									return <tr>{loadingPlayerStats}</tr>
+									return <tr><LoadingPlayerStats text={'Loading player game stats'} /></tr>
 								} else {
 									let gameStats = result.body
-									return (
-										<tr key={index}>
-											<td className="game-content-main-stats-player"><p>{gameStats.Name}</p></td>
-											<td>{gameStats.Points}</td>
-											<td>{gameStats.Assists}</td>
-											<td>{gameStats.Rebounds}</td>
-											<td>{gameStats.Assists}</td>
-											<td>{gameStats.Steals}</td>
-											<td>{gameStats.BlockedShots}</td>
-											<td>{gameStats.Turnovers}</td>
-										</tr>
-									) 
+									
+									if (gameStats === null) {
+										return null
+									} else if (gameStats.Minutes === 0) {
+										return null
+									} else {
+										return <PlayerRow index={index} gameStats={gameStats} />
+									}
 								}
 							}
 						}
