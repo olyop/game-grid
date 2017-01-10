@@ -4,9 +4,7 @@ import Header from './header'
 import Games from './games'
 
 // Common Data
-const gApiKey = {
-	'Ocp-Apim-Subscription-Key': '746cd5dcdaed4053b5431d3ee451005a'
-};
+const gApiKey = { 'Ocp-Apim-Subscription-Key': '746cd5dcdaed4053b5431d3ee451005a' }
 const gDate = new Date()
 const gDaysWeek = [
 	{ day: 'Sunday', abbr: 'Sun' },
@@ -44,8 +42,7 @@ class Main extends React.Component {
 					apiKey={gApiKey}
 					date={gDate}
 					daysWeek={gDaysWeek}
-					monthsYear={gMonthsYear}
-				/>
+					monthsYear={gMonthsYear} />
 				
 			</div>
 		)

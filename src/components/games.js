@@ -5,6 +5,7 @@ import GameGrid from './game-grid'
 import Calender from './calender'
 import Loading from './loading'
 
+// Get Leauge Info
 class GetTeams extends React.Component {
 	render() {
 		return (
@@ -18,6 +19,7 @@ class GetTeams extends React.Component {
 							return <Loading />
 						} else {
 							return (
+								
 								<GetStadiums
 									apiKey={this.props.apiKey}
 									date={this.props.date}
@@ -25,6 +27,7 @@ class GetTeams extends React.Component {
 									monthsYear={this.props.monthsYear}
 									teamStats={result.body}
 								/>
+								
 							)
 						}
 					}
@@ -77,6 +80,7 @@ class GetTeamStats extends React.Component {
 							return <Loading />
 						} else {
 							return (
+								
 								<Games
 									apiKey={this.props.apiKey}
 									date={this.props.date}
@@ -86,6 +90,7 @@ class GetTeamStats extends React.Component {
 									stadiums={this.props.stadiums}
 									teams={result.body}
 								/>
+								
 							)
 						}
 					}
@@ -107,6 +112,7 @@ class Games extends React.Component {
 			<div id="games">
 				<div className="games-container">
 					<div className="games-heading">
+						
 						<Calender
 							apiKey={this.props.apiKey}
 							date={this.state.date}
@@ -114,8 +120,10 @@ class Games extends React.Component {
 							daysWeek={this.props.daysWeek}
 							onDayClick={date => this.setState({ date })}
 						/>
+						
 					</div>
 					<div className="container grid-container">
+						
 						<GameGrid
 							apiKey={this.props.apiKey}
 							date={this.state.date}
@@ -125,6 +133,7 @@ class Games extends React.Component {
 							stadiums={this.props.stadiums}
 							teams={this.props.teams}
 						/>
+						
 					</div>
 				</div>
 			</div>

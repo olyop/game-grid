@@ -11,14 +11,17 @@
 			background-color: #0E7FF9;
 			border-color: #0E7FF9;
 			color: #fff; }
-		.game-content-main-stats .game-content-main-stats-player {
+		.game-content-main-stats tr .game-content-main-stats-player {
 			width: 30%; }
 			.game-content-main-stats .game-content-main-stats-player p {
 				text-overflow: ellipsis;
+				font-weight: 600;
 				overflow: hidden;
 				white-space: nowrap; }
-		.game-content-main-stats .game-content-main-stats-stat {
+		.game-content-main-stats tr td {
 			width: 10%; }
+		.game-content-main-stats .game-content-main-stats-all {
+			width: 100%; }
 		.game-content-main-stats table tr th, td {
 			word-wrap: break-word;
 			max-width: 150px;

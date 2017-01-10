@@ -5,12 +5,27 @@ import '../css/game-stats.css'
 import '../css/game-stats-table.css'
 
 class GameStats extends React.Component {
+	
+	findDateString(date) {
+		let monthsYear = this.props.monthsYear
+		
+		let nowYear = String(date.getFullYear()),
+				nowMonth = String(monthsYear[date.getMonth()].abbr),
+				nowDate = String(date.getDate() - 1) // -1 for American Time Zone Diff
+		
+		return nowYear + '-' + nowMonth + '-' + nowDate
+	}
+	
 	render() {
 		
-		let m = this.props.m
+		let m = this.props.m,
+				homeBody,
+				awayBody,
+				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
 		
-		let divideFloor = (a, b) => Math.floor(Number(a) / Number(b)),
-				Player = ({ player, style }) => {
+		let divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
+		
+		const Player = ({ player, style }) => {
 			return (
 				<div
 					className="game-content-main-player"
@@ -48,124 +63,141 @@ class GameStats extends React.Component {
 		
 		let thead = (
 			<tr>
-				<th className="game-content-main-stats-player">Player</th>
-				<th className="game-content-main-stats-stat">PTS</th>
-				<th className="game-content-main-stats-stat">Min</th>
-				<th className="game-content-main-stats-stat">REB</th>
-				<th className="game-content-main-stats-stat">AST</th>
-				<th className="game-content-main-stats-stat">STL</th>
-				<th className="game-content-main-stats-stat">BLK</th>
-				<th className="game-content-main-stats-stat">TOV</th>
+				<th className="game-content-main-stats-player" title="Player stats for game">Player</th>
+				<th title="Points">PTS</th>
+				<th title="Minutes">Min</th>
+				<th title="Rebounds">REB</th>
+				<th title="Assists">AST</th>
+				<th title="Steals">STL</th>
+				<th title="Blocks">BLK</th>
+				<th title="Turnovers">TOV</th>
 			</tr>
 		)
 		
-		console.log(this.props.monthsYear)
+		let gameNotStarted = (
+			<tr>
+				<td className="game-content-main-stats-all" colSpan="8">Game has not started</td>
+			</tr>
+		)
 		
-		let homeBody = m.homePlayers.map((player, index) => {
+		let loadingPlayerStats = (
+			<td className="game-content-main-stats-all" colSpan="8">Loading player game stats</td>
+		)
+		
+		if (!m.hasGameStarted) {
 			
-			const d = this.props.date
+			homeBody = gameNotStarted
 			
-			let dateString = d.getFullYear() + '-' + this.props.monthsYear[d.getMonth()].abbr + '-' + (d.getDate()-1)
+		} else {
 			
-			return (
-				<Request
-					url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/' + dateString + '/' + player.PlayerID}
-					headers={this.props.apiKey}
-				>
-					{
-						({error, result, loading}) => {
-							if (loading) {
-								return <tr key={index}></tr>
-							} else {
-								let gameStats = result.body
-								return (
-									<tr key={index}>
-										<td className="game-content-main-stats-player"><p>{gameStats.Name}</p></td>
-										<td className="game-content-main-stats-stat">{gameStats.Points}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Assists}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Rebounds}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Assists}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Steals}</td>
-										<td className="game-content-main-stats-stat">{gameStats.BlockedShots}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Turnovers}</td>
-									</tr>
-								) 
+			homeBody = m.homePlayers.map((player, index) => {
+				
+				return (
+					<Request
+						url={playerGameStatsUrl + this.findDateString(this.props.date) + '/' + player.PlayerID}
+						headers={this.props.apiKey}
+						key={index}
+					>
+						{
+							({error, result, loading}) => {
+								if (loading) {
+									return <tr>{loadingPlayerStats}</tr>
+								} else {
+									let gameStats = result.body
+									return (
+										<tr key={index}>
+											<td className="game-content-main-stats-player"><p>{gameStats.Name}</p></td>
+											<td>{gameStats.Points}</td>
+											<td>{gameStats.Assists}</td>
+											<td>{gameStats.Rebounds}</td>
+											<td>{gameStats.Assists}</td>
+											<td>{gameStats.Steals}</td>
+											<td>{gameStats.BlockedShots}</td>
+											<td>{gameStats.Turnovers}</td>
+										</tr>
+									) 
+								}
 							}
 						}
-					}
-				</Request>
-			)
-		})
+					</Request>
+				)
+			})
+		}
 		
-		let awayBody = m.awayPlayers.map((player, index) => {
+		if (!m.hasGameStarted) {
 			
-			const d = this.props.date
+			awayBody = gameNotStarted
 			
-			let dateString = d.getFullYear() + '-' + this.props.monthsYear[d.getMonth()].abbr + '-' + (d.getDate()-1)
+		} else {
 			
-			return (
-				<Request
-					url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/' + dateString + '/' + player.PlayerID}
-					headers={this.props.apiKey}
-				>
-					{
-						({error, result, loading}) => {
-							if (loading) {
-								return <tr key={index}></tr>
-							} else {
-								let gameStats = result.body
-								return (
-									<tr key={index}>
-										<td className="game-content-main-stats-player"><p>{gameStats.Name}</p></td>
-										<td className="game-content-main-stats-stat">{gameStats.Points}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Assists}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Rebounds}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Assists}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Steals}</td>
-										<td className="game-content-main-stats-stat">{gameStats.BlockedShots}</td>
-										<td className="game-content-main-stats-stat">{gameStats.Turnovers}</td>
-									</tr>
-								) 
+			awayBody = m.awayPlayers.map((player, index) => {
+				return (
+					<Request
+						url={playerGameStatsUrl + this.findDateString(this.props.date)  + '/' + player.PlayerID}
+						headers={this.props.apiKey}
+						key={index}
+					>
+						{
+							({error, result, loading}) => {
+								if (loading) {
+									return <tr>{loadingPlayerStats}</tr>
+								} else {
+									let gameStats = result.body
+									return (
+										<tr key={index}>
+											<td className="game-content-main-stats-player"><p>{gameStats.Name}</p></td>
+											<td>{gameStats.Points}</td>
+											<td>{gameStats.Assists}</td>
+											<td>{gameStats.Rebounds}</td>
+											<td>{gameStats.Assists}</td>
+											<td>{gameStats.Steals}</td>
+											<td>{gameStats.BlockedShots}</td>
+											<td>{gameStats.Turnovers}</td>
+										</tr>
+									) 
+								}
 							}
 						}
-					}
-				</Request>
-			)
-		})
+					</Request>
+				)
+			})
+		}
 		
 		return (
 			<div className="game-content-main">
 				<div className="col-lg-6 game-content-main-left">
+					
 					<h1>{m.homeTeam.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">
-						
 						<table>
 							<thead>{thead}</thead>
 							<tbody>{homeBody}</tbody>
 							<tfoot></tfoot>
 						</table>
-						
 					</div>
+					
 					<h1>{m.homeTeam.Name} top 3 players</h1>
 					<div className="game-content-main-item game-content-main-players">
 						{m.homeTopPlayersList}
 					</div>
+					
 				</div>
 				<div className="col-lg-6 game-content-main-right">
+					
 					<h1>{m.awayTeam.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">
-						
 						<table>
 							<thead>{thead}</thead>
 							<tbody>{awayBody}</tbody>
 							<tfoot></tfoot>
 						</table>
-						
 					</div>
+					
 					<h1>{m.awayTeam.Name} top 3 players</h1>
 					<div className="game-content-main-item game-content-main-players">
 						{m.awayTopPlayersList}
 					</div>
+					
 				</div>
 			</div>
 		)

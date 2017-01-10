@@ -1,7 +1,7 @@
 import React from 'react'
 import Request from 'react-http-request'
 import Loading from './loading'
-import GameContentStats from './game-stats'
+import GameStats from './game-stats'
 
 import '../css/game-expand.css'
 
@@ -127,8 +127,8 @@ class GameExpand extends React.Component {
 	render() {
 		
 		let m = this.props.m,
-				i = 0, b = 0,
-				item, logourl = './media/team-logos/'
+				item, logourl = './media/team-logos/',
+				i = 0, b = 0
 		
 		m.homePlayers = this.props.homeTeamPlayers
 		m.awayPlayers = this.props.awayTeamPlayers
@@ -158,24 +158,16 @@ class GameExpand extends React.Component {
 				backgroundColor: m.homeColor.color,
 				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.homeColor.color, 0.60)
 			},
-			backgroundColor: {
-				backgroundColor: m.homeColor.color
-			},
-			backgroundImg: {
-				backgroundImage: 'url(' + logourl + m.homeTeam.Key + '.svg)'
-			}
+			backgroundColor: { backgroundColor: m.homeColor.color },
+			backgroundImg: { backgroundImage: 'url(' + logourl + m.homeTeam.Key + '.svg)' }
 		}
 		let awayStyle = {
 			background: {
 				backgroundColor: m.awayColor.color,
 				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.awayColor.color, 0.60)
 			},
-			backgroundColor: {
-				backgroundColor: m.awayColor.color
-			},
-			backgroundImg: {
-				backgroundImage: 'url(' + logourl + m.awayTeam.Key + '.svg)'
-			}
+			backgroundColor: { backgroundColor: m.awayColor.color },
+			backgroundImg: { backgroundImage: 'url(' + logourl + m.awayTeam.Key + '.svg)' }
 		}
 				
 		m.homeStats.sort((a, b) => b.Points - a.Points)
@@ -271,11 +263,12 @@ class GameExpand extends React.Component {
 					</div>
 					<div className="row">
 							
-						<GameContentStats
+						<GameStats
 							apiKey={this.props.apiKey}
 							date={this.props.date}
 							monthsYear={this.props.monthsYear}
 							daysWeek={this.props.daysWeek}
+							findDateString={this.props.findDateString}
 							m={m} />
 						
 					</div>

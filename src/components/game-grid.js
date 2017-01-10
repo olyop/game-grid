@@ -13,10 +13,11 @@ class GameGrid extends React.Component {
 	}
 	
 	findDateString(date) {
-		let months = this.props.monthsYear,
-				nowYear = String(date.getFullYear()),
-				nowMonth = String(months[date.getMonth()].abbr),
-				nowDate = String(date.getDate() - 1) // -1 for American Time Zone Diff				
+		let monthsYear = this.props.monthsYear
+		
+		let nowYear = String(date.getFullYear()),
+				nowMonth = String(monthsYear[date.getMonth()].abbr),
+				nowDate = String(date.getDate() - 1) // -1 for American Time Zone Diff
 		
 		return nowYear + '-' + nowMonth + '-' + nowDate
 	}
@@ -48,8 +49,7 @@ class GameGrid extends React.Component {
 										stadiums={this.props.stadiums}
 										index={index}
 										key={index}
-										toggleScores={this.state.toggleScores}
-									/>
+										toggleScores={this.state.toggleScores} />
 								)
 							})
 							
@@ -58,8 +58,7 @@ class GameGrid extends React.Component {
 									
 									<GamesInfo
 										numGames={gameObj.length}
-										toggleScores={toggleScores => this.setState({ toggleScores })}
-									/>
+										toggleScores={toggleScores => this.setState({ toggleScores })} />
 
 									<div id="game-grid">{gamesList}</div>
 									
