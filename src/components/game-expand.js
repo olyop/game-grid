@@ -159,7 +159,7 @@ class GameExpand extends React.Component {
 				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.home.info.PrimaryColor, 0.60)
 			},
 			backgroundColor: { backgroundColor: '#' + m.home.info.PrimaryColor },
-			backgroundImg: { backgroundImage: 'url(' + logourl + m.home.info.Key + '.svg)' }
+			backgroundImg: { backgroundImage: 'url(' + logourl + m.home.info.Key.toLowerCase() + '.svg)' }
 		}
 		let awayStyle = {
 			background: {
@@ -167,7 +167,7 @@ class GameExpand extends React.Component {
 				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.away.info.PrimaryColor, 0.60)
 			},
 			backgroundColor: { backgroundColor: '#' + m.away.info.PrimaryColor },
-			backgroundImg: { backgroundImage: 'url(' + logourl + m.away.info.Key + '.svg)' }
+			backgroundImg: { backgroundImage: 'url(' + logourl + m.away.info.Key.toLowerCase() + '.svg)' }
 		}
 				
 		m.home.stats.sort((a, b) => b.Points - a.Points)
@@ -234,7 +234,7 @@ class GameExpand extends React.Component {
 								<div className="game-content-title-text">
 									<h2>{m.home.info.City}</h2>
 									<h1>{m.home.info.Name}</h1>
-									<p style={m.home.scoreDisplay}>{m.home.record}</p>
+									<p>{m.home.record}</p>
 								</div>
 								<h2 style={m.home.scoreDisplay}>{m.home.score}</h2>
 							</div>
@@ -260,7 +260,7 @@ class GameExpand extends React.Component {
 								<div className="game-content-title-text">
 									<h2>{m.away.info.City}</h2>
 									<h1>{m.away.info.Name}</h1>
-									<p style={m.away.scoreDisplay} >{m.away.record}</p>
+									<p>{m.away.record}</p>
 								</div>
 								<h2 style={m.away.scoreDisplay}>{m.away.score}</h2>
 							</div>
