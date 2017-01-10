@@ -27,8 +27,8 @@ class GameStats extends React.Component {
 			info: {
 				PhotoUrl: './media/unknown.jpg',
 				PlayerID: 'unknown',
-				FirstName: 'Unknown',
-				LastName: 'Name',
+				FirstName: 'Cannot Load',
+				LastName: 'Player',
 				Jersey: '0',
 			},
 			stats: {
@@ -69,7 +69,7 @@ class GameStats extends React.Component {
 		}
 		
 		// Map Top Players
-		m.homeTopPlayersList = m.homeTopPlayers.map((player, index) => {
+		m.homeTopPlayersList = m.home.topPlayers.map((player, index) => {
 			
 			if (player.info === undefined || player.stats === undefined) {
 				return (
@@ -79,7 +79,7 @@ class GameStats extends React.Component {
 			
 			return <Player key={index} player={player} />
 		})
-		m.awayTopPlayersList = m.awayTopPlayers.map((player, index) => {
+		m.awayTopPlayersList = m.away.topPlayers.map((player, index) => {
 			
 			if (player.info === undefined || player.stats === undefined) {
 				return (
@@ -135,9 +135,13 @@ class GameStats extends React.Component {
 			
 			homeBody = gameNotStarted
 			
+		} else if (m.toggleScores) {
+			
+			homeBody = <LoadingPlayerStats text="Scores are hidden" />
+			
 		} else {
 			
-			homeBody = m.homePlayers.map((player, index) => {
+			homeBody = m.home.players.map((player, index) => {
 				
 				return (
 					<Request
@@ -170,9 +174,13 @@ class GameStats extends React.Component {
 			
 			awayBody = gameNotStarted
 			
+		} else if (m.toggleScores) {
+			
+			awayBody = <LoadingPlayerStats text="Scores are hidden" />
+			
 		} else {
 			
-			awayBody = m.awayPlayers.map((player, index) => {
+			awayBody = m.away.players.map((player, index) => {
 				return (
 					<Request
 						url={playerGameStatsUrl + this.findDateString(this.props.date)  + '/' + player.PlayerID}
@@ -205,7 +213,7 @@ class GameStats extends React.Component {
 			<div className="game-content-main">
 				<div className="col-lg-6 game-content-main-left">
 					
-					<h1>{m.homeTeam.Name} player game stats</h1>
+					<h1>{m.home.info.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">
 						<table>
 							<thead>{thead}</thead>
@@ -214,7 +222,7 @@ class GameStats extends React.Component {
 						</table>
 					</div>
 					
-					<h1>{m.homeTeam.Name} top 3 players</h1>
+					<h1>{m.home.info.Name} top 3 players</h1>
 					<div className="game-content-main-item game-content-main-players">
 						{m.homeTopPlayersList}
 					</div>
@@ -222,7 +230,7 @@ class GameStats extends React.Component {
 				</div>
 				<div className="col-lg-6 game-content-main-right">
 					
-					<h1>{m.awayTeam.Name} player game stats</h1>
+					<h1>{m.away.info.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">
 						<table>
 							<thead>{thead}</thead>
@@ -231,7 +239,7 @@ class GameStats extends React.Component {
 						</table>
 					</div>
 					
-					<h1>{m.awayTeam.Name} top 3 players</h1>
+					<h1>{m.away.info.Name} top 3 players</h1>
 					<div className="game-content-main-item game-content-main-players">
 						{m.awayTopPlayersList}
 					</div>

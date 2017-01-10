@@ -51,11 +51,12 @@
 				color: #fff;
 				font-weight: 700; }
 			.game-content .game-content-title-text {
-				width: 172px; }
+				width: 194px; }
 			.game-content .game-content-left .game-content-title {
 				margin-right: 50px;
 				flex-direction: row; }
 				.game-content .game-content-left .game-content-title-text {
+					text-align: right;
 					margin: 0 40px 0 10px; }
 			.game-content .game-content-right .game-content-title {
 				margin-left: 50px;
@@ -107,7 +108,7 @@
 		padding: 0;
 		margin-bottom: 10px;
 		color: #fff;
-		font-size: 40px; }
+		font-size: 35px; }
 	.game-content .game-content-title .game-content-title-text p {
 		color: #fff;
 		line-height: 0.8;

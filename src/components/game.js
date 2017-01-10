@@ -28,20 +28,28 @@ class Game extends React.Component {
 	render() {
 		
 		let item, i, m = {
-			homeTeam: null,
-			homePlayers: null,
-			homeStats: null,
-			homeTopPlayers: null,
-			homeColor: null,
-			homeTeamStats: null,
-			homeTeamRecord: null,
-			awayTeam: null,
-			awayPlayers: null,
-			awayStats: null,
-			awayTopPlayers: null,
-			awayColor: null,
-			awayTeamStats: null,
-			awayTeamRecord: null,
+			home: {
+				info: null,
+				score: this.props.game.HomeTeamScore,
+				players: null,
+				stats: null,
+				topPlayers: null,
+				color: null,
+				record: null,
+				scoreDisplay: null,
+				scoreStyle: null
+			},
+			away: {
+				info: null,
+				score: this.props.game.AwayTeamScore,
+				players: null,
+				stats: null,
+				topPlayers: null,
+				color: null,
+				record: null,
+				scoreDisplay: null,
+				scoreStyle: null
+			},
 			stadium: null,
 			headerLeft: null,
 			headerRight: null,
@@ -49,17 +57,17 @@ class Game extends React.Component {
 			teamsLength: this.props.teams.length,
 			stadiumsLength: this.props.stadiums.length,
 			teamStatsLength: this.props.teamStats.length,
-			tieColor: { color: '#FF9800' },
-			colorRed: { color: '#F44336' },
-			colorGreen: { color: '#4CAF50' },
+			colors: {
+				tie: { color: '#FF9800' },
+				red: { color: '#F44336' },
+				green: { color: '#4CAF50' }
+			},
 			displayBlock: { display: 'block' },
 			displayNone: { display: 'none' },
 			qtr: this.props.game.Quarter,
 			hasGameStarted: null,
 			timeSec: this.props.game.TimeRemainingSeconds,
 			timeMin: this.props.game.TimeRemainingMinutes,
-			homeScore: this.props.game.HomeTeamScore,
-			awayScore: this.props.game.AwayTeamScore,
 			time: this.props.game.DateTime,
 			toggleScores: this.props.toggleScores,
 			nbaWebsiteUrl: 'http://www.nba.com/',
@@ -70,10 +78,6 @@ class Game extends React.Component {
 			starStyle: null,
 			shareStyle: null,
 			starInner: null,
-			homeScoreStyle: null,
-			awayScoreStyle: null,
-			homeScoreDisplay: null,
-			awayScoreDisplay: null,
 			gameClass: null,
 			sliceTimeMin: null,
 			sliceTimeSec: null,
@@ -84,7 +88,7 @@ class Game extends React.Component {
 		for (i = 0; i < m.teamsLength; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.HomeTeamID === item.TeamID) {
-				m.homeTeam = item
+				m.home.info = item
 				break
 			}
 		}
@@ -93,7 +97,7 @@ class Game extends React.Component {
 		for (i = 0; i < m.teamsLength; i++) {
 			item = this.props.teams[i]
 			if (this.props.game.AwayTeamID === item.TeamID) {
-				m.awayTeam = item
+				m.away.info = item
 				break
 			}
 		}
@@ -110,8 +114,8 @@ class Game extends React.Component {
 		// Find Home Team Stats
 		for (i = 0; i < m.teamStatsLength; i++) {
 			item = this.props.teamStats[i]
-			if (m.homeTeam.TeamID === item.TeamID) {
-				m.homeTeamStats = item
+			if (m.home.info.TeamID === item.TeamID) {
+				m.home.stats = item
 				break
 			}
 		}
@@ -119,26 +123,26 @@ class Game extends React.Component {
 		// Find Away Team Stats
 		for (i = 0; i < m.teamStatsLength; i++) {
 			item = this.props.teamStats[i]
-			if (m.awayTeam.TeamID === item.TeamID) {
-				m.awayTeamStats = item
+			if (m.away.info.TeamID === item.TeamID) {
+				m.away.stats = item
 				break
 			}
 		}
 		
 		// Declare after ID Matches
-		m.homeColor = { color: '#' + m.homeTeam.PrimaryColor }
-		m.awayColor = { color: '#' + m.awayTeam.PrimaryColor }
-		m.homeTeamRecord = m.homeTeamStats.Wins + ' - ' + m.homeTeamStats.Losses
-		m.awayTeamRecord = m.awayTeamStats.Wins + ' - ' + m.awayTeamStats.Losses
+		m.home.color = { color: '#' + m.home.info.PrimaryColor }
+		m.away.color = { color: '#' + m.away.info.PrimaryColor }
+		m.home.record = m.home.stats.Wins + ' - ' + m.home.stats.Losses
+		m.away.record = m.away.stats.Wins + ' - ' + m.away.stats.Losses
 		m.sliceTimeMin = m.time.slice(11,13)
 		m.sliceTimeSec = m.time.slice(14,16)
-		m.winningText = name => <b><span style={m.colorGreen}>{name}</span></b>;
+		m.winningText = name => <b><span style={m.colors.green}>{name}</span></b>;
 
 		// Check for Errors
-		if (m.homeTeam.Name === 'Celtics') { m.homeColor = { color: '#2E7B3B' } }
-		if (m.awayTeam.Name === 'Celtics') { m.awayColor = { color: '#2E7B3B' } }
-		if (m.homeTeam.Name === 'Timberwolves') { m.homeColor = { color: '#005083' } }
-		if (m.awayTeam.Name === 'Timberwolves') { m.awayColor = { color: '#005083' } }
+		if (m.home.info.Name === 'Celtics') { m.home.color = { color: '#2E7B3B' } }
+		if (m.away.info.Name === 'Celtics') { m.away.color = { color: '#2E7B3B' } }
+		if (m.home.info.Name === 'Timberwolves') { m.home.color = { color: '#005083' } }
+		if (m.away.info.Name === 'Timberwolves') { m.away.color = { color: '#005083' } }
 		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
 		
 		// Toggle Star
@@ -167,27 +171,27 @@ class Game extends React.Component {
 		
 		
 		// Determine who is Winning
-		if (m.homeScore === m.awayScore) {
-			m.homeScoreStyle = m.tieColor
-			m.awayScoreStyle = m.tieColor
-		} else if (m.homeScore > m.awayScore) {
-			m.winningTeam = m.homeTeam
-			m.homeScoreStyle = m.colorGreen
-			m.awayScoreStyle = m.colorRed
-		} else if (m.awayScore > m.homeScore) {
-			m.winningTeam = m.awayTeam
-			m.awayScoreStyle = m.colorGreen
-			m.homeScoreStyle = m.colorRed
+		if (m.home.score === m.away.score) {
+			m.home.scoreStyle = m.colors.tie
+			m.away.scoreStyle = m.colors.tie
+		} else if (m.home.score > m.away.score) {
+			m.winningTeam = m.home.info
+			m.home.scoreStyle = m.colors.green
+			m.away.scoreStyle = m.colors.red
+		} else if (m.away.score > m.home.score) {
+			m.winningTeam = m.away.info
+			m.away.scoreStyle = m.colors.green
+			m.home.scoreStyle = m.colors.red
 		}
 
 		// Check if game has started OR scores are off
-		if ((m.homeScore <= 0 && m.awayScore <= 0) || m.toggleScores === true ) {
-			m.homeScoreDisplay = { display: 'none' }
-			m.awayScoreDisplay = { display: 'none' }
+		if ((m.home.score <= 0 && m.away.score <= 0) || m.toggleScores === true ) {
+			m.home.scoreDisplay = { display: 'none' }
+			m.away.scoreDisplay = { display: 'none' }
 		}
 
 		// Determine Game Status
-		if (m.qtr === null && m.timeMin === null && m.timeSec === null && m.homeScore === null) {
+		if (m.qtr === null && m.timeMin === null && m.timeSec === null && m.home.score === null) {
 			if (m.sliceTimeMin <= 12) {
 				m.headerRight = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 			} else {
@@ -207,7 +211,7 @@ class Game extends React.Component {
 			m.headerLeft = m.stadium.Name
 			m.gameBreak = 'AT'
 			m.hasGameStarted = true
-		} else if ((m.qtr === null && m.timeSec === null && m.timeMin === null && m.homeScore > 0) || m.qtr === 'F') {
+		} else if ((m.qtr === null && m.timeSec === null && m.timeMin === null && m.home.score > 0) || m.qtr === 'F') {
 			m.headerLeft = <b>Full Time</b>
 			if (this.props.toggleScores) { m.headerRight = m.stadium.Name }
 			else { m.headerRight = m.winningText(m.winningTeam.Name) }
@@ -226,8 +230,8 @@ class Game extends React.Component {
 					m.headerRight = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 				}
 			} else {
-				m.headerRight = <b style={m.colorRed} className='blink'>{str}</b>
-				m.headerLeft = <b style={m.colorRed}>{'Q' + m.qtr}</b>
+				m.headerRight = <b style={m.colors.red} className='blink'>{str}</b>
+				m.headerLeft = <b style={m.colors.red}>{'Q' + m.qtr}</b>
 			}
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
@@ -238,7 +242,7 @@ class Game extends React.Component {
 				key={this.props.game.GameID}
 				data-id={this.props.game.GameID}
 				data-index={this.props.index}
-				title={m.homeTeam.Name + ' vs ' + m.awayTeam.Name}
+				title={m.home.info.Name + ' vs ' + m.away.info.Name}
 				className={m.gameClass}
 			>
 				{ this.state.toggleExpand ?

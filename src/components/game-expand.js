@@ -12,7 +12,7 @@ class GetPlayersHome extends React.Component {
 		
 		return (
 			<Request
-				url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.homeTeam.Key}
+				url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.home.info.Key}
 				headers={this.props.apiKey}
 			>
 				{
@@ -23,7 +23,7 @@ class GetPlayersHome extends React.Component {
 							let temp = result.body
 							return (
 								<Request
-									url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + this.props.date.getFullYear() + '/' + m.homeTeam.Key}
+									url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + this.props.date.getFullYear() + '/' + m.home.info.Key}
 									headers={this.props.apiKey}
 								>
 									{
@@ -63,7 +63,7 @@ class GetPlayersAway extends React.Component {
 		
 		return (
 			<Request
-				url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.awayTeam.Key}
+				url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.away.info.Key}
 				headers={this.props.apiKey}
 			>
 				{
@@ -74,7 +74,7 @@ class GetPlayersAway extends React.Component {
 							let temp = result.body
 							return (
 								<Request
-									url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + this.props.date.getFullYear() + '/' + m.awayTeam.Key}
+									url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + this.props.date.getFullYear() + '/' + m.away.info.Key}
 									headers={this.props.apiKey}
 								>
 									{
@@ -130,66 +130,66 @@ class GameExpand extends React.Component {
 				item, logourl = './media/team-logos/',
 				i = 0, b = 0
 		
-		m.homePlayers = this.props.homeTeamPlayers
-		m.awayPlayers = this.props.awayTeamPlayers
-		m.homeStats = this.props.homeTeamPlayerStats
-		m.awayStats = this.props.awayTeamPlayerStats
-		m.homeTopPlayers = [
+		m.home.players = this.props.homeTeamPlayers
+		m.away.players = this.props.awayTeamPlayers
+		m.home.stats = this.props.homeTeamPlayerStats
+		m.away.stats = this.props.awayTeamPlayerStats
+		m.home.topPlayers = [
 			{ info: null, stats: null },
 			{ info: null, stats: null },
 			{ info: null, stats: null }
 		]
-		m.awayTopPlayers = [
+		m.away.topPlayers = [
 			{ info: null, stats: null },
 			{ info: null, stats: null },
 			{ info: null, stats: null }
 		]
 		
-		let homePlayersLength = m.homePlayers.length,
-				awayPlayersLength = m.awayPlayers.length
+		let homePlayersLength = m.home.players.length,
+				awayPlayersLength = m.away.players.length
 		
-		if (m.homeTeam.Key === 'BKN') { m.homeColor.color = '#2d2925' }
-		if (m.homeTeam.Key === 'HOU') { m.homeColor.color = '#c30e2e' }
-		if (m.homeTeam.Key === 'SA') { m.homeColor.color = '#0a1b23' }
-		if (m.homeTeam.Key === 'MEM') { m.homeColor.color = '#6089b8' }
+		if (m.home.info.Key === 'BKN') { m.home.color = '#2d2925' }
+		if (m.home.info.Key === 'HOU') { m.home.color = '#c30e2e' }
+		if (m.home.info.Key === 'SA') { m.home.color = '#0a1b23' }
+		if (m.home.info.Key === 'MEM') { m.home.color = '#6089b8' }
 		
 		let homeStyle = {
 			background: {
-				backgroundColor: m.homeColor.color,
-				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.homeColor.color, 0.60)
+				backgroundColor: '#' + m.home.info.PrimaryColor,
+				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.home.info.PrimaryColor, 0.60)
 			},
-			backgroundColor: { backgroundColor: m.homeColor.color },
-			backgroundImg: { backgroundImage: 'url(' + logourl + m.homeTeam.Key + '.svg)' }
+			backgroundColor: { backgroundColor: '#' + m.home.info.PrimaryColor },
+			backgroundImg: { backgroundImage: 'url(' + logourl + m.home.info.Key + '.svg)' }
 		}
 		let awayStyle = {
 			background: {
-				backgroundColor: m.awayColor.color,
-				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.awayColor.color, 0.60)
+				backgroundColor: '#' + m.away.info.PrimaryColor,
+				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.away.info.PrimaryColor, 0.60)
 			},
-			backgroundColor: { backgroundColor: m.awayColor.color },
-			backgroundImg: { backgroundImage: 'url(' + logourl + m.awayTeam.Key + '.svg)' }
+			backgroundColor: { backgroundColor: '#' + m.away.info.PrimaryColor },
+			backgroundImg: { backgroundImage: 'url(' + logourl + m.away.info.Key + '.svg)' }
 		}
 				
-		m.homeStats.sort((a, b) => b.Points - a.Points)
-		m.awayStats.sort((a, b) => b.Points - a.Points)
+		m.home.stats.sort((a, b) => b.Points - a.Points)
+		m.away.stats.sort((a, b) => b.Points - a.Points)
 		
 		// Find Top 5 Home Players
 		while (i < 3) {
 			
-			let homePlayerStats = m.homeStats[i],
+			let homePlayerStats = m.home.stats[i],
 					homePlayer
 			
 			// Find Player Stats
 			for (var a = 0; a < homePlayersLength; a++) {
-				item = m.homePlayers[a]
+				item = m.home.players[a]
 				if (homePlayerStats.PlayerID === item.PlayerID) {
 					homePlayer = item
 					break
 				}
 			}
 			
-			m.homeTopPlayers[i].stats = homePlayerStats
-			m.homeTopPlayers[i].info = homePlayer
+			m.home.topPlayers[i].stats = homePlayerStats
+			m.home.topPlayers[i].info = homePlayer
 			
 			i++
 		}
@@ -197,20 +197,20 @@ class GameExpand extends React.Component {
 		// Find Top 5 Away Players
 		while (b < 3) {
 			
-			let awayPlayerStats = m.awayStats[b],
+			let awayPlayerStats = m.away.stats[b],
 					awayPlayer
 			
 			// Find Player Stats
 			for (var c = 0; c < awayPlayersLength; c++) {
-				item = m.awayPlayers[c]
+				item = m.away.players[c]
 				if (awayPlayerStats.PlayerID === item.PlayerID) {
 					awayPlayer = item
 					break
 				}
 			}
 			
-			m.awayTopPlayers[b].stats = awayPlayerStats
-			m.awayTopPlayers[b].info = awayPlayer
+			m.away.topPlayers[b].stats = awayPlayerStats
+			m.away.topPlayers[b].info = awayPlayer
 			
 			b++
 		}
@@ -225,18 +225,18 @@ class GameExpand extends React.Component {
 						>
 							<div className="game-content-title">
 								<a
-									href={'http://www.nba.com/' + m.homeTeam.Name.toLowerCase()}
+									href={'http://www.nba.com/' + m.home.info.Name.toLowerCase()}
 									target="_blank"
-									title={m.homeTeam.Name}
+									title={m.home.info.Name}
 								>
 									<section style={homeStyle.backgroundImg}></section>
 								</a>
 								<div className="game-content-title-text">
-									<h2>{m.homeTeam.City}</h2>
-									<h1>{m.homeTeam.Name}</h1>
-									<p style={m.homeScoreDisplay}>{m.homeTeamRecord}</p>
+									<h2>{m.home.info.City}</h2>
+									<h1>{m.home.info.Name}</h1>
+									<p style={m.home.scoreDisplay}>{m.home.record}</p>
 								</div>
-								<h2 style={m.homeScoreDisplay}>{m.homeScore}</h2>
+								<h2 style={m.home.scoreDisplay}>{m.home.score}</h2>
 							</div>
 						</div>
 						<div className="game-content-close" onClick={this.props.toggleExpand}>
@@ -251,18 +251,18 @@ class GameExpand extends React.Component {
 						>
 							<div className="game-content-title">
 								<a
-									href={'http://www.nba.com/' + m.awayTeam.Name.toLowerCase()}
+									href={'http://www.nba.com/' + m.away.info.Name.toLowerCase()}
 									target="_blank"
-									title={m.awayTeam.Name}
+									title={m.away.info.Name}
 								>
-									<section style={homeStyle.backgroundImg}></section>
+									<section style={awayStyle.backgroundImg}></section>
 								</a>
 								<div className="game-content-title-text">
-									<h2>{m.awayTeam.City}</h2>
-									<h1>{m.awayTeam.Name}</h1>
-									<p style={m.homeScoreDisplay} >{m.awayTeamRecord}</p>
+									<h2>{m.away.info.City}</h2>
+									<h1>{m.away.info.Name}</h1>
+									<p style={m.away.scoreDisplay} >{m.away.record}</p>
 								</div>
-								<h2 style={m.awayScoreDisplay}>{m.awayScore}</h2>
+								<h2 style={m.away.scoreDisplay}>{m.away.score}</h2>
 							</div>
 						</div>
 					</div>

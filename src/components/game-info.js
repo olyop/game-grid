@@ -68,22 +68,22 @@ class GameInfo extends React.Component {
 					<hr />
 					<p>
 						<a
-							href={m.nbaWebsiteUrl + m.homeTeam.Name.toLowerCase() + '/'}
-							title={'Visit the ' + m.homeTeam.Name + ' website'}
+							href={m.nbaWebsiteUrl + m.home.info.Name.toLowerCase() + '/'}
+							title={'Visit the ' + m.home.info.Name + ' website'}
 							target="_blank"
 						>
 							<i className="material-icons">open_in_new</i>
-							<span>{m.homeTeam.Name + '.com'}</span>
+							<span>{m.home.info.Name + '.com'}</span>
 						</a>
 					</p>
 					<p>
 						<a
-							href={m.nbaWebsiteUrl + m.awayTeam.Name.toLowerCase() + '/'}
-							title={'Visit the ' + m.awayTeam.Name + ' website'}
+							href={m.nbaWebsiteUrl + m.away.info.Name.toLowerCase() + '/'}
+							title={'Visit the ' + m.away.info.Name + ' website'}
 							target="_blank"
 						>
 							<i className="material-icons">open_in_new</i>
-							<span>{m.awayTeam.Name + '.com'}</span>
+							<span>{m.away.info.Name + '.com'}</span>
 						</a>
 					</p>
 				</div>
@@ -129,16 +129,16 @@ class GameInfo extends React.Component {
 				</div>
 				<div className="game-team">
 					<img
-						src={m.teamLogoUrl + m.homeTeam.Key.toLowerCase() + '.svg'}
-						alt={m.homeTeam.Name} 
+						src={m.teamLogoUrl + m.home.info.Key.toLowerCase() + '.svg'}
+						alt={m.home.info.Name} 
 					/>
-					<p className="game-team-score" style={m.homeScoreDisplay}>
-						<span style={m.homeScoreStyle}>{m.homeScore}</span>
+					<p className="game-team-score" style={m.home.soreDisplay}>
+						<span style={m.home.scoreStyle}>{m.home.score}</span>
 					</p>
 					<div className="game-team-text">
-						<h4>{m.homeTeam.City}</h4>
-						<h3 style={m.homeColor}>{m.homeTeam.Name}</h3>
-						<p>{m.homeTeamRecord}</p>
+						<h4>{m.home.info.City}</h4>
+						<h3 style={m.home.color}>{m.home.info.Name}</h3>
+						<p>{m.home.record}</p>
 					</div>
 				</div>
 				<div className="game-break">
@@ -148,16 +148,16 @@ class GameInfo extends React.Component {
 				</div>
 				<div className="game-team">
 					<img
-						src={m.teamLogoUrl + m.awayTeam.Key.toLowerCase() + '.svg'}
-						alt={m.awayTeam.Name} 
+						src={m.teamLogoUrl + m.away.info.Key.toLowerCase() + '.svg'}
+						alt={m.away.info.Name} 
 					/>
-					<p className="game-team-score" style={m.awayScoreDisplay}>
-						<span style={m.awayScoreStyle}>{m.awayScore}</span>
+					<p className="game-team-score" style={m.away.scoreDisplay}>
+						<span style={m.away.scoreStyle}>{m.away.score}</span>
 					</p>
 					<div className="game-team-text">
-						<h4>{m.awayTeam.City}</h4>
-						<h3 style={m.awayColor}>{m.awayTeam.Name}</h3>
-						<p>{m.awayTeamRecord}</p>
+						<h4>{m.away.info.City}</h4>
+						<h3 style={m.away.color}>{m.away.info.Name}</h3>
+						<p>{m.away.record}</p>
 					</div>
 				</div>
 				<div className="game-break">
