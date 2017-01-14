@@ -167,9 +167,9 @@ class GameInfo extends React.Component {
 				</div>
 				<div className="game-header">
 					<p>
-						{m.headerLeft}
+						{m.info.left}
 						{' '}&#8212;{' '}
-						{m.headerRight}
+						{m.info.right}
 					</p>
 				</div>
 			</div>

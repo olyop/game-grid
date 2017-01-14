@@ -21,9 +21,8 @@ class GameStats extends React.Component {
 		let m = this.props.m,
 				homeBody,
 				awayBody,
-				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
-		
-		let unknownPlayer = {
+				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/',
+				unknownPlayer = {
 			info: {
 				PhotoUrl: './media/unknown.jpg',
 				PlayerID: 'unknown',
@@ -39,7 +38,7 @@ class GameStats extends React.Component {
 				Steals: 10
 			}
 		}
-		let divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
+		const divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
 		
 		const Player = ({ player }) => {
 			
@@ -93,8 +92,8 @@ class GameStats extends React.Component {
 		let thead = (
 			<tr>
 				<th className="game-content-main-stats-player" title="Player stats for game">Player</th>
-				<th title="Minutes">Min</th>
 				<th title="Points">PTS</th>
+				<th title="Minutes">Min</th>
 				<th title="Assists">AST</th>
 				<th title="Rebounds">REB</th>
 				<th title="Steals">STL</th>
@@ -112,8 +111,8 @@ class GameStats extends React.Component {
 				>
 					<p>{gameStats.Name}</p>
 				</td>
+				<td><b>{Math.round(gameStats.Points)}</b></td>
 				<td>{Math.round(gameStats.Minutes)}</td>
-				<td>{Math.round(gameStats.Points)}</td>
 				<td>{Math.round(gameStats.Assists)}</td>
 				<td>{Math.round(gameStats.Rebounds)}</td>
 				<td>{Math.round(gameStats.Steals)}</td>

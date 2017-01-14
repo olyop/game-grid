@@ -269,7 +269,7 @@ class GameExpand extends React.Component {
 					<div className="row">
 						<div className="game-content-info">
 							<p>Home</p>
-							<p>{m.headerLeft} &#8211; {m.headerRight}</p>
+							<p>{m.info.left} &#8211; {m.info.right}</p>
 							<p>Away</p>
 						</div>
 					</div>

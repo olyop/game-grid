@@ -29,6 +29,7 @@
 				.game-content .game-content-close:hover .material-icons {
 					font-size: 30px; }
 			.game-content .game-content-close .material-icons {
+				color: #333;
 				transition: .2s all;
 				margin-top: 5px; }
 		.game-content .game-content-vs {

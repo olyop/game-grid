@@ -1,7 +1,10 @@
 import React from 'react'
-import '../css/main.css'
+
+import Banner from './banner'
 import Header from './header'
 import Games from './games'
+
+import '../css/main.css'
 
 // Common Data
 const gApiKey = { 'Ocp-Apim-Subscription-Key': '746cd5dcdaed4053b5431d3ee451005a' }
@@ -35,6 +38,8 @@ class Main extends React.Component {
 	render() {
 		return (
 			<div className="main">
+				
+				<Banner text="Please note that all stats are scrambled up to 20 +/-" />
 				
 				<Header />
 				

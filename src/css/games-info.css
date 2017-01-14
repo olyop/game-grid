@@ -29,6 +29,7 @@
 			border: none;
 			outline: none;}
 			#games-info .games-info-button i {
+				color: #333;
 				margin-left: 10px; }
 			#games-info .games-info-button:hover {
 				padding: 10px 30px;

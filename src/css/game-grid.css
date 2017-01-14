@@ -42,6 +42,7 @@
 				border-radius: 100%;
 				cursor: pointer; }
 				#game-grid .game .game-inner .game-icon i {
+					color: #333;
 					font-size: 22px; }
 					#game-grid .game .game-inner .game-icon:hover {
 						background-color: #EEEEEE; }

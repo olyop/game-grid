@@ -1,0 +1,12 @@
+#banner {
+	width: 100%;
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: #212121; }
+	#banner p, i { color: #fff; }
+	#banner p { font-size: 18px; }
+	#banner i {
+		cursor: pointer;
+		font-size: 25px; }

@@ -8,22 +8,26 @@ class Game extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			toggleMenu: false,
-			toggleStar: false,
-			toggleShare: false,
-			toggleExpand: false
+			t_Menu: false,
+			t_Star: false,
+			t_Share: false,
+			t_Expand: false
 		}
-		this.toggleMenu = this.toggleMenu.bind(this)
-		this.toggleStar = this.toggleStar.bind(this)
-		this.toggleShare = this.toggleShare.bind(this)
-		this.toggleExpand = this.toggleExpand.bind(this)
+		this.t_Menu = this.t_Menu.bind(this)
+		this.t_Share = this.t_Share.bind(this)
+		this.t_Expand = this.t_Expand.bind(this)
 	}
 	
 	// Toggle Functions
-	toggleMenu() { this.setState(prevState => ({ toggleMenu: !prevState.toggleMenu })) }
-	toggleStar() { this.setState(prevState => ({ toggleStar: !prevState.toggleStar })) }
-	toggleShare() { this.setState(prevState => ({ toggleShare: !prevState.toggleShare })) }
-	toggleExpand() { this.setState(prevState => ({ toggleExpand: !prevState.toggleExpand })) }
+	t_Menu() {
+		this.setState(prevState => ({ t_Menu: !prevState.t_Menu }))
+	}
+	t_Share() {
+		this.setState(prevState => ({ t_Share: !prevState.t_Share })) 
+	}
+	t_Expand() {
+		this.setState(prevState => ({ t_Expand: !prevState.t_Expand }))
+	}
 	
 	render() {
 		
@@ -51,8 +55,10 @@ class Game extends React.Component {
 				scoreStyle: null
 			},
 			stadium: null,
-			headerLeft: null,
-			headerRight: null,
+			info: {
+				left: null,
+				right: null
+			},
 			gameBreak: null,
 			teamsLength: this.props.teams.length,
 			stadiumsLength: this.props.stadiums.length,
@@ -69,7 +75,7 @@ class Game extends React.Component {
 			timeSec: this.props.game.TimeRemainingSeconds,
 			timeMin: this.props.game.TimeRemainingMinutes,
 			time: this.props.game.DateTime,
-			toggleScores: this.props.toggleScores,
+			toggleScores: this.props.t_Scores,
 			nbaWebsiteUrl: 'http://www.nba.com/',
 			teamLogoUrl: './media/team-logos/',
 			winningTeam: null,
@@ -146,7 +152,7 @@ class Game extends React.Component {
 		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
 		
 		// Toggle Star
-		if (this.state.toggleStar) {
+		if (this.state.t_Star) {
 			m.starType = 'star'
 			m.starStyle = { display: 'block' }
 			m.starInner = { borderColor: '#212121' }
@@ -158,16 +164,16 @@ class Game extends React.Component {
 		}
 		
 		// Toggle Expand
-		if (this.state.toggleExpand) { m.gameClass = 'game active' }
+		if (this.state.t_Expand) { m.gameClass = 'game active' }
 		else { m.gameClass = 'game' }
 
 		// Toggle Menu
-		if (!this.state.toggleMenu) { m.menuStyle = m.displayNone }
-		if (this.state.toggleMenu) { m.menuStyle = m.displayBlock }
+		if (!this.state.t_Menu) { m.menuStyle = m.displayNone }
+		if (this.state.t_Menu) { m.menuStyle = m.displayBlock }
 		
 		// Toglle Share
-		if (!this.state.toggleShare) { m.shareStyle = m.displayNone }
-		if (this.state.toggleShare) { m.shareStyle = m.displayBlock }
+		if (!this.state.t_Share) { m.shareStyle = m.displayNone }
+		if (this.state.t_Share) { m.shareStyle = m.displayBlock }
 		
 		
 		// Determine who is Winning
@@ -193,28 +199,28 @@ class Game extends React.Component {
 		// Determine Game Status
 		if (m.qtr === null && m.timeMin === null && m.timeSec === null && m.home.score === null) {
 			if (m.sliceTimeMin <= 12) {
-				m.headerRight = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+				m.info.right = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 			} else {
-				m.headerRight = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+				m.info.right = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 			}
-			m.headerLeft = m.stadium.Name
+			m.info.left = m.stadium.Name
 			m.gameBreak = 'AT'
 			m.hasGameStarted = false
 		} else if (m.qtr === 'F/OT') {
-			m.headerLeft = <b>Overtime</b>
-			if (m.toggleScores) { m.headerRight = m.stadium.Name }
-			else { m.headerRight = m.winningText(m.winningTeam.Name) }
+			m.info.left = <b>Overtime</b>
+			if (m.toggleScores) { m.info.right = m.stadium.Name }
+			else { m.info.right = m.winningText(m.winningTeam.Name) }
 			m.gameBreak = 'FINAL'
 			m.hasGameStarted = true
 		}	else if (m.qtr === 'Half') {
-			m.headerRight = <b>Half Time</b>
-			m.headerLeft = m.stadium.Name
+			m.info.right = <b>Half Time</b>
+			m.info.left = m.stadium.Name
 			m.gameBreak = 'AT'
 			m.hasGameStarted = true
 		} else if ((m.qtr === null && m.timeSec === null && m.timeMin === null && m.home.score > 0) || m.qtr === 'F') {
-			m.headerLeft = <b>Full Time</b>
-			if (this.props.toggleScores) { m.headerRight = m.stadium.Name }
-			else { m.headerRight = m.winningText(m.winningTeam.Name) }
+			m.info.left = <b>Full Time</b>
+			if (this.props.toggleScores) { m.info.right = m.stadium.Name }
+			else { m.info.right = m.winningText(m.winningTeam.Name) }
 			m.gameBreak = 'FINAL'
 			m.hasGameStarted = true
 		} else if (m.qtr === '1' || m.qtr === '2' || m.qtr === '3' || m.qtr === '4') {
@@ -223,15 +229,15 @@ class Game extends React.Component {
 			else { seconds = m.timeSec }
 			let str = m.timeMin + ':' + seconds
 			if (m.toggleScores) {
-				m.headerLeft = m.stadium.Name
+				m.info.left = m.stadium.Name
 				if (m.sliceTimeMin <= 12) {
-					m.headerRight = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+					m.info.right = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 				} else {
-					m.headerRight = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+					m.info.right = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 				}
 			} else {
-				m.headerRight = <b style={m.colors.red} className='blink'>{str}</b>
-				m.headerLeft = <b style={m.colors.red}>{'Q' + m.qtr}</b>
+				m.info.right = <b style={m.colors.red} className='blink'>{str}</b>
+				m.info.left = <b style={m.colors.red}>{'Q' + m.qtr}</b>
 			}
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
@@ -245,7 +251,7 @@ class Game extends React.Component {
 				title={m.home.info.Name + ' vs ' + m.away.info.Name}
 				className={m.gameClass}
 			>
-				{ this.state.toggleExpand ?
+				{ this.state.t_Expand ?
 					
 					<GameExpand
 						apiKey={this.props.apiKey}
@@ -253,7 +259,7 @@ class Game extends React.Component {
 						date={this.props.date}
 						monthsYear={this.props.monthsYear}
 						daysWeek={this.props.daysWeek}
-						toggleExpand={this.toggleExpand}
+						toggleExpand={this.t_Expand}
 					/>
 					
 					:
@@ -264,10 +270,10 @@ class Game extends React.Component {
 						date={this.props.date}
 						monthsYear={this.props.monthsYear}
 						daysWeek={this.props.daysWeek}
-						toggleMenu={this.toggleMenu}
-						toggleStar={this.toggleStar}
-						toggleShare={this.toggleShare}
-						toggleExpand={this.toggleExpand}
+						toggleMenu={this.t_Menu}
+						toggleStar={ () => this.setState(prevState => ({ t_Star: !prevState.t_Star })) }
+						toggleShare={this.t_Share}
+						toggleExpand={this.t_Expand}
 					/>
 				
 				}

@@ -62,6 +62,7 @@
 							#calender .calender-inner .calender-control i {
 								-webkit-user-select: none;
 								font-size: 28px;
+								color: #333;
 								margin: 0; }
 
 @media (min-width: 768px) {
