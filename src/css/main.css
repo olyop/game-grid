@@ -3,6 +3,7 @@
 	border: 0;
 	outline: 0;
 	display: block;
+	position: relative;
 	padding: 0; }
 
 .blink {

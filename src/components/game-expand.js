@@ -38,7 +38,7 @@ class GetPlayersHome extends React.Component {
 														date={this.props.date}
 														monthsYear={this.props.monthsYear}
 														daysWeek={this.props.daysWeek}
-														toggleExpand={this.props.toggleExpand}
+														t_Expand={this.props.t_Expand}
 														homeTeamPlayers={temp}
 														homeTeamPlayerStats={result.body}
 													/>
@@ -89,7 +89,7 @@ class GetPlayersAway extends React.Component {
 														date={this.props.date}
 														monthsYear={this.props.monthsYear}
 														daysWeek={this.props.daysWeek}
-														toggleExpand={this.props.toggleExpand}
+														t_Expand={this.props.t_Expand}
 														homeTeamPlayers={this.props.homeTeamPlayers}
 														homeTeamPlayerStats={this.props.homeTeamPlayerStats}
 														awayTeamPlayers={temp}
@@ -239,7 +239,7 @@ class GameExpand extends React.Component {
 								<h2 style={m.home.scoreDisplay}>{m.home.score}</h2>
 							</div>
 						</div>
-						<div className="game-content-close" onClick={this.props.toggleExpand}>
+						<div className="game-content-close" onClick={this.props.t_Expand}>
 							<i className="material-icons">expand_less</i>
 						</div>
 						<div className="game-content-vs">

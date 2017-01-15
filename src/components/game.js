@@ -5,8 +5,8 @@ import '../css/more-menu.css'
 
 class Game extends React.Component {
 	
-	constructor(props) {
-		super(props)
+	constructor() {
+		super()
 		this.state = {
 			t_Menu: false,
 			t_Star: false,
@@ -19,15 +19,9 @@ class Game extends React.Component {
 	}
 	
 	// Toggle Functions
-	t_Menu() {
-		this.setState(prevState => ({ t_Menu: !prevState.t_Menu }))
-	}
-	t_Share() {
-		this.setState(prevState => ({ t_Share: !prevState.t_Share })) 
-	}
-	t_Expand() {
-		this.setState(prevState => ({ t_Expand: !prevState.t_Expand }))
-	}
+	t_Menu() { this.setState(prevState => ({ t_Menu: !prevState.t_Menu })) }
+	t_Share() { this.setState(prevState => ({ t_Share: !prevState.t_Share })) }
+	t_Expand() { this.setState(prevState => ({ t_Expand: !prevState.t_Expand })) }
 	
 	render() {
 		
@@ -259,7 +253,7 @@ class Game extends React.Component {
 						date={this.props.date}
 						monthsYear={this.props.monthsYear}
 						daysWeek={this.props.daysWeek}
-						toggleExpand={this.t_Expand}
+						t_Expand={this.t_Expand}
 					/>
 					
 					:
@@ -270,10 +264,10 @@ class Game extends React.Component {
 						date={this.props.date}
 						monthsYear={this.props.monthsYear}
 						daysWeek={this.props.daysWeek}
-						toggleMenu={this.t_Menu}
-						toggleStar={ () => this.setState(prevState => ({ t_Star: !prevState.t_Star })) }
-						toggleShare={this.t_Share}
-						toggleExpand={this.t_Expand}
+						t_Menu={this.t_Menu}
+						t_Star={ () => this.setState(prevState => ({ t_Star: !prevState.t_Star })) }
+						t_Share={this.t_Share}
+						t_Expand={this.t_Expand}
 					/>
 				
 				}

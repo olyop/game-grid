@@ -10,7 +10,7 @@ class GameInfo extends React.Component {
 				<div
 					className="game-icon game-star"
 					title="Star"
-					onClick={this.props.toggleStar}
+					onClick={this.props.t_Star}
 					style={m.starStyle}
 				>
 					<i className="material-icons">{m.starType}</i>
@@ -18,14 +18,14 @@ class GameInfo extends React.Component {
 				<div
 					className="game-icon game-more"
 					title="More"
-					onClick={this.props.toggleMenu}
+					onClick={this.props.t_Menu}
 				>
 					<i className="material-icons">more_vert</i>
 				</div>
 				<div className="game-more-menu more-menu" style={m.menuStyle}>
 					<p
 						className="close-menu"
-						onClick={this.props.toggleMenu}
+						onClick={this.props.t_Menu}
 					>
 						<i className="material-icons">close</i>
 						<span>Close</span>
@@ -61,7 +61,7 @@ class GameInfo extends React.Component {
 							<span>Help</span>
 						</a>
 					</p>
-					<p onClick={this.props.toggleStar}>
+					<p onClick={this.props.t_Star}>
 						<i className="material-icons">{m.starType}</i>
 						<span>Star</span>
 					</p>
@@ -90,7 +90,7 @@ class GameInfo extends React.Component {
 				<div
 					className="game-icon game-share"
 					title="Share"
-					onClick={this.props.toggleShare}
+					onClick={this.props.t_Share}
 				>
 					<i className="material-icons">share</i>
 				</div>
@@ -114,7 +114,7 @@ class GameInfo extends React.Component {
 					<hr />
 					<p
 						className="close-menu"
-						onClick={this.props.toggleShare}
+						onClick={this.props.t_Share}
 					>
 						<i className="material-icons">close</i>
 						<span>Close</span>
@@ -123,7 +123,7 @@ class GameInfo extends React.Component {
 				<div
 					className="game-icon game-expand"
 					title="Expand"
-					onClick={this.props.toggleExpand}
+					onClick={this.props.t_Expand}
 				>
 					<i className="material-icons">expand_more</i>
 				</div>

@@ -1,12 +1,34 @@
 #banner {
-	width: 100%;
-	margin: 0;
-	display: flex;
-	justify-content: space-between;
-	padding: 10px;
-	background-color: #212121; }
-	#banner p, i { color: #fff; }
-	#banner p { font-size: 18px; }
-	#banner i {
-		cursor: pointer;
-		font-size: 25px; }
+	position: fixed;
+	max-width: 100vw;
+	max-height: 100vh;
+	z-index: 30;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0; }
+	#banner .banner-inner {
+		position: absolute;
+		top: 40px;
+		right: 40px;
+		left: 40px;
+		bottom: 30%;
+		padding: 20px;
+		display: flex;
+		justify-content: space-between;
+		background-color: #F5F5F5;
+		box-shadow: 0px 10px 40px 20px rgba(0,0,0,0.1);
+		border: 1px solid rgba(0,0,0,.14); }
+		#banner .banner-inner p { font-size: 14px; }
+		#banner .banner-inner i {
+			cursor: pointer;
+			font-size: 25px; }
+
+@media (min-width: 768px) {
+	#banner .banner-inner {
+		left: 30%;
+		right: 30%;
+		bottom: 10%;
+		padding: 30px; }
+		#banner .banner-inner p { font-size: 18px; }
+}
