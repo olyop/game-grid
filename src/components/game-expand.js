@@ -192,8 +192,6 @@ class GameExpand extends React.Component {
 			backgroundImg: { backgroundImage: 'url(' + logourl + m.away.info.Key.toLowerCase() + '.svg)' }
 		}
 		
-		console.log(homeStyle.background)		
-		
 		m.home.stats.sort((a, b) => b.Points - a.Points)
 		m.away.stats.sort((a, b) => b.Points - a.Points)
 		

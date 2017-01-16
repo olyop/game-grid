@@ -231,8 +231,6 @@ class Game extends React.Component {
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
 		}
-		
-		console.log(m.home.color, m.away.color)
 
 		return (
 			<div
