@@ -20,9 +20,12 @@ class GameStats extends React.Component {
 		
 		let m = this.props.m,
 				homeBody,
+				homeFoot,
 				awayBody,
-				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/',
-				unknownPlayer = {
+				awayFoot,
+				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
+		
+		let	unknownPlayer = {
 			info: {
 				PhotoUrl: './media/unknown.jpg',
 				PlayerID: 'unknown',
@@ -122,21 +125,16 @@ class GameStats extends React.Component {
 			</tr>
 		)
 		
-		let gameNotStarted = (
-			<tr>
-				<td className="game-content-main-stats-all" colSpan="9">Game has not started</td>
-			</tr>
-		)
+		let DefaultRow = ({ text }) => <tr><td className="game-content-main-stats-all" colSpan="9">{text}</td></tr>
 		
-		let LoadingPlayerStats = ({ text }) => <td className="game-content-main-stats-all" colSpan="9">{text}</td>
-		
+		// Find and map home player stats
 		if (!m.hasGameStarted) {
 			
-			homeBody = gameNotStarted
+			homeBody = <DefaultRow text="Game has not started" />
 			
 		} else if (m.toggleScores) {
 			
-			homeBody = <LoadingPlayerStats text="Scores are hidden" />
+			homeBody = <DefaultRow text="Scores are hidden" />
 			
 		} else {
 			
@@ -151,7 +149,7 @@ class GameStats extends React.Component {
 						{
 							({error, result, loading}) => {
 								if (loading) {
-									return <tr><LoadingPlayerStats text={'Loading player game stats'} /></tr>
+									return <DefaultRow text={'Loading player game stats'} />
 								} else {
 									let gameStats = result.body
 									if (gameStats === null) {
@@ -159,6 +157,7 @@ class GameStats extends React.Component {
 									} else if (gameStats.Minutes === 0) {
 										return null
 									} else {
+										homeFoot = <DefaultRow text={gameStats.length + ' players played'} />
 										return <PlayerRow index={index} gameStats={gameStats} />
 									}
 								}
@@ -169,13 +168,14 @@ class GameStats extends React.Component {
 			})
 		}
 		
+		// Find and map away player stats
 		if (!m.hasGameStarted) {
 			
-			awayBody = gameNotStarted
+			awayBody = <DefaultRow text="Game has not started" />
 			
 		} else if (m.toggleScores) {
 			
-			awayBody = <LoadingPlayerStats text="Scores are hidden" />
+			awayBody = <DefaultRow text="Scores are hidden" />
 			
 		} else {
 			
@@ -189,7 +189,7 @@ class GameStats extends React.Component {
 						{
 							({error, result, loading}) => {
 								if (loading) {
-									return <tr><LoadingPlayerStats text={'Loading player game stats'} /></tr>
+									return <DefaultRow text={'Loading player game stats'} />
 								} else {
 									let gameStats = result.body
 									
@@ -198,6 +198,7 @@ class GameStats extends React.Component {
 									} else if (gameStats.Minutes === 0) {
 										return null
 									} else {
+										awayFoot = <DefaultRow text={gameStats.length + ' players played'} />
 										return <PlayerRow index={index} gameStats={gameStats} />
 									}
 								}
@@ -217,7 +218,7 @@ class GameStats extends React.Component {
 						<table>
 							<thead>{thead}</thead>
 							<tbody>{homeBody}</tbody>
-							<tfoot></tfoot>
+							<tfoot>{homeFoot}</tfoot>
 						</table>
 					</div>
 					
@@ -234,7 +235,7 @@ class GameStats extends React.Component {
 						<table>
 							<thead>{thead}</thead>
 							<tbody>{awayBody}</tbody>
-							<tfoot></tfoot>
+							<tfoot>{awayFoot}</tfoot>
 						</table>
 					</div>
 					
