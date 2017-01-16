@@ -69,7 +69,7 @@ class Game extends React.Component {
 			timeSec: this.props.game.TimeRemainingSeconds,
 			timeMin: this.props.game.TimeRemainingMinutes,
 			time: this.props.game.DateTime,
-			toggleScores: this.props.t_Scores,
+			toggleScores: this.props.toggleScores,
 			nbaWebsiteUrl: 'http://www.nba.com/',
 			teamLogoUrl: './media/team-logos/',
 			winningTeam: null,
@@ -143,6 +143,9 @@ class Game extends React.Component {
 		if (m.away.info.Name === 'Celtics') { m.away.color = { color: '#2E7B3B' } }
 		if (m.home.info.Name === 'Timberwolves') { m.home.color = { color: '#005083' } }
 		if (m.away.info.Name === 'Timberwolves') { m.away.color = { color: '#005083' } }
+		if (m.home.info.Name === 'Spurs') { m.home.color = { color: '#000000' } }
+		if (m.away.info.Name === 'Spurs') { m.away.color = { color: '#000000' } }
+		
 		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
 		
 		// Toggle Star
@@ -157,17 +160,9 @@ class Game extends React.Component {
 			m.starInner = null
 		}
 		
-		// Toggle Expand
-		if (this.state.t_Expand) { m.gameClass = 'game active' }
-		else { m.gameClass = 'game' }
-
-		// Toggle Menu
-		if (!this.state.t_Menu) { m.menuStyle = m.displayNone }
-		if (this.state.t_Menu) { m.menuStyle = m.displayBlock }
-		
-		// Toglle Share
-		if (!this.state.t_Share) { m.shareStyle = m.displayNone }
-		if (this.state.t_Share) { m.shareStyle = m.displayBlock }
+		m.gameClass = this.state.t_Expand ? 'game active' : 'game' 
+		m.menuStyle = this.state.t_Menu ? m.displayBlock : m.displayNone
+		m.shareStyle = this.state.t_Share ? m.displayBlock : m.displayNone
 		
 		
 		// Determine who is Winning
@@ -185,7 +180,7 @@ class Game extends React.Component {
 		}
 
 		// Check if game has started OR scores are off
-		if ((m.home.score <= 0 && m.away.score <= 0) || m.toggleScores === true ) {
+		if ((m.home.score <= 0 && m.away.score <= 0) || m.toggleScores) {
 			m.home.scoreDisplay = { display: 'none' }
 			m.away.scoreDisplay = { display: 'none' }
 		}
@@ -213,7 +208,7 @@ class Game extends React.Component {
 			m.hasGameStarted = true
 		} else if ((m.qtr === null && m.timeSec === null && m.timeMin === null && m.home.score > 0) || m.qtr === 'F') {
 			m.info.left = <b>Full Time</b>
-			if (this.props.toggleScores) { m.info.right = m.stadium.Name }
+			if (m.toggleScores) { m.info.right = m.stadium.Name }
 			else { m.info.right = m.winningText(m.winningTeam.Name) }
 			m.gameBreak = 'FINAL'
 			m.hasGameStarted = true
@@ -236,6 +231,8 @@ class Game extends React.Component {
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
 		}
+		
+		console.log(m.home.color, m.away.color)
 
 		return (
 			<div

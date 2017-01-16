@@ -1,10 +1,19 @@
 #games {
 	background-color: #F5F5F5;
-	margin: 0;
-	padding: 0; }
+	padding-bottom: 0; }
 	#games .games-heading {
 		background-color: #fff;
 		border-top: 1px solid #E0E0E0;
 		border-bottom: 1px solid #E0E0E0; }
 		#games .container {
 			padding: 0; }
+
+@media (min-width: 768px) {
+	#games {
+		padding-bottom: 100px; }
+}
+
+@media (min-width: 998px) {
+	#games {
+		padding-bottom: 200px; }
+}

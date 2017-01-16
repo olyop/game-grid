@@ -16,13 +16,11 @@ class Banner extends React.Component {
 		
 		return (
 			<div id="banner" style={style}>
-				<div className="banner-inner">
-					<p>{this.props.text}</p>
-					<i
-						className="material-icons"
-						onClick={ () => this.setState({ close: true }) }
-					>close</i>
-				</div>
+				<p>{this.props.text}</p>
+				<i
+					className="material-icons"
+					onClick={ () => this.setState({ close: true }) }
+				>close</i>
 			</div>
 		)
 	}

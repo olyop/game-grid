@@ -132,13 +132,13 @@ class GameInfo extends React.Component {
 						src={m.teamLogoUrl + m.home.info.Key.toLowerCase() + '.svg'}
 						alt={m.home.info.Name} 
 					/>
-					<p className="game-team-score" style={m.home.soreDisplay}>
+					<p className="game-team-score" style={m.home.scoreDisplay}>
 						<span style={m.home.scoreStyle}>{m.home.score}</span>
 					</p>
 					<div className="game-team-text">
 						<h4>{m.home.info.City}</h4>
 						<h3 style={m.home.color}>{m.home.info.Name}</h3>
-						<p>{m.home.record}</p>
+						<p style={m.home.scoreDisplay}>{m.home.record}</p>
 					</div>
 				</div>
 				<div className="game-break">
@@ -157,7 +157,7 @@ class GameInfo extends React.Component {
 					<div className="game-team-text">
 						<h4>{m.away.info.City}</h4>
 						<h3 style={m.away.color}>{m.away.info.Name}</h3>
-						<p>{m.away.record}</p>
+						<p style={m.away.scoreDisplay}>{m.away.record}</p>
 					</div>
 				</div>
 				<div className="game-break">

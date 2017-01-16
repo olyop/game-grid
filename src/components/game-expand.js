@@ -5,6 +5,7 @@ import GameStats from './game-stats'
 
 import '../css/game-expand.css'
 
+// Get Player Info/Stats
 class GetPlayersHome extends React.Component {
 	render() {
 		
@@ -55,7 +56,6 @@ class GetPlayersHome extends React.Component {
 		)
 	}
 }
-
 class GetPlayersAway extends React.Component {
 	render() {
 		
@@ -124,6 +124,22 @@ class GameExpand extends React.Component {
 		return 'rgba(0,0,0,' + opacity + ')'
 	}
 	
+	colorLuminance(hex, lum) {
+		hex = String(hex).replace(/[^0-9a-f]/gi, '');
+		if (hex.length < 6) { hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2]; }
+		lum = lum || 0;
+
+		// convert to decimal and change luminosity
+		let rgb = "#", c, i
+		for (i = 0; i < 3; i++) {
+			c = parseInt(hex.substr(i*2,2), 16);
+			c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+			rgb += ("00"+c).substr(c.length);
+		}
+
+		return rgb
+	}
+	
 	render() {
 		
 		let m = this.props.m,
@@ -146,7 +162,9 @@ class GameExpand extends React.Component {
 		]
 		
 		let homePlayersLength = m.home.players.length,
-				awayPlayersLength = m.away.players.length
+				awayPlayersLength = m.away.players.length,
+				boxShadow = 'inset 0px 0px 100px 25px ',
+				luminance = '0.5', opacity = '0.4'
 		
 		if (m.home.info.Key === 'BKN') { m.home.color = '#2d2925' }
 		if (m.home.info.Key === 'HOU') { m.home.color = '#c30e2e' }
@@ -155,21 +173,27 @@ class GameExpand extends React.Component {
 		
 		let homeStyle = {
 			background: {
-				backgroundColor: '#' + m.home.info.PrimaryColor,
-				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.home.info.PrimaryColor, 0.60)
+				backgroundColor: m.home.color.color,
+				boxShadow:
+					boxShadow +
+					this.hexToRgba(this.colorLuminance(m.home.color.color, luminance), opacity)
 			},
-			backgroundColor: { backgroundColor: '#' + m.home.info.PrimaryColor },
+			backgroundColor: { backgroundColor: m.home.color.color },
 			backgroundImg: { backgroundImage: 'url(' + logourl + m.home.info.Key.toLowerCase() + '.svg)' }
 		}
 		let awayStyle = {
 			background: {
-				backgroundColor: '#' + m.away.info.PrimaryColor,
-				boxShadow: 'inset 0px 0px 200px 25px ' + this.hexToRgba(m.away.info.PrimaryColor, 0.60)
+				backgroundColor: m.away.color.color,
+				boxShadow:
+					boxShadow +
+					this.hexToRgba(this.colorLuminance(m.away.color.color, luminance), opacity)
 			},
-			backgroundColor: { backgroundColor: '#' + m.away.info.PrimaryColor },
+			backgroundColor: { backgroundColor: '#' + m.away.color.color },
 			backgroundImg: { backgroundImage: 'url(' + logourl + m.away.info.Key.toLowerCase() + '.svg)' }
 		}
-				
+		
+		console.log(homeStyle.background)		
+		
 		m.home.stats.sort((a, b) => b.Points - a.Points)
 		m.away.stats.sort((a, b) => b.Points - a.Points)
 		
