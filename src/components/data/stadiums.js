@@ -1,0 +1,323 @@
+const stadiums = [
+  {
+    "StadiumID": 1,
+    "Active": true,
+    "Name": "Verizon Center",
+    "Address": "601 F St. N.W.",
+    "City": "Washington",
+    "State": "DC",
+    "Zip": "20004",
+    "Country": "USA",
+    "Capacity": 20290
+  },
+  {
+    "StadiumID": 2,
+    "Active": true,
+    "Name": "Time Warner Cable Arena",
+    "Address": "330 E. Trade St.",
+    "City": "Charlotte",
+    "State": "NC",
+    "Zip": "28202",
+    "Country": "USA",
+    "Capacity": 19026
+  },
+  {
+    "StadiumID": 3,
+    "Active": true,
+    "Name": "Philips Arena",
+    "Address": "One Philips Dr.",
+    "City": "Atlanta",
+    "State": "GA",
+    "Zip": "30303",
+    "Country": "USA",
+    "Capacity": 18118
+  },
+  {
+    "StadiumID": 4,
+    "Active": true,
+    "Name": "American Airlines Arena",
+    "Address": "601 Biscayne Blvd.",
+    "City": "Miami",
+    "State": "FL",
+    "Zip": "33132",
+    "Country": "USA",
+    "Capacity": 19600
+  },
+  {
+    "StadiumID": 5,
+    "Active": true,
+    "Name": "Amway Center",
+    "Address": "400 W. Church St.",
+    "City": "Orlando",
+    "State": "FL",
+    "Zip": "32801",
+    "Country": "USA",
+    "Capacity": 18846
+  },
+  {
+    "StadiumID": 6,
+    "Active": true,
+    "Name": "Madison Square Garden",
+    "Address": "Four Pennsylvania Plaza",
+    "City": "New York",
+    "State": "NY",
+    "Zip": "10001",
+    "Country": "USA",
+    "Capacity": 19812
+  },
+  {
+    "StadiumID": 7,
+    "Active": true,
+    "Name": "Wells Fargo Center",
+    "Address": "3601 S. Broad St.",
+    "City": "Philadelphia",
+    "State": "PA",
+    "Zip": "19148",
+    "Country": "USA",
+    "Capacity": 20328
+  },
+  {
+    "StadiumID": 8,
+    "Active": true,
+    "Name": "Barclays Center",
+    "Address": "620 Atlantic Ave.",
+    "City": "Brooklyn",
+    "State": "NY",
+    "Zip": "11217",
+    "Country": "USA",
+    "Capacity": 18200
+  },
+  {
+    "StadiumID": 9,
+    "Active": true,
+    "Name": "TD Garden",
+    "Address": "100 Legends Way",
+    "City": "Boston",
+    "State": "MA",
+    "Zip": "02114",
+    "Country": "USA",
+    "Capacity": 17565
+  },
+  {
+    "StadiumID": 10,
+    "Active": true,
+    "Name": "Air Canada Centre",
+    "Address": "40 Bay St.",
+    "City": "Toronto",
+    "State": "ON",
+    "Zip": "M5J 2X2",
+    "Country": "CAN",
+    "Capacity": 19800
+  },
+  {
+    "StadiumID": 11,
+    "Active": true,
+    "Name": "United Center",
+    "Address": "1901 W. Madison St.",
+    "City": "Chicago",
+    "State": "IL",
+    "Zip": "60612",
+    "Country": "USA",
+    "Capacity": 20917
+  },
+  {
+    "StadiumID": 12,
+    "Active": true,
+    "Name": "Quicken Loans Arena",
+    "Address": "One Center Court",
+    "City": "Cleveland",
+    "State": "OH",
+    "Zip": "44115",
+    "Country": "USA",
+    "Capacity": 20562
+  },
+  {
+    "StadiumID": 13,
+    "Active": true,
+    "Name": "Bankers Life Fieldhouse",
+    "Address": "125 S. Pennsylvania St.",
+    "City": "Indianapolis",
+    "State": "IN",
+    "Zip": "46204",
+    "Country": "USA",
+    "Capacity": 18165
+  },
+  {
+    "StadiumID": 14,
+    "Active": true,
+    "Name": "The Palace of Auburn Hills",
+    "Address": "Six Championship Drive",
+    "City": "Auburn Hills",
+    "State": "MI",
+    "Zip": "48326",
+    "Country": "USA",
+    "Capacity": 22076
+  },
+  {
+    "StadiumID": 15,
+    "Active": true,
+    "Name": "BMO Harris Bradley Center",
+    "Address": "1001 N Fourth St.",
+    "City": "Milwaukee",
+    "State": "WI",
+    "Zip": "53203",
+    "Country": "USA",
+    "Capacity": 19000
+  },
+  {
+    "StadiumID": 16,
+    "Active": true,
+    "Name": "Target Center",
+    "Address": "600 First Ave. North",
+    "City": "Minneapolis",
+    "State": "MN",
+    "Zip": "55403",
+    "Country": "USA",
+    "Capacity": 19356
+  },
+  {
+    "StadiumID": 17,
+    "Active": true,
+    "Name": "Energy Solutions Arena",
+    "Address": "301 W. South Temple St.",
+    "City": "Salt Lake City",
+    "State": "UT",
+    "Zip": "84101",
+    "Country": "USA",
+    "Capacity": 19911
+  },
+  {
+    "StadiumID": 18,
+    "Active": true,
+    "Name": "Chesapeake Energy Arena",
+    "Address": "100 W. Reno Ave.",
+    "City": "Oklahoma City",
+    "State": "OK",
+    "Zip": "73102",
+    "Country": "USA",
+    "Capacity": 18203
+  },
+  {
+    "StadiumID": 19,
+    "Active": true,
+    "Name": "Moda Center",
+    "Address": "1 Center Court",
+    "City": "Portland",
+    "State": "OR",
+    "Zip": "97227",
+    "Country": "USA",
+    "Capacity": 19980
+  },
+  {
+    "StadiumID": 20,
+    "Active": true,
+    "Name": "Pepsi Center",
+    "Address": "1000 Chopper Circle",
+    "City": "Denver",
+    "State": "CO",
+    "Zip": "80204",
+    "Country": "USA",
+    "Capacity": 19155
+  },
+  {
+    "StadiumID": 21,
+    "Active": true,
+    "Name": "FedEx Forum",
+    "Address": "191 Beale St.",
+    "City": "Memphis",
+    "State": "TN",
+    "Zip": "38103",
+    "Country": "USA",
+    "Capacity": 18119
+  },
+  {
+    "StadiumID": 22,
+    "Active": true,
+    "Name": "Toyota Center",
+    "Address": "1510 Polk St.",
+    "City": "Houston",
+    "State": "TX",
+    "Zip": "77002",
+    "Country": "USA",
+    "Capacity": 18043
+  },
+  {
+    "StadiumID": 23,
+    "Active": true,
+    "Name": "Smoothie King Center",
+    "Address": "1501 Girod St.",
+    "City": "New Orleans",
+    "State": "LA",
+    "Zip": "70113",
+    "Country": "USA",
+    "Capacity": 17188
+  },
+  {
+    "StadiumID": 24,
+    "Active": true,
+    "Name": "AT&T Center",
+    "Address": "One AT&T Center Parkway",
+    "City": "San Antonio",
+    "State": "TX",
+    "Zip": "78219",
+    "Country": "USA",
+    "Capacity": 18581
+  },
+  {
+    "StadiumID": 25,
+    "Active": true,
+    "Name": "American Airlines Center",
+    "Address": "2500 Victory Ave.",
+    "City": "Dallas",
+    "State": "TX",
+    "Zip": "75219",
+    "Country": "USA",
+    "Capacity": 19200
+  },
+  {
+    "StadiumID": 26,
+    "Active": true,
+    "Name": "Oracle Center",
+    "Address": "7000 Coliseum Way",
+    "City": "Oakland",
+    "State": "CA",
+    "Zip": "94621",
+    "Country": "USA",
+    "Capacity": 19596
+  },
+  {
+    "StadiumID": 27,
+    "Active": true,
+    "Name": "Staples Center",
+    "Address": "1111 S. Figueroa St.",
+    "City": "Los Angeles",
+    "State": "CA",
+    "Zip": "90015",
+    "Country": "USA",
+    "Capacity": 18997
+  },
+  {
+    "StadiumID": 28,
+    "Active": true,
+    "Name": "US Airways Center",
+    "Address": "201 E. Jefferson St.",
+    "City": "Phoenix",
+    "State": "AZ",
+    "Zip": "85004",
+    "Country": "USA",
+    "Capacity": 18422
+  },
+  {
+    "StadiumID": 29,
+    "Active": true,
+    "Name": "Sleep Train Arena",
+    "Address": "One Sports Parkway",
+    "City": "Sacramento",
+    "State": "CA",
+    "Zip": "95834",
+    "Country": "USA",
+    "Capacity": 17317
+  }
+]
+
+export default stadiums

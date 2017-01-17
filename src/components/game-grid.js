@@ -17,7 +17,7 @@ class GameGrid extends React.Component {
 		
 		let nowYear = String(date.getFullYear()),
 				nowMonth = String(monthsYear[date.getMonth()].abbr),
-				nowDate = String(date.getDate() - 1) // -1 for American Time Zone Diff
+				nowDate = String(date.getDate()) // -1 for American Time Zone Diff
 		
 		return nowYear + '-' + nowMonth + '-' + nowDate
 	}

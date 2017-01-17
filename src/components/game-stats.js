@@ -1,6 +1,5 @@
 import React from 'react'
 import Request from 'react-http-request'
-import Button from './button'
 
 import '../css/game-stats.css'
 import '../css/game-stats-table.css'
@@ -24,7 +23,6 @@ class GameStats extends React.Component {
 				homeFoot,
 				awayBody,
 				awayFoot,
-				buttonMargin = '0 20px 0 0',
 				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
 		
 		let	unknownPlayer = {
@@ -190,16 +188,6 @@ class GameStats extends React.Component {
 			<div className="game-content-main">
 				<div className="col-lg-6 game-content-main-left">
 					
-					<div className="game-content-main-share">
-						<Button
-							onClick={this.props.t_Star}
-							hasIcon={true}
-							iconText="share"
-							text="Share"
-							margin={buttonMargin} />
-						<Button hasIcon={true} iconText="star_border" text="Star" />
-					</div>
-					
 					<h1>{m.home.info.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">
 						<table>
@@ -216,11 +204,6 @@ class GameStats extends React.Component {
 					
 				</div>
 				<div className="col-lg-6 game-content-main-right">
-					
-					<div className="game-content-main-share">
-						<Button hasIcon={true} iconText="share" text="Share" margin={buttonMargin} />
-						<Button hasIcon={true} iconText="star_border" text="Star" />
-					</div>
 					
 					<h1>{m.away.info.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">

@@ -5,73 +5,15 @@ import GameGrid from './game-grid'
 import Calender from './calender'
 import Loading from './loading'
 
-// Get Leauge Info
-class GetTeams extends React.Component {
-	render() {
-		return (
-			<Request
-				url='https://api.fantasydata.net/v3/nba/scores/JSON/TeamSeasonStats/2017'
-				headers={this.props.apiKey}
-			>
-				{
-					({error, result, loading}) => {
-						if (loading) {
-							return <Loading />
-						} else {
-							return (
-								
-								<GetStadiums
-									apiKey={this.props.apiKey}
-									date={this.props.date}
-									daysWeek={this.props.daysWeek}
-									monthsYear={this.props.monthsYear}
-									teamStats={result.body}
-								/>
-								
-							)
-						}
-					}
-				}
-			</Request>
-		)
-	}
-}
-class GetStadiums extends React.Component {
-	render() {
-		return (
-			<Request
-				url='https://api.fantasydata.net/v3/nba/scores/json/Stadiums'
-				headers={this.props.apiKey}
-			>
-				{
-					({error, result, loading}) => {
-						if (loading) {
-							return <Loading />
-						} else {
-							return (
-								
-								<GetTeamStats
-									apiKey={this.props.apiKey}
-									date={this.props.date}
-									daysWeek={this.props.daysWeek}
-									monthsYear={this.props.monthsYear}
-									teamStats={this.props.teamStats}
-									stadiums={result.body}
-								/>
-								
-							)
-						}
-					}
-				}
-			</Request>
-		)
-	}
-}
+import teamsObj from './data/teams'
+import stadiumsObj from './data/stadiums'
+
+// Get Team Stats
 class GetTeamStats extends React.Component {
 	render() {
 		return (
 			<Request
-				url='https://api.fantasydata.net/v3/nba/scores/JSON/teams'
+				url='https://api.fantasydata.net/v3/nba/scores/JSON/TeamSeasonStats/2017'
 				headers={this.props.apiKey}
 			>
 				{
@@ -86,10 +28,9 @@ class GetTeamStats extends React.Component {
 									date={this.props.date}
 									daysWeek={this.props.daysWeek}
 									monthsYear={this.props.monthsYear}
-									teamStats={this.props.teamStats}
-									stadiums={this.props.stadiums}
-									teams={result.body}
-								/>
+									teamStats={result.body}
+									teams={teamsObj}
+									stadiums={stadiumsObj} />
 								
 							)
 						}
@@ -100,6 +41,7 @@ class GetTeamStats extends React.Component {
 	}
 }
 
+// Maim Content
 class Games extends React.Component {
 	
 	constructor(props) {
@@ -118,8 +60,7 @@ class Games extends React.Component {
 							date={this.state.date}
 							monthsYear={this.props.monthsYear}
 							daysWeek={this.props.daysWeek}
-							onDayClick={date => this.setState({ date })}
-						/>
+							onDayClick={date => this.setState({ date })} />
 						
 					</div>
 					<div className="container grid-container">
@@ -131,8 +72,7 @@ class Games extends React.Component {
 							monthsYear={this.props.monthsYear}
 							teamStats={this.props.teamStats}
 							stadiums={this.props.stadiums}
-							teams={this.props.teams}
-						/>
+							teams={this.props.teams} />
 						
 					</div>
 				</div>
@@ -141,4 +81,4 @@ class Games extends React.Component {
 	}
 }
 
-export default GetTeams															
+export default GetTeamStats												

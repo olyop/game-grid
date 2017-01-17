@@ -1,5 +1,5 @@
 .button {
-	padding: 15px 40px;
+	padding: 15px;
 	transition: .2s all;
 	background-color: #EEEEEE;
 	margin: 0;
@@ -11,8 +11,9 @@
 	.button:hover {
 		background-color: #E0E0E0; }
 	.button i {
-		padding-right: 20px;
 		font-size: 25px; }
 	.button p {
+		transition: .2s all;
+		padding-left: 20px;
 		font-size: 18px;
 		font-weight: 500; }

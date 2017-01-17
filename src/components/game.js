@@ -7,6 +7,7 @@ class Game extends React.Component {
 	
 	constructor() {
 		super()
+		
 		this.state = {
 			t_Menu: false,
 			t_Star: false,
@@ -14,8 +15,9 @@ class Game extends React.Component {
 			t_Expand: false
 		}
 		this.t_Menu = this.t_Menu.bind(this)
-		this.t_Share = this.t_Share.bind(this)
+		this.t_Star = this.t_Star.bind(this)
 		this.t_Expand = this.t_Expand.bind(this)
+		this.t_Share = this.t_Share.bind(this)
 	}
 	
 	// Toggle Functions
@@ -76,6 +78,7 @@ class Game extends React.Component {
 			winningTeam: null,
 			menuStyle: null,
 			starType: null,
+			starText: '',
 			starStyle: null,
 			shareStyle: null,
 			starInner: null,
@@ -154,6 +157,7 @@ class Game extends React.Component {
 			m.starType = 'star'
 			m.starStyle = { display: 'block' }
 			m.starInner = { borderColor: '#212121' }
+			m.starText = 'Starred'
 		}
 		else {
 			m.starType = 'star_border'
@@ -250,8 +254,7 @@ class Game extends React.Component {
 						monthsYear={this.props.monthsYear}
 						daysWeek={this.props.daysWeek}
 						t_Expand={this.t_Expand}
-						t_Star={this.t_Star}
-					/>
+						t_Star={this.t_Star} />
 					
 					:
 					
@@ -264,8 +267,7 @@ class Game extends React.Component {
 						t_Menu={this.t_Menu}
 						t_Star={this.t_Star}
 						t_Share={this.t_Share}
-						t_Expand={this.t_Expand}
-					/>
+						t_Expand={this.t_Expand} />
 				
 				}
 			</div>

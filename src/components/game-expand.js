@@ -2,6 +2,7 @@ import React from 'react'
 import Request from 'react-http-request'
 import Loading from './loading'
 import GameStats from './game-stats'
+import Button from './button'
 
 import '../css/game-expand.css'
 
@@ -33,6 +34,7 @@ class GetPlayersHome extends React.Component {
 												return <Loading />
 											} else {
 												return (
+													
 													<GetPlayersAway
 														apiKey={this.props.apiKey}
 														m={m}
@@ -40,9 +42,10 @@ class GetPlayersHome extends React.Component {
 														monthsYear={this.props.monthsYear}
 														daysWeek={this.props.daysWeek}
 														t_Expand={this.props.t_Expand}
+														t_Star={this.props.t_Star}
 														homeTeamPlayers={temp}
-														homeTeamPlayerStats={result.body}
-													/>
+														homeTeamPlayerStats={result.body} />
+													
 												)
 											}
 										}
@@ -83,18 +86,20 @@ class GetPlayersAway extends React.Component {
 												return <Loading />
 											} else {
 												return (
+													
 													<GameExpand
 														apiKey={this.props.apiKey}
 														m={m}
 														date={this.props.date}
 														monthsYear={this.props.monthsYear}
 														daysWeek={this.props.daysWeek}
+														t_Star={this.props.t_Star}
 														t_Expand={this.props.t_Expand}
 														homeTeamPlayers={this.props.homeTeamPlayers}
 														homeTeamPlayerStats={this.props.homeTeamPlayerStats}
 														awayTeamPlayers={temp}
-														awayTeamPlayerStats={result.body}
-													/>
+														awayTeamPlayerStats={result.body} />
+													
 												)
 											}
 										}
@@ -143,7 +148,8 @@ class GameExpand extends React.Component {
 		
 		let m = this.props.m,
 				item, logourl = './media/team-logos/',
-				i = 0, b = 0
+				i = 0, b = 0,
+				buttonMargin = '0 20px 0 0'
 		
 		m.home.players = this.props.homeTeamPlayers
 		m.away.players = this.props.awayTeamPlayers
@@ -260,7 +266,10 @@ class GameExpand extends React.Component {
 								<h2 style={m.home.scoreDisplay}>{m.home.score}</h2>
 							</div>
 						</div>
-						<div className="game-content-close" onClick={this.props.t_Expand}>
+						<div
+							className="game-content-close"
+							onClick={this.props.t_Expand}
+						>
 							<i className="material-icons">expand_less</i>
 						</div>
 						<div className="game-content-vs">
@@ -294,6 +303,25 @@ class GameExpand extends React.Component {
 							<p>Away</p>
 						</div>
 					</div>
+					<div className="row">
+						<div className="game-content-main-buttons">
+						
+							<Button
+								hasIcon={true}
+								iconText="share"
+								text="Share"
+								margin={buttonMargin} />
+							
+							<div onClick={this.props.t_Star}>
+								<Button
+									hasIcon={true}
+									iconText={m.starType}
+									text={m.starText}
+									margin={buttonMargin} />
+							</div>
+							
+						</div>
+					</div>
 					<div className="row game-content-info-border">
 							
 						<GameStats
@@ -302,7 +330,6 @@ class GameExpand extends React.Component {
 							monthsYear={this.props.monthsYear}
 							daysWeek={this.props.daysWeek}
 							findDateString={this.props.findDateString}
-							t_Star={this.t_Star}
 							m={m} />
 						
 					</div>

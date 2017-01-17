@@ -3,6 +3,7 @@
 	.game-content .game-content-inner {
 		padding: 0; }
 	.game-content .game-content-inner .row {
+		background-color: #fff;
 		position: relative;
 		padding: 0;
 		margin: 0; }
@@ -124,6 +125,14 @@
 		color: #fff;
 		padding: 10px 20px;
 		font-size: 20px; }
+
+.game-content .game-content-main-buttons {
+	background-color: #fff;
+	padding: 20px;
+	border-bottom: 1px solid #E0E0E0;
+	border-left: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+	display: flex; }
 
 .game-content .game-content-inner .game-content-info-border {
 	border-left: 1px solid #E0E0E0;
