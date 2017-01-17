@@ -5,8 +5,8 @@ class CalenderDay extends React.Component {
 
 	constructor(props) {
 		super(props)
+		
 		this.state = { active: this.props.active }
-		this.handleClick = this.handleClick.bind(this)
 	}
 	
 	handleClick() {
@@ -21,7 +21,7 @@ class CalenderDay extends React.Component {
 		return (
 			<div
 				className={dayClass}
-				onClick={this.handleClick}
+				onClick={this.handleClick.bind(this)}
 			>
 				<p>
 					<span className="calender-day-week">{this.props.day.day}</span>
@@ -36,6 +36,7 @@ class Calender extends React.Component {
 	
 	constructor(props) {
 		super(props)
+		
 		this.state = {
 			dayObj: [
 				{ day: null, month: null, date: null, dateObj: null },
@@ -75,8 +76,9 @@ class Calender extends React.Component {
 	render() {
 		
 		const calenderList = this.state.dayObj.map((day, index) => {
-			let temp = false
-			if (day.date === this.state.d.getDate()) { temp = true }
+			
+			let temp = day.date === this.state.d.getDate()
+			
 			return (
 				<CalenderDay
 					onDayClick={this.props.onDayClick}

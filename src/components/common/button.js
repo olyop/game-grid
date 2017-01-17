@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../css/button.css'
+import '../../css/button.css'
 
 const Button = ({ hasIcon, iconText, text, margin }) => {
 	

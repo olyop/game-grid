@@ -3,7 +3,7 @@ import Request from 'react-http-request'
 import '../css/games.css'
 import GameGrid from './game-grid'
 import Calender from './calender'
-import Loading from './loading'
+import Loading from './common/loading'
 
 import teamsObj from './data/teams'
 import stadiumsObj from './data/stadiums'
@@ -19,7 +19,11 @@ class GetTeamStats extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
-							return <Loading />
+							return (
+								
+								<Loading />
+								
+							)
 						} else {
 							return (
 								
@@ -46,6 +50,7 @@ class Games extends React.Component {
 	
 	constructor(props) {
 		super(props)
+		
 		this.state = { date: this.props.date }
 	}
 	

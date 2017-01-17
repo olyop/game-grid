@@ -1,6 +1,6 @@
 import React from 'react'
 import Request from 'react-http-request'
-import Loading from './loading'
+import Loading from './common/loading'
 import '../css/game-grid.css'
 import GamesInfo from './games-info'
 import Game from './game'
@@ -31,7 +31,11 @@ class GameGrid extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
-							return <Loading />
+							return (
+								
+								<Loading />
+								
+							)
 						} else {
 							
 							var gameObj = result.body

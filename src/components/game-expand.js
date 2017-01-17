@@ -1,8 +1,8 @@
 import React from 'react'
 import Request from 'react-http-request'
-import Loading from './loading'
+import Loading from './common/loading'
 import GameStats from './game-stats'
-import Button from './button'
+import Button from './common/button'
 
 import '../css/game-expand.css'
 
@@ -20,7 +20,11 @@ class GetPlayersHome extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
-							return <Loading />
+							return (
+								
+								<Loading />
+								
+							)
 						} else {
 							let temp = result.body
 							return (
@@ -31,7 +35,11 @@ class GetPlayersHome extends React.Component {
 									{
 										({error, result, loading}) => {
 											if (loading) {
-												return <Loading />
+												return (
+
+													<Loading />
+
+												)
 											} else {
 												return (
 													
@@ -72,7 +80,11 @@ class GetPlayersAway extends React.Component {
 				{
 					({error, result, loading}) => {
 						if (loading) {
-							return <Loading />
+							return (
+								
+								<Loading />
+								
+							)
 						} else {
 							let temp = result.body
 							return (
@@ -83,7 +95,11 @@ class GetPlayersAway extends React.Component {
 									{
 										({error, result, loading}) => {
 											if (loading) {
-												return <Loading />
+												return (
+
+													<Loading />
+
+												)
 											} else {
 												return (
 													
