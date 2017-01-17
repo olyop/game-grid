@@ -19,6 +19,7 @@ class Game extends React.Component {
 	}
 	
 	// Toggle Functions
+	t_Star() { this.setState(prevState => ({ t_Star: !prevState.t_Star })) }
 	t_Menu() { this.setState(prevState => ({ t_Menu: !prevState.t_Menu })) }
 	t_Share() { this.setState(prevState => ({ t_Share: !prevState.t_Share })) }
 	t_Expand() { this.setState(prevState => ({ t_Expand: !prevState.t_Expand })) }
@@ -249,6 +250,7 @@ class Game extends React.Component {
 						monthsYear={this.props.monthsYear}
 						daysWeek={this.props.daysWeek}
 						t_Expand={this.t_Expand}
+						t_Star={this.t_Star}
 					/>
 					
 					:
@@ -260,7 +262,7 @@ class Game extends React.Component {
 						monthsYear={this.props.monthsYear}
 						daysWeek={this.props.daysWeek}
 						t_Menu={this.t_Menu}
-						t_Star={ () => this.setState(prevState => ({ t_Star: !prevState.t_Star })) }
+						t_Star={this.t_Star}
 						t_Share={this.t_Share}
 						t_Expand={this.t_Expand}
 					/>

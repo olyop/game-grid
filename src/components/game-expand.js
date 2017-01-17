@@ -302,6 +302,7 @@ class GameExpand extends React.Component {
 							monthsYear={this.props.monthsYear}
 							daysWeek={this.props.daysWeek}
 							findDateString={this.props.findDateString}
+							t_Star={this.t_Star}
 							m={m} />
 						
 					</div>

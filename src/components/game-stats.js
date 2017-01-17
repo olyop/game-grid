@@ -1,5 +1,6 @@
 import React from 'react'
 import Request from 'react-http-request'
+import Button from './button'
 
 import '../css/game-stats.css'
 import '../css/game-stats-table.css'
@@ -23,6 +24,7 @@ class GameStats extends React.Component {
 				homeFoot,
 				awayBody,
 				awayFoot,
+				buttonMargin = '0 20px 0 0',
 				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
 		
 		let	unknownPlayer = {
@@ -41,9 +43,10 @@ class GameStats extends React.Component {
 				Steals: 10
 			}
 		}
+		
 		const divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
 		
-		const Player = ({ player }) => {
+		const Player = ({ index, player }) => {
 			
 			let style = { backgroundImage: 'url(' + player.info.PhotoUrl + ')' }
 			
@@ -51,6 +54,8 @@ class GameStats extends React.Component {
 				<div
 					className="game-content-main-player"
 					data-id={player.info.PlayerID}
+					data-key={index}
+					key={index}
 				>
 					<section title={player.info.FirstName + ' ' + player.info.LastName}>
 						<div className="game-content-player-photo" style={style}></div>
@@ -61,10 +66,10 @@ class GameStats extends React.Component {
 						<p><b>{player.info.LastName}</b></p>
 					</div>
 					<div className="game-content-player-stats">
-						<div><b>{divideFloor(player.stats.Points, player.stats.Games)}</b> PPG</div>
-						<div><b>{divideFloor(player.stats.Assists, player.stats.Games)}</b> APG</div>
-						<div><b>{divideFloor(player.stats.Rebounds, player.stats.Games)}</b> RPG</div>
-						<div><b>{divideFloor(player.stats.Steals, player.stats.Games)}</b> SPG</div>
+						<div>Points: <b>{divideFloor(player.stats.Points, player.stats.Games)}</b></div>
+						<div>Steals: <b>{divideFloor(player.stats.Steals, player.stats.Games)}</b></div>
+						<div>Assists: <b>{divideFloor(player.stats.Assists, player.stats.Games)}</b></div>
+						<div>Rebounds: <b>{divideFloor(player.stats.Rebounds, player.stats.Games)}</b></div>
 					</div>
 				</div>
 			)
@@ -75,7 +80,7 @@ class GameStats extends React.Component {
 			
 			if (player.info === undefined || player.stats === undefined) {
 				return (
-					<Player key={index} player={unknownPlayer} />
+					<Player key={index} index={index} player={unknownPlayer} />
 				)
 			}
 			
@@ -85,7 +90,7 @@ class GameStats extends React.Component {
 			
 			if (player.info === undefined || player.stats === undefined) {
 				return (
-					<Player key={index} player={unknownPlayer} />
+					<Player key={index} index={index} player={unknownPlayer} />
 				)
 			}
 			
@@ -96,7 +101,7 @@ class GameStats extends React.Component {
 			<tr>
 				<th className="game-content-main-stats-player" title="Player stats for game">Player</th>
 				<th title="Points">PTS</th>
-				<th title="Minutes">Min</th>
+				<th title="Minutes">MIN</th>
 				<th title="Assists">AST</th>
 				<th title="Rebounds">REB</th>
 				<th title="Steals">STL</th>
@@ -106,40 +111,37 @@ class GameStats extends React.Component {
 			</tr>
 		)
 		
-		let PlayerRow = ({ index, gameStats }) => (
-			<tr key={index}>
-				<td
-					className="game-content-main-stats-player"
-					title={gameStats.Name}
-				>
-					<p>{gameStats.Name}</p>
-				</td>
-				<td><b>{Math.round(gameStats.Points)}</b></td>
-				<td>{Math.round(gameStats.Minutes)}</td>
-				<td>{Math.round(gameStats.Assists)}</td>
-				<td>{Math.round(gameStats.Rebounds)}</td>
-				<td>{Math.round(gameStats.Steals)}</td>
-				<td>{Math.round(gameStats.BlockedShots)}</td>
-				<td>{Math.round(gameStats.Turnovers)}</td>
-				<td>{Math.round(gameStats.PlusMinus)}</td>
-			</tr>
+		let PlayerRow = ({ index, player, gameStats }) => {
+			
+			let name = player.FirstName + ' ' + player.LastName;
+			
+			return (
+				<tr key={index}>
+					<td
+						className="game-content-main-stats-player"
+						title={name} 
+					>
+						<p>{name}</p>
+					</td>
+					<td><b>{Math.round(gameStats.Points)}</b></td>
+					<td>{Math.round(gameStats.Minutes)}</td>
+					<td>{Math.round(gameStats.Assists)}</td>
+					<td>{Math.round(gameStats.Rebounds)}</td>
+					<td>{Math.round(gameStats.Steals)}</td>
+					<td>{Math.round(gameStats.BlockedShots)}</td>
+					<td>{Math.round(gameStats.Turnovers)}</td>
+					<td>{Math.round(gameStats.PlusMinus)}</td>
+				</tr>
+			)
+		}
+		
+		let DefaultRow = ({ text }) => (
+			<tr><td className="game-content-main-stats-all" colSpan="9">{text}</td></tr>
 		)
 		
-		let DefaultRow = ({ text }) => <tr><td className="game-content-main-stats-all" colSpan="9">{text}</td></tr>
-		
-		// Find and map home player stats
-		if (!m.hasGameStarted) {
+		let mapTableBody = (playerList) => {
 			
-			homeBody = <DefaultRow text="Game has not started" />
-			
-		} else if (m.toggleScores) {
-			
-			homeBody = <DefaultRow text="Scores are hidden" />
-			
-		} else {
-			
-			homeBody = m.home.players.map((player, index) => {
-				
+			const temp = playerList.map((player, index) => {
 				return (
 					<Request
 						url={playerGameStatsUrl + this.findDateString(this.props.date) + '/' + player.PlayerID}
@@ -149,7 +151,7 @@ class GameStats extends React.Component {
 						{
 							({error, result, loading}) => {
 								if (loading) {
-									return <DefaultRow text={'Loading player game stats'} />
+									return <DefaultRow text="Loading player game stats" />
 								} else {
 									let gameStats = result.body
 									if (gameStats === null) {
@@ -157,8 +159,13 @@ class GameStats extends React.Component {
 									} else if (gameStats.Minutes === 0) {
 										return null
 									} else {
-										homeFoot = <DefaultRow text={gameStats.length + ' players played'} />
-										return <PlayerRow index={index} gameStats={gameStats} />
+										return (
+											<PlayerRow
+												key={index}
+												index={index}
+											 	player={player}
+											 	gameStats={gameStats} />
+										)
 									}
 								}
 							}
@@ -166,52 +173,32 @@ class GameStats extends React.Component {
 					</Request>
 				)
 			})
+			return temp
 		}
 		
+		// Find and map home player stats
+		if (!m.hasGameStarted) { homeBody = <DefaultRow text="Game has not started" /> }
+		else if (m.toggleScores) { homeBody = <DefaultRow text="Scores are hidden" /> }
+		else { homeBody = mapTableBody(m.home.players) }
+		
 		// Find and map away player stats
-		if (!m.hasGameStarted) {
-			
-			awayBody = <DefaultRow text="Game has not started" />
-			
-		} else if (m.toggleScores) {
-			
-			awayBody = <DefaultRow text="Scores are hidden" />
-			
-		} else {
-			
-			awayBody = m.away.players.map((player, index) => {
-				return (
-					<Request
-						url={playerGameStatsUrl + this.findDateString(this.props.date)  + '/' + player.PlayerID}
-						headers={this.props.apiKey}
-						key={index}
-					>
-						{
-							({error, result, loading}) => {
-								if (loading) {
-									return <DefaultRow text={'Loading player game stats'} />
-								} else {
-									let gameStats = result.body
-									
-									if (gameStats === null) {
-										return null
-									} else if (gameStats.Minutes === 0) {
-										return null
-									} else {
-										awayFoot = <DefaultRow text={gameStats.length + ' players played'} />
-										return <PlayerRow index={index} gameStats={gameStats} />
-									}
-								}
-							}
-						}
-					</Request>
-				)
-			})
-		}
+		if (!m.hasGameStarted) { awayBody = <DefaultRow text="Game has not started" /> }
+		else if (m.toggleScores) { awayBody = <DefaultRow text="Scores are hidden" /> }
+		else { awayBody = mapTableBody(m.away.players) }
 		
 		return (
 			<div className="game-content-main">
 				<div className="col-lg-6 game-content-main-left">
+					
+					<div className="game-content-main-share">
+						<Button
+							onClick={this.props.t_Star}
+							hasIcon={true}
+							iconText="share"
+							text="Share"
+							margin={buttonMargin} />
+						<Button hasIcon={true} iconText="star_border" text="Star" />
+					</div>
 					
 					<h1>{m.home.info.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">
@@ -229,6 +216,11 @@ class GameStats extends React.Component {
 					
 				</div>
 				<div className="col-lg-6 game-content-main-right">
+					
+					<div className="game-content-main-share">
+						<Button hasIcon={true} iconText="share" text="Share" margin={buttonMargin} />
+						<Button hasIcon={true} iconText="star_border" text="Star" />
+					</div>
 					
 					<h1>{m.away.info.Name} player game stats</h1>
 					<div className="game-content-main-item game-content-main-stats">

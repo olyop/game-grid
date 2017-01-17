@@ -14,7 +14,11 @@
 				border-bottom: 1px solid #E0E0E0;
 				margin-bottom: 20px;
 				font-size: 20px; }
+			.game-content .game-content-main .game-content-main-share {
+				display: flex;
+				margin-bottom: 20px; }
 			.game-content .game-content-main-player {
+				padding: 0 10px;
 				display: flex;
 				align-content: center;
 				align-items: center;
@@ -48,16 +52,15 @@
 					font-size: 16px; }
 				.game-content .game-content-main-player .game-content-player-name {
 					width: 100%;
+					margin-bottom: 10px;
+					border-bottom: 1px solid #E0E0E0;
 					padding: 10px 0; }
 					.game-content .game-content-main-player .game-content-player-name p {
 						font-size: 18px; }
 				.game-content .game-content-main-player .game-content-player-stats {
 					width: 100%;
-					display: flex;
-					flex-wrap: wrap;
-					flex-direction: row;
-					justify-content: flex-start; }
+					flex-direction: column;
+					display: flex; }
 					.game-content .game-content-main-player .game-content-player-stats div {
 						padding: 10px;
-						text-align: center;
-						width: 50%; }
+						text-align: center; }
