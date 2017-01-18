@@ -5,7 +5,7 @@ import '../../css/button.css'
 const Button = ({ hasIcon, iconText, text, margin }) => {
 	
 	let icon = hasIcon ? <i className="material-icons">{iconText}</i> : null,
-			style = { margin: margin },
+			style = { margin },
 			buttonText = text === '' || text === undefined ? null : <p>{text}</p>;
 	
 	return (

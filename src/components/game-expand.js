@@ -187,11 +187,6 @@ class GameExpand extends React.Component {
 				boxShadow = 'inset 0px 0px 100px 25px ',
 				luminance = '0.5', opacity = '0.4'
 		
-		if (m.home.info.Key === 'BKN') { m.home.color = '#2d2925' }
-		if (m.home.info.Key === 'HOU') { m.home.color = '#c30e2e' }
-		if (m.home.info.Key === 'SA') { m.home.color = '#0a1b23' }
-		if (m.home.info.Key === 'MEM') { m.home.color = '#6089b8' }
-		
 		let homeStyle = {
 			background: {
 				backgroundColor: m.home.color.color,
@@ -329,11 +324,13 @@ class GameExpand extends React.Component {
 								margin={buttonMargin} />
 							
 							<div onClick={this.props.t_Star}>
+								
 								<Button
 									hasIcon={true}
 									iconText={m.starType}
 									text={m.starText}
 									margin={buttonMargin} />
+								
 							</div>
 							
 						</div>

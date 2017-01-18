@@ -85,7 +85,9 @@ class Game extends React.Component {
 			gameClass: null,
 			sliceTimeMin: null,
 			sliceTimeSec: null,
-			winningText: null
+			winningText: null,
+			isQtr: null,
+			isTime: null
 		}
 
 		// Find Home Team
@@ -147,15 +149,16 @@ class Game extends React.Component {
 		if (m.away.info.Name === 'Celtics') { m.away.color = { color: '#2E7B3B' } }
 		if (m.home.info.Name === 'Timberwolves') { m.home.color = { color: '#005083' } }
 		if (m.away.info.Name === 'Timberwolves') { m.away.color = { color: '#005083' } }
-		if (m.home.info.Name === 'Spurs') { m.home.color = { color: '#000000' } }
-		if (m.away.info.Name === 'Spurs') { m.away.color = { color: '#000000' } }
-		
+		if (m.home.info.Name === 'Spurs') { m.home.color = { color: '#212121' } }
+		if (m.away.info.Name === 'Spurs') { m.away.color = { color: '#212121' } }
+		if (m.home.info.Name === 'Nets') { m.home.color = { color: '#212121' } }
+		if (m.away.info.Name === 'Nets') { m.away.color = { color: '#212121' } }
 		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
 		
 		// Toggle Star
 		if (this.state.t_Star) {
 			m.starType = 'star'
-			m.starStyle = { display: 'block' }
+			m.starStyle = m.displayBlock
 			m.starInner = { borderColor: '#212121' }
 			m.starText = 'Starred'
 		}
@@ -169,6 +172,8 @@ class Game extends React.Component {
 		m.menuStyle = this.state.t_Menu ? m.displayBlock : m.displayNone
 		m.shareStyle = this.state.t_Share ? m.displayBlock : m.displayNone
 		
+		m.isQtr = m.qtr === '1' || m.qtr === '2' || m.qtr === '3' || m.qtr === '4'
+		m.isTime = m.timeSec === null && m.timeMin === null
 		
 		// Determine who is Winning
 		if (m.home.score === m.away.score) {
@@ -191,7 +196,7 @@ class Game extends React.Component {
 		}
 
 		// Determine Game Status
-		if (m.qtr === null && m.timeMin === null && m.timeSec === null && m.home.score === null) {
+		if (m.qtr === null && m.isTime && m.home.score === null) {
 			if (m.sliceTimeMin <= 12) {
 				m.info.right = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 			} else {
@@ -211,23 +216,34 @@ class Game extends React.Component {
 			m.info.left = m.stadium.Name
 			m.gameBreak = 'AT'
 			m.hasGameStarted = true
-		} else if ((m.qtr === null && m.timeSec === null && m.timeMin === null && m.home.score > 0) || m.qtr === 'F') {
+		} else if ((m.qtr === null && m.isTime && m.home.score > 0) || m.qtr === 'F') {
 			m.info.left = <b>Full Time</b>
 			if (m.toggleScores) { m.info.right = m.stadium.Name }
 			else { m.info.right = m.winningText(m.winningTeam.Name) }
 			m.gameBreak = 'FINAL'
 			m.hasGameStarted = true
-		} else if (m.qtr === '1' || m.qtr === '2' || m.qtr === '3' || m.qtr === '4') {
+		} else if (m.isQtr && m.isTime === true) {
+			let str
+			if (m.qtr === '1') { str = 'st' }
+			else if (m.qtr === '2') { str = 'nd' }
+			else if (m.qtr === '3') { str = 'rd' }
+			else if (m.qtr === '4') { str = 'th' }
+			
+			m.info.left = <b>{'End of ' + m.qtr + str + ' Quarter'}</b>
+			m.info.right = m.stadium.Name
+			m.gameBreak = 'INP'
+			m.hasGameStarted = true
+		} else if (m.isQtr) {
 			let seconds
 			if (m.timeSec < 10) { seconds = '0' + m.timeSec }
 			else { seconds = m.timeSec }
 			let str = m.timeMin + ':' + seconds
 			if (m.toggleScores) {
-				m.info.left = m.stadium.Name
+				m.info.right = m.stadium.Name
 				if (m.sliceTimeMin <= 12) {
-					m.info.right = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+					m.info.left = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 				} else {
-					m.info.right = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+					m.info.left = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
 				}
 			} else {
 				m.info.right = <b style={m.colors.red} className='blink'>{str}</b>

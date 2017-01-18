@@ -1,5 +1,5 @@
 .button {
-	padding: 15px;
+	padding: 15px 30px;
 	transition: .2s all;
 	background-color: #EEEEEE;
 	margin: 0;
@@ -9,6 +9,7 @@
 	justify-content: flex-start;
 	border-radius: 5px; }
 	.button:hover {
+		padding: 15px 40px;
 		background-color: #E0E0E0; }
 	.button i {
 		font-size: 25px; }

@@ -109,35 +109,35 @@ class GameStats extends React.Component {
 			</tr>
 		)
 		
-		let PlayerRow = ({ index, player, gameStats }) => {
-			
-			let name = player.FirstName + ' ' + player.LastName;
-			
-			return (
-				<tr key={index}>
-					<td
-						className="game-content-main-stats-player"
-						title={name} 
-					>
-						<p>{name}</p>
-					</td>
-					<td><b>{Math.round(gameStats.Points)}</b></td>
-					<td>{Math.round(gameStats.Minutes)}</td>
-					<td>{Math.round(gameStats.Assists)}</td>
-					<td>{Math.round(gameStats.Rebounds)}</td>
-					<td>{Math.round(gameStats.Steals)}</td>
-					<td>{Math.round(gameStats.BlockedShots)}</td>
-					<td>{Math.round(gameStats.Turnovers)}</td>
-					<td>{Math.round(gameStats.PlusMinus)}</td>
-				</tr>
-			)
-		}
-		
 		let DefaultRow = ({ text }) => (
 			<tr><td className="game-content-main-stats-all" colSpan="9">{text}</td></tr>
 		)
 		
 		let mapTableBody = (playerList) => {
+			
+			let PlayerRow = ({ index, player, gameStats }) => {
+
+				let name = player.FirstName + ' ' + player.LastName;
+
+				return (
+					<tr key={index}>
+						<td
+							className="game-content-main-stats-player"
+							title={name} 
+						>
+							<p>{name}</p>
+						</td>
+						<td><b>{Math.round(gameStats.Points)}</b></td>
+						<td>{Math.round(gameStats.Minutes)}</td>
+						<td>{Math.round(gameStats.Assists)}</td>
+						<td>{Math.round(gameStats.Rebounds)}</td>
+						<td>{Math.round(gameStats.Steals)}</td>
+						<td>{Math.round(gameStats.BlockedShots)}</td>
+						<td>{Math.round(gameStats.Turnovers)}</td>
+						<td>{Math.round(gameStats.PlusMinus)}</td>
+					</tr>
+				)
+			}
 			
 			const temp = playerList.map((player, index) => {
 				return (
@@ -177,11 +177,13 @@ class GameStats extends React.Component {
 		// Find and map home player stats
 		if (!m.hasGameStarted) { homeBody = <DefaultRow text="Game has not started" /> }
 		else if (m.toggleScores) { homeBody = <DefaultRow text="Scores are hidden" /> }
+		else if (m.isQtr) { homeBody = mapTableBody(m.home.players) }
 		else { homeBody = mapTableBody(m.home.players) }
 		
 		// Find and map away player stats
 		if (!m.hasGameStarted) { awayBody = <DefaultRow text="Game has not started" /> }
 		else if (m.toggleScores) { awayBody = <DefaultRow text="Scores are hidden" /> }
+		else if (m.isQtr) { awayBody = mapTableBody(m.away.players) }
 		else { awayBody = mapTableBody(m.away.players) }
 		
 		return (
