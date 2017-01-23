@@ -30,8 +30,8 @@ class Game extends React.Component {
 		
 		let item, i, m = {
 			home: {
-				info: null,
 				score: this.props.game.HomeTeamScore,
+				info: null,
 				players: null,
 				stats: null,
 				topPlayers: null,
@@ -41,8 +41,8 @@ class Game extends React.Component {
 				scoreStyle: null
 			},
 			away: {
-				info: null,
 				score: this.props.game.AwayTeamScore,
+				info: null,
 				players: null,
 				stats: null,
 				topPlayers: null,
@@ -51,20 +51,20 @@ class Game extends React.Component {
 				scoreDisplay: null,
 				scoreStyle: null
 			},
-			stadium: null,
 			info: {
 				left: null,
 				right: null
 			},
-			gameBreak: null,
-			teamsLength: this.props.teams.length,
-			stadiumsLength: this.props.stadiums.length,
-			teamStatsLength: this.props.teamStats.length,
 			colors: {
 				tie: { color: '#FF9800' },
 				red: { color: '#F44336' },
 				green: { color: '#4CAF50' }
 			},
+			stadium: null,
+			gameBreak: null,
+			teamsLength: this.props.teams.length,
+			stadiumsLength: this.props.stadiums.length,
+			teamStatsLength: this.props.teamStats.length,
 			displayBlock: { display: 'block' },
 			displayNone: { display: 'none' },
 			qtr: this.props.game.Quarter,
@@ -252,6 +252,38 @@ class Game extends React.Component {
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
 		}
+		
+		let gameSwitch
+		
+		if (this.state.t_Expand) {
+			gameSwitch = (
+				
+				<GameExpand
+					apiKey={this.props.apiKey}
+					m={m}
+					date={this.props.date}
+					monthsYear={this.props.monthsYear}
+					daysWeek={this.props.daysWeek}
+					t_Expand={this.t_Expand}
+					t_Star={this.t_Star} />
+				
+			)
+		} else {
+			gameSwitch = (
+			
+				<GameInfo
+					apiKey={this.props.apiKey}
+					m={m}
+					date={this.props.date}
+					monthsYear={this.props.monthsYear}
+					daysWeek={this.props.daysWeek}
+					t_Menu={this.t_Menu}
+					t_Star={this.t_Star}
+					t_Share={this.t_Share}
+					t_Expand={this.t_Expand} />
+			
+			)
+		}
 
 		return (
 			<div
@@ -261,31 +293,7 @@ class Game extends React.Component {
 				title={m.home.info.Name + ' vs ' + m.away.info.Name}
 				className={m.gameClass}
 			>
-				{ this.state.t_Expand ?
-					
-					<GameExpand
-						apiKey={this.props.apiKey}
-						m={m}
-						date={this.props.date}
-						monthsYear={this.props.monthsYear}
-						daysWeek={this.props.daysWeek}
-						t_Expand={this.t_Expand}
-						t_Star={this.t_Star} />
-					
-					:
-					
-					<GameInfo
-						apiKey={this.props.apiKey}
-						m={m}
-						date={this.props.date}
-						monthsYear={this.props.monthsYear}
-						daysWeek={this.props.daysWeek}
-						t_Menu={this.t_Menu}
-						t_Star={this.t_Star}
-						t_Share={this.t_Share}
-						t_Expand={this.t_Expand} />
-				
-				}
+				{gameSwitch}
 			</div>
 		)
 		

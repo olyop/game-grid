@@ -164,8 +164,7 @@ class GameExpand extends React.Component {
 		
 		let m = this.props.m,
 				item, logourl = './media/team-logos/',
-				i = 0, b = 0,
-				buttonMargin = '0 20px 0 0'
+				i = 0, b = 0
 		
 		m.home.players = this.props.homeTeamPlayers
 		m.away.players = this.props.awayTeamPlayers
@@ -317,19 +316,23 @@ class GameExpand extends React.Component {
 					<div className="row">
 						<div className="game-content-main-buttons">
 						
-							<Button
-								hasIcon={true}
-								iconText="share"
-								text="Share"
-								margin={buttonMargin} />
-							
+							<div>
+								
+								<Button
+									hasIcon={true}
+									iconText="share"
+									text="Share"
+									style={{ margin: '0 20px 0 0' }} />
+								
+							</div>
+								
 							<div onClick={this.props.t_Star}>
 								
 								<Button
 									hasIcon={true}
 									iconText={m.starType}
 									text={m.starText}
-									margin={buttonMargin} />
+									style={{ padding: '15px' }} />
 								
 							</div>
 							

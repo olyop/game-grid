@@ -1,5 +1,6 @@
 import React from 'react'
 import Request from 'react-http-request'
+import unknownPlayer from './data/unknown-player'
 
 import '../css/game-stats.css'
 import '../css/game-stats-table.css'
@@ -19,28 +20,8 @@ class GameStats extends React.Component {
 	render() {
 		
 		let m = this.props.m,
-				homeBody,
-				homeFoot,
-				awayBody,
-				awayFoot,
+				homeBody, awayBody,
 				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
-		
-		let	unknownPlayer = {
-			info: {
-				PhotoUrl: './media/unknown.jpg',
-				PlayerID: 'unknown',
-				FirstName: 'Cannot Load',
-				LastName: 'Player',
-				Jersey: '0',
-			},
-			stats: {
-				Games: 10,
-				Points: 10,
-				Assists: 10,
-				Rebounds: 10,
-				Steals: 10
-			}
-		}
 		
 		const divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
 		
@@ -195,7 +176,6 @@ class GameStats extends React.Component {
 						<table>
 							<thead>{thead}</thead>
 							<tbody>{homeBody}</tbody>
-							<tfoot>{homeFoot}</tfoot>
 						</table>
 					</div>
 					
@@ -212,7 +192,6 @@ class GameStats extends React.Component {
 						<table>
 							<thead>{thead}</thead>
 							<tbody>{awayBody}</tbody>
-							<tfoot>{awayFoot}</tfoot>
 						</table>
 					</div>
 					

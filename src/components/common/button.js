@@ -2,10 +2,9 @@ import React from 'react'
 
 import '../../css/button.css'
 
-const Button = ({ hasIcon, iconText, text, margin }) => {
+const Button = ({ hasIcon, iconText, text, style }) => {
 	
 	let icon = hasIcon ? <i className="material-icons">{iconText}</i> : null,
-			style = { margin },
 			buttonText = text === '' || text === undefined ? null : <p>{text}</p>;
 	
 	return (
@@ -19,8 +18,7 @@ const Button = ({ hasIcon, iconText, text, margin }) => {
 Button.propTypes = {
 	hasIcon: React.PropTypes.bool.isRequired,
 	iconText: React.PropTypes.string,
-	text: React.PropTypes.string,
-	margin: React.PropTypes.string
+	text: React.PropTypes.string
 }
 
 export default Button
