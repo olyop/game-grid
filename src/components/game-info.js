@@ -5,6 +5,25 @@ class GameInfo extends React.Component {
 		
 		let m = this.props.m
 		
+		const Team = ({ team }) => {
+			return (
+				<div className="game-team">
+					<img
+						src={m.teamLogoUrl + team.info.Key.toLowerCase() + '.svg'}
+						alt={team.info.Name} 
+					/>
+					<p className="game-team-score" style={team.scoreDisplay}>
+						<span style={team.scoreStyle}>{team.score}</span>
+					</p>
+					<div className="game-team-text">
+						<h4>{team.info.City}</h4>
+						<h3 style={m.home.color}>{team.info.Name}</h3>
+						<p>{team.record}</p>
+					</div>
+				</div>
+			)
+		}
+		
 		return (
 			<div className="game-inner" style={m.starInner}>
 				<div
@@ -127,44 +146,23 @@ class GameInfo extends React.Component {
 				>
 					<i className="material-icons">expand_more</i>
 				</div>
-				<div className="game-team">
-					<img
-						src={m.teamLogoUrl + m.home.info.Key.toLowerCase() + '.svg'}
-						alt={m.home.info.Name} 
-					/>
-					<p className="game-team-score" style={m.home.scoreDisplay}>
-						<span style={m.home.scoreStyle}>{m.home.score}</span>
-					</p>
-					<div className="game-team-text">
-						<h4>{m.home.info.City}</h4>
-						<h3 style={m.home.color}>{m.home.info.Name}</h3>
-						<p>{m.home.record}</p>
-					</div>
-				</div>
+				
+				<Team team={m.home} />
+				
 				<div className="game-break">
 					<hr />
 					<p>VS</p>
 					<hr />
 				</div>
-				<div className="game-team">
-					<img
-						src={m.teamLogoUrl + m.away.info.Key.toLowerCase() + '.svg'}
-						alt={m.away.info.Name} 
-					/>
-					<p className="game-team-score" style={m.away.scoreDisplay}>
-						<span style={m.away.scoreStyle}>{m.away.score}</span>
-					</p>
-					<div className="game-team-text">
-						<h4>{m.away.info.City}</h4>
-						<h3 style={m.away.color}>{m.away.info.Name}</h3>
-						<p>{m.away.record}</p>
-					</div>
-				</div>
+				
+				<Team team={m.away} />
+				
 				<div className="game-break">
 					<hr />
 					<p>{m.gameBreak}</p>
 					<hr />
 				</div>
+				
 				<div className="game-header">
 					<p>
 						{m.info.left}
@@ -172,6 +170,7 @@ class GameInfo extends React.Component {
 						{m.info.right}
 					</p>
 				</div>
+				
 			</div>
 		)
 	}

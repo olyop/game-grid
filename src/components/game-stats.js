@@ -1,27 +1,40 @@
 import React from 'react'
 import Request from 'react-http-request'
-import unknownPlayer from './data/unknown-player'
+import { unknownPlayer, topPlayersObj } from './data/unknown'
+import { findDateString } from './data/calender-data'
 
 import '../css/game-stats.css'
 import '../css/game-stats-table.css'
 
 class GameStats extends React.Component {
-	
-	findDateString(date) {
-		let monthsYear = this.props.monthsYear
-		
-		let nowYear = String(date.getFullYear()),
-				nowMonth = String(monthsYear[date.getMonth()].abbr),
-				nowDate = String(date.getDate() - 1) // -1 for American Time Zone Diff
-		
-		return nowYear + '-' + nowMonth + '-' + nowDate
-	}
-	
 	render() {
 		
-		let m = this.props.m,
-				homeBody, awayBody,
-				playerGameStatsUrl = 'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
+		const m = this.props.m,
+				playerGameStatsUrl =
+					'https://api.fantasydata.net/' +
+					'v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
+		
+		const thead = (
+			<tr>
+				<th className="game-content-main-stats-player" title="Player stats for game">Player</th>
+				<th title="Points">PTS</th>
+				<th title="Minutes">MIN</th>
+				<th title="Assists">AST</th>
+				<th title="Rebounds">REB</th>
+				<th title="Steals">STL</th>
+				<th title="Blocks">BLK</th>
+				<th title="Turnovers">TOV</th>
+				<th title="Plus / Minus">+/-</th>
+			</tr>
+		)
+		
+		const DefaultRow = ({ text }) => {
+			return (
+				<tr>
+					<td className="game-content-main-stats-all" colSpan="9">{text}</td>
+				</tr>
+			)
+		}
 		
 		const divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
 		
@@ -54,47 +67,23 @@ class GameStats extends React.Component {
 			)
 		}
 		
-		// Map Top Players
-		m.homeTopPlayersList = m.home.topPlayers.map((player, index) => {
+		const mapTopPlayerList = (players) => {
 			
-			if (player.info === undefined || player.stats === undefined) {
-				return (
-					<Player key={index} index={index} player={unknownPlayer} />
-				)
-			}
+			let temp = players.map((player, index) => {
+
+				if (player.info === undefined || player.stats === undefined) {
+					return (
+						<Player key={index} index={index} player={unknownPlayer} />
+					)
+				}
+
+				return <Player key={index} player={player} />
+			})
 			
-			return <Player key={index} player={player} />
-		})
-		m.awayTopPlayersList = m.away.topPlayers.map((player, index) => {
-			
-			if (player.info === undefined || player.stats === undefined) {
-				return (
-					<Player key={index} index={index} player={unknownPlayer} />
-				)
-			}
-			
-			return <Player key={index} player={player} />	
-		})
+			return temp
+		}
 		
-		let thead = (
-			<tr>
-				<th className="game-content-main-stats-player" title="Player stats for game">Player</th>
-				<th title="Points">PTS</th>
-				<th title="Minutes">MIN</th>
-				<th title="Assists">AST</th>
-				<th title="Rebounds">REB</th>
-				<th title="Steals">STL</th>
-				<th title="Blocks">BLK</th>
-				<th title="Turnovers">TOV</th>
-				<th title="Plus / Minus">+/-</th>
-			</tr>
-		)
-		
-		let DefaultRow = ({ text }) => (
-			<tr><td className="game-content-main-stats-all" colSpan="9">{text}</td></tr>
-		)
-		
-		let mapTableBody = (playerList) => {
+		const mapTableBody = (playerList) => {
 			
 			let PlayerRow = ({ index, player, gameStats }) => {
 
@@ -123,14 +112,14 @@ class GameStats extends React.Component {
 			const temp = playerList.map((player, index) => {
 				return (
 					<Request
-						url={playerGameStatsUrl + this.findDateString(this.props.date) + '/' + player.PlayerID}
+						url={playerGameStatsUrl + findDateString(this.props.date) + '/' + player.PlayerID}
 						headers={this.props.apiKey}
 						key={index}
 					>
 						{
 							({error, result, loading}) => {
 								if (loading) {
-									return <DefaultRow text="Loading player game stats" />
+									return null
 								} else {
 									let gameStats = result.body
 									if (gameStats === null) {
@@ -155,50 +144,85 @@ class GameStats extends React.Component {
 			return temp
 		}
 		
-		// Find and map home player stats
-		if (!m.hasGameStarted) { homeBody = <DefaultRow text="Game has not started" /> }
-		else if (m.toggleScores) { homeBody = <DefaultRow text="Scores are hidden" /> }
-		else if (m.isQtr) { homeBody = mapTableBody(m.home.players) }
-		else { homeBody = mapTableBody(m.home.players) }
+		const findMapPlayerStats = (players) => {
+			
+			let temp
+			
+			if (!m.hasGameStarted) { temp = <DefaultRow text="Game has not started" /> }
+			else if (m.toggleScores) { temp = <DefaultRow text="Scores are hidden" /> }
+			else if (m.isQtr) { temp = mapTableBody(players) }
+			else { temp = mapTableBody(players) }
+			
+			return temp
+		}
 		
-		// Find and map away player stats
-		if (!m.hasGameStarted) { awayBody = <DefaultRow text="Game has not started" /> }
-		else if (m.toggleScores) { awayBody = <DefaultRow text="Scores are hidden" /> }
-		else if (m.isQtr) { awayBody = mapTableBody(m.away.players) }
-		else { awayBody = mapTableBody(m.away.players) }
+		const findTopPlayers = (team, topPlayersObj) => {
+			
+			let temp = topPlayersObj,
+					teamLength = team.players.length,
+					i = 0, item
+			
+			while (i < 3) {
+
+				let playerStats = team.stats[i],
+						player
+
+				// Find Player Stats
+				for (var a = 0; a < teamLength; a++) {
+					item = team.players[a]
+					if (playerStats.PlayerID === item.PlayerID) {
+						player = item
+						break
+					}
+				}
+
+				temp[i].stats = playerStats
+				temp[i].info = player
+
+				i++
+			}
+			
+			return temp
+		}
+		
+		m.home.topPlayers = findTopPlayers(m.home, topPlayersObj)
+		m.away.topPlayers = findTopPlayers(m.away, topPlayersObj)
+		
+		m.home.body = findMapPlayerStats(m.home.players)
+		m.away.body = findMapPlayerStats(m.away.players)
+		
+		m.home.topPlayersList = mapTopPlayerList(m.home.topPlayers)
+		m.away.topPlayersList = mapTopPlayerList(m.away.topPlayers)
+		
+		const TeamStatsMain = ({ team }) => {
+			return (
+				<div>
+					<h1>{team.info.Name} player game stats</h1>
+					<div className="game-content-main-item game-content-main-stats">
+						<table>
+							<thead>{thead}</thead>
+							<tbody>{team.body}</tbody>
+						</table>
+					</div>
+
+					<h1>{team.info.Name} top 3 players</h1>
+					<div className="game-content-main-item game-content-main-players">
+						{team.topPlayersList}
+					</div>
+				</div>
+			)
+		}
 		
 		return (
 			<div className="game-content-main">
 				<div className="col-lg-6 game-content-main-left">
 					
-					<h1>{m.home.info.Name} player game stats</h1>
-					<div className="game-content-main-item game-content-main-stats">
-						<table>
-							<thead>{thead}</thead>
-							<tbody>{homeBody}</tbody>
-						</table>
-					</div>
-					
-					<h1>{m.home.info.Name} top 3 players</h1>
-					<div className="game-content-main-item game-content-main-players">
-						{m.homeTopPlayersList}
-					</div>
+					<TeamStatsMain team={m.home} />
 					
 				</div>
 				<div className="col-lg-6 game-content-main-right">
 					
-					<h1>{m.away.info.Name} player game stats</h1>
-					<div className="game-content-main-item game-content-main-stats">
-						<table>
-							<thead>{thead}</thead>
-							<tbody>{awayBody}</tbody>
-						</table>
-					</div>
-					
-					<h1>{m.away.info.Name} top 3 players</h1>
-					<div className="game-content-main-item game-content-main-players">
-						{m.awayTopPlayersList}
-					</div>
+					<TeamStatsMain team={m.away} />
 					
 				</div>
 			</div>

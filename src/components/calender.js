@@ -1,4 +1,6 @@
 import React from 'react'
+import { daysWeek, monthsYear } from './data/calender-data'
+
 import '../css/calender.css'
 
 class CalenderDay extends React.Component {
@@ -52,6 +54,7 @@ class Calender extends React.Component {
 	}
 	
 	componentWillMount() {
+		
 		// eslint-disable-next-line
 		Date.prototype.addDays = function(days) {
 			var dat = new Date(this.valueOf())
@@ -64,8 +67,8 @@ class Calender extends React.Component {
 					dat = date.getDate(),
 					arr = this.state.dayObj
 			
-			arr[i].day = this.props.daysWeek[date.getDay()].abbr
-			arr[i].month = this.props.monthsYear[date.getMonth()].abbr
+			arr[i].day = daysWeek[date.getDay()].abbr
+			arr[i].month = monthsYear[date.getMonth()].abbr
 			arr[i].date = dat
 			arr[i].dateObj = new Date(date)
 			
@@ -80,12 +83,13 @@ class Calender extends React.Component {
 			let temp = day.date === this.state.d.getDate()
 			
 			return (
+				
 				<CalenderDay
 					onDayClick={this.props.onDayClick}
 					day={day}
 					key={index}
-					active={temp}
-				/>
+					active={temp} />
+				
 			)
 		})
 		

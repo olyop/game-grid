@@ -47,8 +47,8 @@
 							#calender .calender-inner .calender-days .active p {
 								border-color:  #ed174b;
 								font-weight: 600; }
-		#calender .calender-inner .calender-days .active {
-			background-color: #EEEEEE; }
+			#calender .calender-inner .calender-days .active {
+				background-color: #EEEEEE; }
 					#calender .calender-inner .calender-control {
 						display: none;
 						cursor: pointer;

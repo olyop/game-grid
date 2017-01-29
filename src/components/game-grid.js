@@ -1,31 +1,24 @@
 import React from 'react'
 import Request from 'react-http-request'
 import Loading from './common/loading'
-import '../css/game-grid.css'
 import GamesInfo from './games-info'
 import Game from './game'
+import { findDateString } from './data/calender-data'
+
+import '../css/game-grid.css'
 
 class GameGrid extends React.Component {
 	
 	constructor(props) {
 		super(props)
+		
 		this.state = { toggleScorees: false }
-	}
-	
-	findDateString(date) {
-		let monthsYear = this.props.monthsYear
-		
-		let nowYear = String(date.getFullYear()),
-				nowMonth = String(monthsYear[date.getMonth()].abbr),
-				nowDate = String(date.getDate() - 1) // -1 for American Time Zone Diff
-		
-		return nowYear + '-' + nowMonth + '-' + nowDate
 	}
 	
 	render() {
 		return (
 			<Request
-				url={'https://api.fantasydata.net/v3/nba/scores/json/GamesByDate/' + this.findDateString(this.props.date)}
+				url={'https://api.fantasydata.net/v3/nba/scores/json/GamesByDate/' + findDateString(this.props.date)}
 				headers={this.props.apiKey}
 			>
 				{
@@ -38,22 +31,21 @@ class GameGrid extends React.Component {
 							)
 						} else {
 							
-							var gameObj = result.body
+							const gameObj = result.body
 							
-							let gamesList = result.body.map((game, index) => {
+							let gamesList = gameObj.map((game, index) => {
 								return (
+									
 									<Game
 										apiKey={this.props.apiKey}
 										game={game}
 										date={this.props.date}
-										monthsYear={this.props.monthsYear}
-										daysWeek={this.props.daysWeek}
 										teams={this.props.teams}
 										teamStats={this.props.teamStats}
 										stadiums={this.props.stadiums}
-										index={index}
 										key={index}
 										toggleScores={this.state.toggleScores} />
+									
 								)
 							})
 							

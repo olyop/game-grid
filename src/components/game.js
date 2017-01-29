@@ -1,6 +1,8 @@
 import React from 'react'
 import GameInfo from './game-info'
 import GameExpand from './game-expand'
+import find from 'lodash/find'
+
 import '../css/more-menu.css'
 
 class Game extends React.Component {
@@ -28,11 +30,13 @@ class Game extends React.Component {
 	
 	render() {
 		
-		let item, i, m = {
+		let gameSwitch, m = {
 			home: {
 				score: this.props.game.HomeTeamScore,
 				info: null,
 				players: null,
+				body: null,
+				style: null,
 				stats: null,
 				topPlayers: null,
 				color: null,
@@ -44,6 +48,8 @@ class Game extends React.Component {
 				score: this.props.game.AwayTeamScore,
 				info: null,
 				players: null,
+				body: null,
+				style: null,
 				stats: null,
 				topPlayers: null,
 				color: null,
@@ -62,9 +68,6 @@ class Game extends React.Component {
 			},
 			stadium: null,
 			gameBreak: null,
-			teamsLength: this.props.teams.length,
-			stadiumsLength: this.props.stadiums.length,
-			teamStatsLength: this.props.teamStats.length,
 			displayBlock: { display: 'block' },
 			displayNone: { display: 'none' },
 			qtr: this.props.game.Quarter,
@@ -89,60 +92,24 @@ class Game extends React.Component {
 			isQtr: null,
 			isTime: null
 		}
-
-		// Find Home Team
-		for (i = 0; i < m.teamsLength; i++) {
-			item = this.props.teams[i]
-			if (this.props.game.HomeTeamID === item.TeamID) {
-				m.home.info = item
-				break
-			}
-		}
 		
-		// Find Away Team
-		for (i = 0; i < m.teamsLength; i++) {
-			item = this.props.teams[i]
-			if (this.props.game.AwayTeamID === item.TeamID) {
-				m.away.info = item
-				break
-			}
-		}
+		// Match Team Data
+		m.home.info = find(this.props.teams, { TeamID: this.props.game.HomeTeamID })
+		m.home.stats = find(this.props.teamStats, { TeamID: m.home.info.TeamID })
+		m.away.info = find(this.props.teams, { TeamID: this.props.game.AwayTeamID })
+		m.away.stats = find(this.props.teamStats, { TeamID: m.away.info.TeamID })
 		
 		// Find Stadium
-		for (i = 0; i < m.stadiumsLength; i++) {
-			item = this.props.stadiums[i]
-			if (this.props.game.StadiumID === item.StadiumID) {
-				m.stadium = item
-				break
-			}
-		}
-		
-		// Find Home Team Stats
-		for (i = 0; i < m.teamStatsLength; i++) {
-			item = this.props.teamStats[i]
-			if (m.home.info.TeamID === item.TeamID) {
-				m.home.stats = item
-				break
-			}
-		}
-		
-		// Find Away Team Stats
-		for (i = 0; i < m.teamStatsLength; i++) {
-			item = this.props.teamStats[i]
-			if (m.away.info.TeamID === item.TeamID) {
-				m.away.stats = item
-				break
-			}
-		}
+		m.stadium = find(this.props.stadiums, { StadiumID: this.props.game.StadiumID })
 		
 		// Declare after ID Matches
-		m.home.color = { color: '#' + m.home.info.PrimaryColor }
-		m.away.color = { color: '#' + m.away.info.PrimaryColor }
+		m.winningText = name => <b><span style={m.colors.green}>{name}</span></b>;
 		m.home.record = m.home.stats.Wins + ' - ' + m.home.stats.Losses
 		m.away.record = m.away.stats.Wins + ' - ' + m.away.stats.Losses
+		m.home.color = { color: '#' + m.home.info.PrimaryColor }
+		m.away.color = { color: '#' + m.away.info.PrimaryColor }
 		m.sliceTimeMin = m.time.slice(11,13)
 		m.sliceTimeSec = m.time.slice(14,16)
-		m.winningText = name => <b><span style={m.colors.green}>{name}</span></b>;
 
 		// Check for Errors
 		if (m.home.info.Name === 'Celtics') { m.home.color = { color: '#2E7B3B' } }
@@ -168,10 +135,12 @@ class Game extends React.Component {
 			m.starInner = null
 		}
 		
+		// Toggle Setup
 		m.gameClass = this.state.t_Expand ? 'game active' : 'game' 
 		m.menuStyle = this.state.t_Menu ? m.displayBlock : m.displayNone
 		m.shareStyle = this.state.t_Share ? m.displayBlock : m.displayNone
 		
+		// Game Status Options
 		m.isQtr = m.qtr === '1' || m.qtr === '2' || m.qtr === '3' || m.qtr === '4'
 		m.isTime = m.timeSec === null && m.timeMin === null
 		
@@ -198,26 +167,26 @@ class Game extends React.Component {
 		// Determine Game Status
 		if (m.qtr === null && m.isTime && m.home.score === null) {
 			if (m.sliceTimeMin <= 12) {
-				m.info.right = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+				m.info.right = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>;
 			} else {
-				m.info.right = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+				m.info.right = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>;
 			}
 			m.info.left = m.stadium.Name
 			m.gameBreak = 'AT'
 			m.hasGameStarted = false
 		} else if (m.qtr === 'F/OT') {
-			m.info.left = <b>Overtime</b>
+			m.info.left = <b>Overtime</b>;
 			if (m.toggleScores) { m.info.right = m.stadium.Name }
 			else { m.info.right = m.winningText(m.winningTeam.Name) }
 			m.gameBreak = 'FINAL'
 			m.hasGameStarted = true
 		}	else if (m.qtr === 'Half') {
-			m.info.right = <b>Half Time</b>
+			m.info.right = <b>Half Time</b>;
 			m.info.left = m.stadium.Name
 			m.gameBreak = 'AT'
 			m.hasGameStarted = true
 		} else if ((m.qtr === null && m.isTime && m.home.score > 0) || m.qtr === 'F') {
-			m.info.left = <b>Full Time</b>
+			m.info.left = <b>Full Time</b>;
 			if (m.toggleScores) { m.info.right = m.stadium.Name }
 			else { m.info.right = m.winningText(m.winningTeam.Name) }
 			m.gameBreak = 'FINAL'
@@ -228,8 +197,7 @@ class Game extends React.Component {
 			else if (m.qtr === '2') { str = 'nd' }
 			else if (m.qtr === '3') { str = 'rd' }
 			else if (m.qtr === '4') { str = 'th' }
-			
-			m.info.left = <b>{'End of ' + m.qtr + str + ' Quarter'}</b>
+			m.info.left = <b>{'End of ' + m.qtr + str + ' Quarter'}</b>;
 			m.info.right = m.stadium.Name
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
@@ -241,19 +209,17 @@ class Game extends React.Component {
 			if (m.toggleScores) {
 				m.info.right = m.stadium.Name
 				if (m.sliceTimeMin <= 12) {
-					m.info.left = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+					m.info.left = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>;
 				} else {
-					m.info.left = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>
+					m.info.left = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>;
 				}
 			} else {
-				m.info.right = <b style={m.colors.red} className='blink'>{str}</b>
-				m.info.left = <b style={m.colors.red}>{'Q' + m.qtr}</b>
+				m.info.right = <b style={m.colors.red} className='blink'>{str}</b>;
+				m.info.left = <b style={m.colors.red}>{'Q' + m.qtr}</b>;
 			}
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
 		}
-		
-		let gameSwitch
 		
 		if (this.state.t_Expand) {
 			gameSwitch = (
@@ -262,8 +228,6 @@ class Game extends React.Component {
 					apiKey={this.props.apiKey}
 					m={m}
 					date={this.props.date}
-					monthsYear={this.props.monthsYear}
-					daysWeek={this.props.daysWeek}
 					t_Expand={this.t_Expand}
 					t_Star={this.t_Star} />
 				
@@ -275,8 +239,6 @@ class Game extends React.Component {
 					apiKey={this.props.apiKey}
 					m={m}
 					date={this.props.date}
-					monthsYear={this.props.monthsYear}
-					daysWeek={this.props.daysWeek}
 					t_Menu={this.t_Menu}
 					t_Star={this.t_Star}
 					t_Share={this.t_Share}
@@ -288,8 +250,6 @@ class Game extends React.Component {
 		return (
 			<div
 				key={this.props.game.GameID}
-				data-id={this.props.game.GameID}
-				data-index={this.props.index}
 				title={m.home.info.Name + ' vs ' + m.away.info.Name}
 				className={m.gameClass}
 			>

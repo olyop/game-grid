@@ -30,8 +30,6 @@ class GetTeamStats extends React.Component {
 								<Games
 									apiKey={this.props.apiKey}
 									date={this.props.date}
-									daysWeek={this.props.daysWeek}
-									monthsYear={this.props.monthsYear}
 									teamStats={result.body}
 									teams={teamsObj}
 									stadiums={stadiumsObj} />
@@ -63,9 +61,7 @@ class Games extends React.Component {
 						<Calender
 							apiKey={this.props.apiKey}
 							date={this.state.date}
-							monthsYear={this.props.monthsYear}
-							daysWeek={this.props.daysWeek}
-							onDayClick={date => this.setState({ date })} />
+							onDayClick={ date => this.setState({ date }) } />
 						
 					</div>
 					<div className="container grid-container">
@@ -73,8 +69,6 @@ class Games extends React.Component {
 						<GameGrid
 							apiKey={this.props.apiKey}
 							date={this.state.date}
-							daysWeek={this.props.daysWeek}
-							monthsYear={this.props.monthsYear}
 							teamStats={this.props.teamStats}
 							stadiums={this.props.stadiums}
 							teams={this.props.teams} />
