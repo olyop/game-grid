@@ -1,8 +1,8 @@
 import React from 'react'
-
 import Banner from './banner'
 import Header from './header'
 import Games from './games'
+import infoObj from './data/info'
 
 import '../css/main.css'
 
@@ -17,7 +17,10 @@ class Main extends React.Component {
 				
 				<Banner text="Please note that all stats are scrambled up to 20 +/-" />
 				
-				<Header />
+				<Header
+					title={infoObj.header.title}
+					version={infoObj.version}
+					subtitle={infoObj.header.subtitle} />
 				
 				<Games
 					apiKey={gApiKey}

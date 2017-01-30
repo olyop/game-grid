@@ -4,6 +4,7 @@ import '../css/games.css'
 import GameGrid from './game-grid'
 import Calender from './calender'
 import Loading from './common/loading'
+import Error from './common/error'
 
 import teamsObj from './data/teams'
 import stadiumsObj from './data/stadiums'
@@ -25,16 +26,30 @@ class GetTeamStats extends React.Component {
 								
 							)
 						} else {
-							return (
+							if (result === undefined || result === null) {
+								return (
 								
-								<Games
-									apiKey={this.props.apiKey}
-									date={this.props.date}
-									teamStats={result.body}
-									teams={teamsObj}
-									stadiums={stadiumsObj} />
-								
-							)
+									<Error
+										heading="Cannot connect to API server, connection cannot be established"
+										subtitle="Please read this list to diagnose the problem"
+										list={[
+											'Connection to the server may be blocked by your provider or administrator',
+											'Please check your internet connection'
+										]} />
+									
+								)
+							} else {
+								return (
+
+									<Games
+										apiKey={this.props.apiKey}
+										date={this.props.date}
+										teamStats={result.body}
+										teams={teamsObj}
+										stadiums={stadiumsObj} />
+
+								)
+							}
 						}
 					}
 				}

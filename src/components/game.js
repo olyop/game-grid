@@ -118,8 +118,8 @@ class Game extends React.Component {
 		if (m.away.info.Name === 'Timberwolves') { m.away.color = { color: '#005083' } }
 		if (m.home.info.Name === 'Spurs') { m.home.color = { color: '#212121' } }
 		if (m.away.info.Name === 'Spurs') { m.away.color = { color: '#212121' } }
-		if (m.home.info.Name === 'Nets') { m.home.color = { color: '#212121' } }
-		if (m.away.info.Name === 'Nets') { m.away.color = { color: '#212121' } }
+		if (m.home.info.Name === 'Nets') { m.home.color = { color: '#000000' } }
+		if (m.away.info.Name === 'Nets') { m.away.color = { color: '#000000' } }
 		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
 		
 		// Toggle Star

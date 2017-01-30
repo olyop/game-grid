@@ -1,0 +1,18 @@
+.error-msg {
+	padding: 20px; }
+	.error-msg .error-msg-icon {
+		padding: 20px 20px 40px 20px; }
+		.error-msg .error-msg-icon i {
+			-webkit-user-select: none;
+			display: block;
+			text-align: center;
+			font-size: 120px; }
+	.error-msg h1 {
+		text-align: center;
+		padding-bottom: 40px;
+		border-bottom: 1px solid #E0E0E0;
+		margin-bottom: 40px;
+		font-size: 25px; }
+	.error-msg h2 {
+		padding-bottom: 20px;
+		font-size: 16px; }
