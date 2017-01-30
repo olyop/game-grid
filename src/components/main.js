@@ -15,7 +15,8 @@ class Main extends React.Component {
 		return (
 			<div className="main">
 				
-				<Banner text="Please note that all stats are scrambled up to 20 +/-" />
+				<Banner
+					text={infoObj.banner} />
 				
 				<Header
 					title={infoObj.header.title}

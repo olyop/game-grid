@@ -17,7 +17,7 @@ class GameInfo extends React.Component {
 					</p>
 					<div className="game-team-text">
 						<h4>{team.info.City}</h4>
-						<h3 style={m.home.color}>{team.info.Name}</h3>
+						<h3 style={team.color}>{team.info.Name}</h3>
 						<p>{team.record}</p>
 					</div>
 				</div>

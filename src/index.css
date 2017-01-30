@@ -13,6 +13,7 @@ body {
 
 .grid-loading {
 	display: block;
+	min-height: 100vh;
 	margin: auto; }
 	.grid-loading img {
 		margin: auto;

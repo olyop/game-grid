@@ -7,8 +7,8 @@ import '../css/more-menu.css'
 
 class Game extends React.Component {
 	
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		
 		this.state = {
 			t_Menu: false,
@@ -16,6 +16,7 @@ class Game extends React.Component {
 			t_Share: false,
 			t_Expand: false
 		}
+		
 		this.t_Menu = this.t_Menu.bind(this)
 		this.t_Star = this.t_Star.bind(this)
 		this.t_Expand = this.t_Expand.bind(this)
@@ -120,6 +121,8 @@ class Game extends React.Component {
 		if (m.away.info.Name === 'Spurs') { m.away.color = { color: '#212121' } }
 		if (m.home.info.Name === 'Nets') { m.home.color = { color: '#000000' } }
 		if (m.away.info.Name === 'Nets') { m.away.color = { color: '#000000' } }
+		if (m.home.info.Name === 'Pacers') { m.home.color = { color: '#FCB424' } }
+		if (m.away.info.Name === 'Pacers') { m.away.color = { color: '#FCB424' } }
 		if (m.stadium.Name === 'Oracle Center') { m.stadium.Name = 'Oracle Arena' }
 		
 		// Toggle Star
