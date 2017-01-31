@@ -1,5 +1,5 @@
 import React from 'react'
-import { daysWeek, monthsYear } from './data/calender-data'
+import { daysWeek, monthsYear } from '../data/calender-data'
 
 import '../css/calender.css'
 

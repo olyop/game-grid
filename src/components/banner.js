@@ -12,7 +12,11 @@ class Banner extends React.Component {
 	
 	render() {
 		
-		let style = this.state.close ? { display: 'none' } : {}
+		if (this.props.dev) {
+			return null
+		}
+		
+		let style = this.state.close ? { display: 'none' } : null
 		
 		return (
 			<div id="banner" style={style}>

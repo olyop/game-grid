@@ -1,5 +1,6 @@
 import React from 'react'
-import '../css/games-info.css'
+
+import '../../css/games-info.css'
 
 class GamesInfo extends React.Component {
 	

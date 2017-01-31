@@ -15,10 +15,4 @@ const unknownPlayer = {
 	}
 }
 
-const topPlayersObj = [
-	{ info: null, stats: null },
-	{ info: null, stats: null },
-	{ info: null, stats: null }
-]
-
-export { unknownPlayer, topPlayersObj }
+export { unknownPlayer }

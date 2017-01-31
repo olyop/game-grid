@@ -1,9 +1,13 @@
+// Import React
 import React from 'react'
+
+// Import Components
 import GameInfo from './game-info'
 import GameExpand from './game-expand'
 import find from 'lodash/find'
 
-import '../css/more-menu.css'
+// Import CSS
+import '../../css/more-menu.css'
 
 class Game extends React.Component {
 	
@@ -131,8 +135,7 @@ class Game extends React.Component {
 			m.starStyle = m.displayBlock
 			m.starInner = { borderColor: '#212121' }
 			m.starText = 'Starred'
-		}
-		else {
+		} else {
 			m.starType = 'star_border'
 			m.starStyle = null
 			m.starInner = null

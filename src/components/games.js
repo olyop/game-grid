@@ -1,61 +1,67 @@
+// Import React
 import React from 'react'
+
+// Import Components
 import Request from 'react-http-request'
-import '../css/games.css'
-import GameGrid from './game-grid'
 import Calender from './calender'
+import GameGrid from './grid/game-grid'
 import Loading from './common/loading'
 import Error from './common/error'
 
-import teamsObj from './data/teams'
-import stadiumsObj from './data/stadiums'
+// Import data
+import teamsObj from '../data/teams'
+import stadiumsObj from '../data/stadiums'
+
+// Import CSS
+import '../css/games.css'
 
 // Get Team Stats
-class GetTeamStats extends React.Component {
-	render() {
-		return (
-			<Request
-				url='https://api.fantasydata.net/v3/nba/scores/JSON/TeamSeasonStats/2017'
-				headers={this.props.apiKey}
-			>
-				{
-					({error, result, loading}) => {
-						if (loading) {
+const GetTeamStats = props => {
+	return (
+	
+		<Request
+			url='https://api.fantasydata.net/v3/nba/scores/JSON/TeamSeasonStats/2017'
+			headers={props.apiKey}
+		>
+			{
+				({error, result, loading}) => {
+					if (loading) {
+						return (
+
+							<Loading />
+
+						)
+					} else {
+						if (result === undefined || result === null) {
 							return (
-								
-								<Loading />
-								
+
+								<Error
+									heading="Cannot connect to API server, connection cannot be established"
+									subtitle="Please read this list to diagnose the problem"
+									list={[
+										'Connection to the server may be blocked by your provider or administrator',
+										'Please check your internet connection'
+									]} />
+
 							)
 						} else {
-							if (result === undefined || result === null) {
-								return (
-								
-									<Error
-										heading="Cannot connect to API server, connection cannot be established"
-										subtitle="Please read this list to diagnose the problem"
-										list={[
-											'Connection to the server may be blocked by your provider or administrator',
-											'Please check your internet connection'
-										]} />
-									
-								)
-							} else {
-								return (
+							return (
 
-									<Games
-										apiKey={this.props.apiKey}
-										date={this.props.date}
-										teamStats={result.body}
-										teams={teamsObj}
-										stadiums={stadiumsObj} />
+								<Games
+									apiKey={props.apiKey}
+									date={props.date}
+									teamStats={result.body}
+									teams={teamsObj}
+									stadiums={stadiumsObj} />
 
-								)
-							}
+							)
 						}
 					}
 				}
-			</Request>
-		)
-	}
+			}
+		</Request>
+	
+	)
 }
 
 // Maim Content

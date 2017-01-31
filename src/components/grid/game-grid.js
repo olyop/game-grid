@@ -1,11 +1,17 @@
+// Import React
 import React from 'react'
+
+// Components
 import Request from 'react-http-request'
-import Loading from './common/loading'
+import Loading from '../common/loading'
 import GamesInfo from './games-info'
 import Game from './game'
-import { findDateString } from './data/calender-data'
 
-import '../css/game-grid.css'
+// Import Data
+import { findDateString } from '../../data/calender-data'
+
+// Import Css
+import '../../css/game-grid.css'
 
 class GameGrid extends React.Component {
 	

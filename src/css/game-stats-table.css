@@ -30,8 +30,8 @@
 				font-weight: 600;
 				overflow: hidden;
 				white-space: nowrap; }
-		.game-content-main-stats table th, td {
+		.game-content-main-stats table tr th, td {
 			width: 6%; }
 		.game-content-main-stats table tr th, td {
 			font-size: 16px;
-			padding: 10px; }
+			padding: 10px !important; }

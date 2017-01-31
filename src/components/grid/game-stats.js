@@ -1,32 +1,26 @@
+// Import React
 import React from 'react'
-import Request from 'react-http-request'
-import { unknownPlayer, topPlayersObj } from './data/unknown'
-import { findDateString } from './data/calender-data'
 
-import '../css/game-stats.css'
-import '../css/game-stats-table.css'
+// Import Components
+import Request from 'react-http-request'
+
+// Import data
+import { unknownPlayer } from '../../data/unknown'
+import { findDateString } from '../../data/calender-data'
+import gameExpandHead from '../../data/game-expand-head'
+
+// Import Css
+import '../../css/game-stats.css'
+import '../../css/game-stats-table.css'
 
 class GameStats extends React.Component {
 	render() {
 		
 		const m = this.props.m,
-				playerGameStatsUrl =
-					'https://api.fantasydata.net/' +
-					'v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
-		
-		const thead = (
-			<tr>
-				<th className="game-content-main-stats-player" title="Player stats for game">Player</th>
-				<th title="Points">PTS</th>
-				<th title="Minutes">MIN</th>
-				<th title="Assists">AST</th>
-				<th title="Rebounds">REB</th>
-				<th title="Steals">STL</th>
-				<th title="Blocks">BLK</th>
-				<th title="Turnovers">TOV</th>
-				<th title="Plus / Minus">+/-</th>
-			</tr>
-		)
+					thead = gameExpandHead,
+					playerGameStatsUrl =
+						'https://api.fantasydata.net/' +
+						'v3/nba/stats/JSON/PlayerGameStatsByPlayer/'
 		
 		const DefaultRow = ({ text }) => {
 			return (
@@ -38,7 +32,7 @@ class GameStats extends React.Component {
 		
 		const divideFloor = (a, b) => Math.floor(Number(a) / Number(b))
 		
-		const Player = ({ index, player }) => {
+		const Player = ({ player }) => {
 			
 			let style = { backgroundImage: 'url(' + player.info.PhotoUrl + ')' }
 			
@@ -46,8 +40,6 @@ class GameStats extends React.Component {
 				<div
 					className="game-content-main-player"
 					data-id={player.info.PlayerID}
-					data-key={index}
-					key={index}
 				>
 					<section title={player.info.FirstName + ' ' + player.info.LastName}>
 						<div className="game-content-player-photo" style={style}></div>
@@ -67,13 +59,13 @@ class GameStats extends React.Component {
 			)
 		}
 		
-		const mapTopPlayerList = (players) => {
+		const mapTopPlayerList = players => {
 			
 			let temp = players.map((player, index) => {
 
 				if (player.info === undefined || player.stats === undefined) {
 					return (
-						<Player key={index} index={index} player={unknownPlayer} />
+						<Player key={index} player={unknownPlayer} />
 					)
 				}
 
@@ -83,14 +75,14 @@ class GameStats extends React.Component {
 			return temp
 		}
 		
-		const mapTableBody = (playerList) => {
+		const mapTableBody = playerList => {
 			
-			let PlayerRow = ({ index, player, gameStats }) => {
+			const PlayerRow = ({ index, player, gameStats }) => {
 
 				let name = player.FirstName + ' ' + player.LastName;
 
 				return (
-					<tr key={index}>
+					<tr>
 						<td
 							className="game-content-main-stats-player"
 							title={name} 
@@ -128,11 +120,12 @@ class GameStats extends React.Component {
 										return null
 									} else {
 										return (
+											
 											<PlayerRow
 												key={index}
-												index={index}
 											 	player={player}
 											 	gameStats={gameStats} />
+											
 										)
 									}
 								}
@@ -141,10 +134,11 @@ class GameStats extends React.Component {
 					</Request>
 				)
 			})
+			
 			return temp
 		}
 		
-		const findMapPlayerStats = (players) => {
+		const findMapPlayerStats = players => {
 			
 			let temp
 			
@@ -156,19 +150,24 @@ class GameStats extends React.Component {
 			return temp
 		}
 		
-		const findTopPlayers = (team, topPlayersObj) => {
+		const findTopPlayers = team => {
 			
-			let temp = topPlayersObj,
-					teamLength = team.players.length,
+			let temp = [
+				{ info: null, stats: null },
+				{ info: null, stats: null },
+				{ info: null, stats: null }
+			];
+			
+			let	teamLength = team.players.length,
 					i = 0, item
 			
 			while (i < 3) {
 
 				let playerStats = team.stats[i],
-						player
+						player, a = 0;
 
 				// Find Player Stats
-				for (var a = 0; a < teamLength; a++) {
+				for (a; a < teamLength; a++) {
 					item = team.players[a]
 					if (playerStats.PlayerID === item.PlayerID) {
 						player = item
@@ -184,15 +183,12 @@ class GameStats extends React.Component {
 			
 			return temp
 		}
-		
-		m.home.topPlayers = findTopPlayers(m.home, topPlayersObj)
-		m.away.topPlayers = findTopPlayers(m.away, topPlayersObj)
-		
+	
 		m.home.body = findMapPlayerStats(m.home.players)
 		m.away.body = findMapPlayerStats(m.away.players)
 		
-		m.home.topPlayersList = mapTopPlayerList(m.home.topPlayers)
-		m.away.topPlayersList = mapTopPlayerList(m.away.topPlayers)
+		m.home.topPlayersList = mapTopPlayerList(findTopPlayers(m.home))
+		m.away.topPlayersList = mapTopPlayerList(findTopPlayers(m.away))
 		
 		const TeamStatsMain = ({ team }) => {
 			return (

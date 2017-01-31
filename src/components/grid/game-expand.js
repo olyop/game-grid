@@ -1,130 +1,132 @@
+// Import React
 import React from 'react'
-import Request from 'react-http-request'
-import Loading from './common/loading'
-import GameStats from './game-stats'
-import Button from './common/button'
-import { hexToRgba, colorLuminance } from './data/maths'
 
-import '../css/game-expand.css'
+// Import Components
+import Request from 'react-http-request'
+import Loading from '../common/loading'
+import GameStats from './game-stats'
+import Button from '../common/button'
+
+// Import Data
+import { hexToRgba, colorLuminance } from '../../data/maths'
+
+// Import CSS
+import '../../css/game-expand.css'
 
 // Get Player Info/Stats
-class GetPlayersHome extends React.Component {
-	render() {
+const GetPlayersHome = props => {
 		
-		let m = this.props.m
-		
-		return (
-			<Request
-				url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.home.info.Key}
-				headers={this.props.apiKey}
-			>
-				{
-					({error, result, loading}) => {
-						if (loading) {
-							return (
-								
-								<Loading />
-								
-							)
-						} else {
-							let temp = result.body
-							return (
-								<Request
-									url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + this.props.date.getFullYear() + '/' + m.home.info.Key}
-									headers={this.props.apiKey}
-								>
-									{
-										({error, result, loading}) => {
-											if (loading) {
-												return (
+	let m = props.m
 
-													<Loading />
+	return (
+		<Request
+			url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.home.info.Key}
+			headers={props.apiKey}
+		>
+			{
+				({error, result, loading}) => {
+					if (loading) {
+						return (
 
-												)
-											} else {
-												return (
-													
-													<GetPlayersAway
-														apiKey={this.props.apiKey}
-														m={m}
-														date={this.props.date}
-														t_Expand={this.props.t_Expand}
-														t_Star={this.props.t_Star}
-														homeTeamPlayers={temp}
-														homeTeamPlayerStats={result.body} />
-													
-												)
-											}
+							<Loading />
+
+						)
+					} else {
+						let temp = result.body
+						return (
+							<Request
+								url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + props.date.getFullYear() + '/' + m.home.info.Key}
+								headers={props.apiKey}
+							>
+								{
+									({error, result, loading}) => {
+										if (loading) {
+											return (
+
+												<Loading />
+
+											)
+										} else {
+											return (
+
+												<GetPlayersAway
+													apiKey={props.apiKey}
+													m={m}
+													date={props.date}
+													t_Expand={props.t_Expand}
+													t_Star={props.t_Star}
+													homeTeamPlayers={temp}
+													homeTeamPlayerStats={result.body} />
+
+											)
 										}
 									}
-								</Request>
-							)
-						}
+								}
+							</Request>
+						)
 					}
 				}
-			</Request>
-		)
-	}
+			}
+		</Request>
+	)
 }
-class GetPlayersAway extends React.Component {
-	render() {
+const GetPlayersAway = props => {
 		
-		let m = this.props.m;
-		
-		return (
-			<Request
-				url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.away.info.Key}
-				headers={this.props.apiKey}
-			>
-				{
-					({error, result, loading}) => {
-						if (loading) {
-							return (
-								
-								<Loading />
-								
-							)
-						} else {
-							let temp = result.body
-							return (
-								<Request
-									url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + this.props.date.getFullYear() + '/' + m.away.info.Key}
-									headers={this.props.apiKey}
-								>
-									{
-										({error, result, loading}) => {
-											if (loading) {
-												return (
+	let m = props.m;
 
-													<Loading />
+	return (
+		<Request
+			url={'https://api.fantasydata.net/v3/nba/stats/JSON/Players/' + m.away.info.Key}
+			headers={props.apiKey}
+		>
+			{
+				({error, result, loading}) => {
+					if (loading) {
+						return (
 
-												)
-											} else {
-												return (
-													
-													<GameExpand
-														apiKey={this.props.apiKey}
-														m={m}
-														date={this.props.date}
-														t_Star={this.props.t_Star}
-														t_Expand={this.props.t_Expand}
-														homeTeamPlayers={this.props.homeTeamPlayers}
-														homeTeamPlayerStats={this.props.homeTeamPlayerStats}
-														awayTeamPlayers={temp}
-														awayTeamPlayerStats={result.body} />
-													
-												)
-											}
+							<Loading />
+
+						)
+					} else {
+						let temp = result.body
+						return (
+							<Request
+								url={'https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByTeam/' + props.date.getFullYear() + '/' + m.away.info.Key}
+								headers={props.apiKey}
+							>
+								{
+									({error, result, loading}) => {
+										if (loading) {
+											return (
+
+												<Loading />
+
+											)
+										} else {
+											return (
+
+												<GameExpand
+													apiKey={props.apiKey}
+													m={m}
+													date={props.date}
+													t_Star={props.t_Star}
+													t_Expand={props.t_Expand}
+													homeTeamPlayers={props.homeTeamPlayers}
+													homeTeamPlayerStats={props.homeTeamPlayerStats}
+													awayTeamPlayers={temp}
+													awayTeamPlayerStats={result.body} />
+
+											)
 										}
 									}
-								</Request>
-							)
-						}
+								}
+							</Request>
+						)
 					}
 				}
-			</Request>
-		)
-	}
+			}
+		</Request>
+	)
 }
 
 class GameExpand extends React.Component {
