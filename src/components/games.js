@@ -101,4 +101,4 @@ class Games extends React.Component {
 	}
 }
 
-export default GetTeamStats												
+export default GetTeamStats	
