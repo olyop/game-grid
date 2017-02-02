@@ -1,6 +1,7 @@
+// Import React
 import React from 'react'
-import logo from '../../public/media/logo.png'
 
+// Import CSS
 import '../css/header.css'
 
 const Header = ({ title, version, subtitle }) => {
@@ -9,7 +10,7 @@ const Header = ({ title, version, subtitle }) => {
 			<div className="header-inner">
 				<div className="header-logo">
 					<a href="/" title="Game Grid">
-						<img src={logo} alt="Logo"></img>
+						<img src='./media/logo.png' alt="Logo"></img>
 					</a>
 				</div>
 				<div className="header-text">

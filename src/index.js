@@ -10,21 +10,20 @@ import Games from './components/games'
 // Import Data
 import infoObj from './data/info'
 
-// Import CSS
+// Import CSS Librarys
 import 'normalize.css/normalize.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
+
+// Import CSS
 import './index.css'
 
 // Website Structure Component
 const Index = ({ info }) => {
 	return (
-
 		<div className="index">
 
-			<Banner
-				dev={info.dev}
-				text={info.banner} />
+			{ info.dev ? null : <Banner text={info.banner} /> }
 
 			<Header
 				title={info.header.title}
@@ -36,7 +35,6 @@ const Index = ({ info }) => {
 				date={info.date} />
 
 		</div>
-
 	)
 }
 

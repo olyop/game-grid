@@ -16,12 +16,12 @@ import stadiumsObj from '../data/stadiums'
 import '../css/games.css'
 
 // Get Team Stats
-const GetTeamStats = props => {
+const GetTeamStats = ({ apiKey, date }) => {
 	return (
 	
 		<Request
 			url='https://api.fantasydata.net/v3/nba/scores/JSON/TeamSeasonStats/2017'
-			headers={props.apiKey}
+			headers={apiKey}
 		>
 			{
 				({error, result, loading}) => {
@@ -48,8 +48,8 @@ const GetTeamStats = props => {
 							return (
 
 								<Games
-									apiKey={props.apiKey}
-									date={props.date}
+									apiKey={apiKey}
+									date={date}
 									teamStats={result.body}
 									teams={teamsObj}
 									stadiums={stadiumsObj} />

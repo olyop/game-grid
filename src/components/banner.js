@@ -11,15 +11,11 @@ class Banner extends React.Component {
 	}
 	
 	render() {
-		
-		if (this.props.dev) {
-			return null
-		}
-		
-		let style = this.state.close ? { display: 'none' } : null
-		
 		return (
-			<div id="banner" style={style}>
+			<div
+				style={ this.state.close ? { display: 'none' } : null }
+				id="banner"
+			>
 				<p>{this.props.text}</p>
 				<i
 					className="material-icons"
