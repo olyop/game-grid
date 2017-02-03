@@ -143,7 +143,7 @@ class GameExpand extends React.Component {
 		m.home.stats = this.props.homeTeamPlayerStats
 		m.away.stats = this.props.awayTeamPlayerStats
 		
-		const findAwayStyle = (team) => {
+		const findAwayStyle = team => {
 			
 			let temp = {
 				background: {

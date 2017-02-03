@@ -79,7 +79,7 @@ class GameStats extends React.Component {
 			
 			const PlayerRow = ({ index, player, gameStats }) => {
 
-				let name = player.FirstName + ' ' + player.LastName;
+				let name = player.FirstName + ' ' + player.LastName
 
 				return (
 					<tr>
@@ -144,7 +144,6 @@ class GameStats extends React.Component {
 			
 			if (!m.hasGameStarted) { temp = <DefaultRow text="Game has not started" /> }
 			else if (m.toggleScores) { temp = <DefaultRow text="Scores are hidden" /> }
-			else if (m.isQtr) { temp = mapTableBody(players) }
 			else { temp = mapTableBody(players) }
 			
 			return temp
