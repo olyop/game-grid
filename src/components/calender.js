@@ -1,6 +1,10 @@
+// Import React
 import React from 'react'
+
+// Import Data
 import { daysWeek, monthsYear } from '../data/calender-data'
 
+// Import CSS
 import '../css/calender.css'
 
 class CalenderDay extends React.Component {

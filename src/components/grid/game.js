@@ -164,8 +164,8 @@ class Game extends React.Component {
 			m.home.scoreStyle = m.colors.red
 		}
 
-		// Check if game has started OR scores are off
-		if ((m.home.score <= 0 && m.away.score <= 0) || m.toggleScores) {
+		// Check if game has started
+		if ( (m.home.score <= 0 && m.away.score <= 0) || m.toggleScores)   {
 			m.home.scoreDisplay = { display: 'none' }
 			m.away.scoreDisplay = { display: 'none' }
 		}
@@ -173,9 +173,9 @@ class Game extends React.Component {
 		// Determine Game Status
 		if (m.qtr === null && m.isTime && m.home.score === null) {
 			if (m.sliceTimeMin <= 12) {
-				m.info.right = <b>{m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET'}</b>;
+				m.info.right = <b>{ m.sliceTimeMin + ':' + m.sliceTimeSec + ' PM / ET' }</b>;
 			} else {
-				m.info.right = <b>{(m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET'}</b>;
+				m.info.right = <b>{ (m.sliceTimeMin - 12) + ':' + m.sliceTimeSec + ' PM / ET' }</b>;
 			}
 			m.info.left = m.stadium.Name
 			m.gameBreak = 'AT'
