@@ -234,6 +234,7 @@ class Game extends React.Component {
 					apiKey={this.props.apiKey}
 					m={m}
 					date={this.props.date}
+					t_Menu={this.t_Menu}
 					t_Expand={this.t_Expand}
 					t_Star={this.t_Star} />
 				

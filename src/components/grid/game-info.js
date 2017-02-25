@@ -1,6 +1,9 @@
 // Import React
 import React from 'react'
 
+// Import Components
+import MoreMenu from './game-more-menu'
+
 class GameInfo extends React.Component {
 	render() {
 		
@@ -42,71 +45,13 @@ class GameInfo extends React.Component {
 				>
 					<i className="material-icons">more_vert</i>
 				</div>
-				<div className="game-more-menu more-menu" style={m.menuStyle}>
-					<p
-						className="close-menu"
-						onClick={this.props.t_Menu}
-					>
-						<i className="material-icons">close</i>
-						<span>Close</span>
-					</p>
-					<hr />
-					<p>
-						<i className="material-icons">watch_later</i>
-						<span>Watch Later</span>
-					</p>
-					<p>
-						<a
-							href="https://github.com/olyop/game-grid/issues/"
-							target="_blank"
-						>
-							<i className="material-icons">bug_report</i>
-							<span>Report Bug</span>
-						</a>
-					</p>
-					<p>
-						<i className="material-icons">visibility</i>
-						<span>Visibility</span>
-					</p>
-					<p>
-						<i className="material-icons">settings</i>
-						<span>Settings</span>
-					</p>
-					<p>
-						<a
-							href="https://github.com/olyop/game-grid/"
-							target="_blank"
-						>
-							<i className="material-icons">help</i>
-							<span>Help</span>
-						</a>
-					</p>
-					<p onClick={this.props.t_Star}>
-						<i className="material-icons">{m.starType}</i>
-						<span>Star</span>
-					</p>
-					<hr />
-					<p>
-						<a
-							href={m.nbaWebsiteUrl + m.home.info.Name.toLowerCase() + '/'}
-							title={'Visit the ' + m.home.info.Name + ' website'}
-							target="_blank"
-						>
-							<i className="material-icons">open_in_new</i>
-							<span>{m.home.info.Name + '.com'}</span>
-						</a>
-					</p>
-					<p>
-						<a
-							href={m.nbaWebsiteUrl + m.away.info.Name.toLowerCase() + '/'}
-							title={'Visit the ' + m.away.info.Name + ' website'}
-							target="_blank"
-						>
-							<i className="material-icons">open_in_new</i>
-							<span>{m.away.info.Name + '.com'}</span>
-						</a>
-					</p>
-				</div>
+				
+				<MoreMenu
+					m={m}
+					t_Menu={this.props.t_Menu}
+					t_Star={this.props.t_Star}
+					/>
+				
 				<div
 					className="game-icon game-share"
 					title="Share"

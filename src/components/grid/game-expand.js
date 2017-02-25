@@ -7,9 +7,6 @@ import Loading from '../common/loading'
 import GameStats from './game-stats'
 import Button from '../common/button'
 
-// Import Data
-import { hexToRgba, colorLuminance } from '../../data/maths'
-
 // Import CSS
 import '../../css/game-expand.css'
 
@@ -53,6 +50,7 @@ const GetPlayersHome = props => {
 													apiKey={props.apiKey}
 													m={m}
 													date={props.date}
+													t_Menu={props.t_Menu}
 													t_Expand={props.t_Expand}
 													t_Star={props.t_Star}
 													homeTeamPlayers={temp}
@@ -109,6 +107,7 @@ const GetPlayersAway = props => {
 													apiKey={props.apiKey}
 													m={m}
 													date={props.date}
+													t_Menu={props.t_Menu}
 													t_Star={props.t_Star}
 													t_Expand={props.t_Expand}
 													homeTeamPlayers={props.homeTeamPlayers}
@@ -134,23 +133,18 @@ class GameExpand extends React.Component {
 	render() {
 		
 		let m = this.props.m,
-				logourl = './media/team-logos/',
-				luminance = '0.5', opacity = '0.4',
-				boxShadow = 'inset 0px 0px 100px 25px '
+				logourl = './media/team-logos/'
 		
 		m.home.players = this.props.homeTeamPlayers
 		m.away.players = this.props.awayTeamPlayers
 		m.home.stats = this.props.homeTeamPlayerStats
 		m.away.stats = this.props.awayTeamPlayerStats
 		
-		const findAwayStyle = team => {
+		const findTeamStyle = team => {
 			
 			let temp = {
 				background: {
-					backgroundColor: team.color.color,
-					boxShadow:
-						boxShadow +
-						hexToRgba(colorLuminance(team.color.color, luminance), opacity)
+					backgroundColor: team.color.color
 				},
 				backgroundColor: { backgroundColor: team.color.color },
 				backgroundImg: { backgroundImage: 'url(' + logourl + team.info.Key.toLowerCase() + '.svg)' }
@@ -187,8 +181,9 @@ class GameExpand extends React.Component {
 			)
 		}
 		
-		m.home.style = findAwayStyle(m.home)
-		m.away.style = findAwayStyle(m.away)
+		// Find Team Style
+		m.home.style = findTeamStyle(m.home)
+		m.away.style = findTeamStyle(m.away)
 		
 		// Sort player stats by points
 		m.home.stats.sort((a, b) => b.Points - a.Points)
@@ -241,7 +236,17 @@ class GameExpand extends React.Component {
 									hasIcon={true}
 									iconText={m.starType}
 									text={m.starText}
-									style={{ padding: '15px' }} />
+									style={{ padding: '15px', margin: '0 20px 0 0' }} />
+								
+							</div>
+							
+							<div onClick={this.props.t_Menu}>
+							
+								<Button
+									hasIcon={true}
+									hover={false}
+									iconText='more_vert'
+									style={{ padding: '15px', borderRadius: '100%' }} />
 								
 							</div>
 							

@@ -18,3 +18,9 @@
 		padding-left: 20px;
 		font-size: 18px;
 		font-weight: 500; }
+
+.button-no-hover {
+	background-color: transparent; }
+	.button-no-hover:hover {
+		background-color: #EEEEEE;
+		padding: 15px 30px; }
