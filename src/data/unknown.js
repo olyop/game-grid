@@ -4,14 +4,14 @@ const unknownPlayer = {
 		PlayerID: 'unknown',
 		FirstName: 'Cannot Load',
 		LastName: 'Player',
-		Jersey: '0'
+		Jersey: '?'
 	},
 	stats: {
-		Games: 10,
-		Points: 10,
-		Assists: 10,
-		Rebounds: 10,
-		Steals: 10
+		Games: 1,
+		Points: 1,
+		Assists: 1,
+		Rebounds: 1,
+		Steals: 1
 	}
 }
 

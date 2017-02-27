@@ -200,7 +200,7 @@ class GameStats extends React.Component {
 						</table>
 					</div>
 
-					<h1>{team.info.Name} top 3 players</h1>
+					<h1>{team.info.Name} Top 3 Players this Season</h1>
 					<div className="game-content-main-item game-content-main-players">
 						{team.topPlayersList}
 					</div>
