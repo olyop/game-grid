@@ -1,7 +1,7 @@
 const info = {
 	dev: true,
 	version: '1.0.0',
-	apiKey: { 'Ocp-Apim-Subscription-Key': '746cd5dcdaed4053b5431d3ee451005a' },
+	apiKey: { 'Ocp-Apim-Subscription-Key': 'fb0f93e2d2c24ba4bd66e641a39e6910' },
 	date: new Date(),
 	banner: 'Please note that all stats are scrambled up to 20 +/-',
 	header: {
