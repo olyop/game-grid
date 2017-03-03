@@ -2,7 +2,7 @@ import React from 'react'
 
 import '../../css/error.css'
 
-const Error = ({ heading, subtitle, list }) => {
+const Error = ({ heading, subtitle, listTitle, list }) => {
 	
 	let mapList = list.map( (item, index) => <li key={index}>{item}</li> )
 	
@@ -15,6 +15,7 @@ const Error = ({ heading, subtitle, list }) => {
 					</div>
 					<h1>{heading}</h1>
 					<h2>{subtitle}</h2>
+					<h3>{listTitle}</h3>
 					<ul>{mapList}</ul>
 				</div>
 			</div>

@@ -31,9 +31,22 @@ class GameGrid extends React.Component {
 					({ error, result, loading }) => {
 						if (loading) {
 							return (
-								
+
 								<Loading />
-								
+
+							)
+						} else if (error) {
+							return (
+
+								<Error
+									heading={'Cannot connect to API server'}
+									subtitle={ String(error) } 
+									listTitle="Please read this list to diagnose the problem"
+									list={[
+										'Connection to the server may be blocked by your provider or administrator',
+										'Please check your internet connection'
+									]} />
+
 							)
 						} else {
 							

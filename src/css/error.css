@@ -9,10 +9,18 @@
 			font-size: 120px; }
 	.error-msg h1 {
 		text-align: center;
-		padding-bottom: 40px;
+		padding-bottom: 20px;
+		font-weight: 300;
 		border-bottom: 1px solid #E0E0E0;
-		margin-bottom: 40px;
+		margin-bottom: 20px;
 		font-size: 25px; }
 	.error-msg h2 {
+		text-align: center;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #E0E0E0;
+		margin-bottom: 40px;
+		color: #000;
+		font-size: 22px; }
+	.error-msg h3 {
 		padding-bottom: 20px;
 		font-size: 16px; }
