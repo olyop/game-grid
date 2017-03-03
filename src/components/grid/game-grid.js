@@ -73,7 +73,7 @@ class GameGrid extends React.Component {
 									
 									<GamesInfo
 										numGames={gameObj.length}
-										toggleScores={toggleScores => this.setState({ toggleScores })} />
+										toggleScores={ toggleScores => this.setState({ toggleScores }) } />
 
 									<div id="game-grid">{gamesList}</div>
 									

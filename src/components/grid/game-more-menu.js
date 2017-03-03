@@ -4,7 +4,7 @@ import React from 'react'
 // Declare Component
 const MoreMenu = ({ m, t_Menu, t_Star }) => {
 	return (
-		<div className="game-more-menu more-menu" style={m.menuStyle}>
+		<div className="game-more-menu more-menu">
 			<p
 				className="close-menu"
 				onClick={t_Menu}

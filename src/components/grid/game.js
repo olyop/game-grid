@@ -47,7 +47,7 @@ class Game extends React.Component {
 				color: null,
 				record: null,
 				scoreDisplay: null,
-				scoreStyle: null
+				scoreStyle: {}
 			},
 			away: {
 				score: this.props.game.AwayTeamScore,
@@ -60,7 +60,7 @@ class Game extends React.Component {
 				color: null,
 				record: null,
 				scoreDisplay: null,
-				scoreStyle: null
+				scoreStyle: {}
 			},
 			info: {
 				left: null,
@@ -84,11 +84,11 @@ class Game extends React.Component {
 			nbaWebsiteUrl: 'http://www.nba.com/',
 			teamLogoUrl: './media/team-logos/',
 			winningTeam: null,
-			menuStyle: null,
+			menuBoolean: null,
+			shareBoolean: null,
 			starType: null,
 			starText: '',
 			starStyle: null,
-			shareStyle: null,
 			starInner: null,
 			gameClass: null,
 			sliceTimeMin: null,
@@ -143,8 +143,8 @@ class Game extends React.Component {
 		
 		// Toggle Setup
 		m.gameClass = this.state.t_Expand ? 'game active' : 'game' 
-		m.menuStyle = this.state.t_Menu ? m.displayBlock : m.displayNone
-		m.shareStyle = this.state.t_Share ? m.displayBlock : m.displayNone
+		m.menuBoolean = this.state.t_Menu ? true : false
+		m.shareBoolean = this.state.t_Share ? true : false
 		
 		// Game Status Options
 		m.isQtr = m.qtr === '1' || m.qtr === '2' || m.qtr === '3' || m.qtr === '4'
@@ -165,7 +165,7 @@ class Game extends React.Component {
 		}
 
 		// Check if game has started
-		if ( (m.home.score <= 0 && m.away.score <= 0) || m.toggleScores)   {
+		if (m.home.score <= 0 && m.away.score <= 0)   {
 			m.home.scoreDisplay = { display: 'none' }
 			m.away.scoreDisplay = { display: 'none' }
 		}
@@ -225,6 +225,14 @@ class Game extends React.Component {
 			}
 			m.gameBreak = 'INP'
 			m.hasGameStarted = true
+		}
+		
+		// Toggle Scores
+		if (m.toggleScores) {
+			m.home.scoreStyle = { color: '#000' }
+			m.home.score = '---'
+			m.away.scoreStyle = { color: '#000' }
+			m.away.score = '---'
 		}
 		
 		if (this.state.t_Expand) {
