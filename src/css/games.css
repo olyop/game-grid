@@ -8,12 +8,23 @@
 		#games .container {
 			padding: 0; }
 
-@media (min-width: 768px) {
-	#games {
-		padding-bottom: 100px; }
+@media (max-width: 768px) {
+	#games .container {
+		margin: 0;
+		width: auto; }
 }
 
-@media (min-width: 998px) {
+@media (min-width: 768px) {
 	#games {
-		padding-bottom: 200px; }
+		padding-bottom: 50px; }
+}
+
+@media (min-width: 1200px) {
+	#games {
+		padding-bottom: 50px; }
+}
+
+@media (min-width: 1350px) {
+	#games {
+		padding-bottom: 100px; }
 }

@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom'
 import Banner from './components/banner'
 import Header from './components/header'
 import Games from './components/games'
+import Footer from './components/footer'
 
 // Import Data
 import infoObj from './data/info'
@@ -33,6 +34,10 @@ const Index = ({ info }) => {
 			<Games
 				apiKey={info.apiKey}
 				date={info.date} />
+			
+			<Footer
+				title={info.footer.title}
+				/>
 
 		</div>
 	)
