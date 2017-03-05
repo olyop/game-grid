@@ -7,8 +7,11 @@ Note: This is a one-page application built with [create-react-app](https://githu
 ### Installation
 ```
 git clone https://github.com/olyop/game-grid.git game-grid
+
 cd game-grid
+
 npm i
+
 npm start
 ```
 Go to localhost:3000
@@ -16,6 +19,7 @@ Go to localhost:3000
 ### Create Production Build
 ```
 npm run build
+
 node server.js
 ```
 Go to localhost:9000
@@ -30,4 +34,4 @@ Online compiled version
 Oliver P.
 
 #### API Used
-[Fantasy Developer](https://developer.fantasydata.com/)
+[Fantasy Developer](https://fantasydata.com/)
