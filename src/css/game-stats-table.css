@@ -21,6 +21,8 @@
 				background-color: #fff; }
 				.game-content-main-stats table tbody tr:nth-child(even) {
 					background-color: #EEEEEE; }
+		.game-content-main-stats table tbody tr .game-content-main-stats-all {
+			border-radius: 0; }
 		.game-content-main-stats tr .game-content-main-stats-player {
 			word-wrap: break-word;
 			max-width: 100px;
@@ -31,7 +33,7 @@
 				overflow: hidden;
 				white-space: nowrap; }
 		.game-content-main-stats table tr th, td {
-			width: 6%; }
-		.game-content-main-stats table tr th, td {
 			font-size: 16px;
-			padding: 10px !important; }
+			padding: 10px !important;
+			border-radius: 0;
+			width: 6%; }

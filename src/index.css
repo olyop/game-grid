@@ -11,6 +11,9 @@ body {
 		color: #333333;
 		margin: 0; }
 
+button:focus {
+	background-color: none !important; }
+
 .index {
 	margin: 0;
 	border: 0;
