@@ -6,7 +6,7 @@ Note: This is a one-page application built with [create-react-app](https://githu
 
 ### Installation
 ```
-git clone https://github.com/olyop/game-grid.git game-grid
+git clone https://github.com/olyop/game-grid.git
 
 cd game-grid
 
