@@ -1,5 +1,6 @@
 .error-msg {
 	padding: 20px; }
+
 	.error-msg .error-msg-icon {
 		padding: 20px 20px 40px 20px; }
 		.error-msg .error-msg-icon i {
@@ -7,6 +8,7 @@
 			display: block;
 			text-align: center;
 			font-size: 120px; }
+
 	.error-msg h1 {
 		text-align: center;
 		padding-bottom: 20px;
@@ -14,6 +16,7 @@
 		border-bottom: 1px solid #E0E0E0;
 		margin-bottom: 20px;
 		font-size: 25px; }
+
 	.error-msg h2 {
 		text-align: center;
 		padding-bottom: 20px;
@@ -21,6 +24,12 @@
 		margin-bottom: 40px;
 		color: #000;
 		font-size: 22px; }
+
 	.error-msg h3 {
-		padding-bottom: 20px;
+		padding-bottom: 10px;
 		font-size: 16px; }
+
+	.error-msg ul {
+		margin-left: 40px; }
+		.error-msg ul li {
+			list-style-type: disc !important; }

@@ -36,6 +36,7 @@ class GameGrid extends React.Component {
 
 							)
 						} else if (error) {
+							console.log(error)
 							return (
 
 								<Error
