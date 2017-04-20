@@ -6,6 +6,9 @@
 		align-items: center;
 		justify-content: center;
 		padding: 20px; }
+#header .header-inner .header-logo {
+	min-height: ;
+}
 		#header .header-inner .header-logo img {
 			display: block;
 			margin: auto;

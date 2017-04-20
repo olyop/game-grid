@@ -10,7 +10,8 @@ const Header = ({ title, version, subtitle }) => {
 			<div className="header-inner">
 				<div className="header-logo">
 					<a href="/" title="Game Grid">
-						<img src='./media/logo.png' alt="Logo"></img>
+						<img src='./media/logo.png'
+							alt="Logo" />
 					</a>
 				</div>
 				<div className="header-text">
