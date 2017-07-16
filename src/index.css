@@ -1,5 +1,5 @@
-@import url('../src/fonts/roboto/font.css');
-@import url('../src/fonts/material-icons/font.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700');
 
 body {
 	margin: 0;

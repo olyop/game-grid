@@ -36,8 +36,7 @@ const Index = ({ info }) => {
 				date={info.date} />
 			
 			<Footer
-				title={info.footer.title}
-				/>
+				title={info.footer.title} />
 
 		</div>
 	)

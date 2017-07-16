@@ -18,7 +18,7 @@ class GameGrid extends React.Component {
 	constructor(props) {
 		super(props)
 		
-		this.state = { toggleScorees: false }
+		this.state = { toggleScores: false }
 	}
 	
 	render() {

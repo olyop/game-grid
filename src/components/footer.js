@@ -1,10 +1,8 @@
 // Import React
 import React from 'react'
 
-// Import Components
-import 'materialize-css/dist/css/materialize.css'
-
 // Import CSS
+import './common/materialize/css/materialize.min.css'
 import './../css/footer.css'
 
 // Footer Component
